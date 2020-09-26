@@ -8,6 +8,26 @@
           <span>Side</span>
         </v-toolbar-title>
       </a>
+
+      <v-spacer></v-spacer>
+      
+      
+      <v-btn text>
+        Routines
+      </v-btn>
+
+      <v-btn text style="margin-left: 50px;">
+        Exercises
+      </v-btn>
+
+      <v-btn text style="margin-left: 50px;">
+        Favourites
+      </v-btn>
+
+      <form style="margin-left: 50px;">
+			  <input type="search" onkeyup="" placeholder="Buscar">
+		  </form>
+
       <v-spacer></v-spacer>
 
       <!-- dropdown menu -->
