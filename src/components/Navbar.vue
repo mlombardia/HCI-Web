@@ -1,10 +1,10 @@
 <template>
   <nav>
-    <v-toolbar>
+    <v-toolbar color="#2d4059">
 <!--      <v-toolbar-side-icon></v-toolbar-side-icon> -->
       <v-toolbar-title class="grey--text">
-        <span class="font-weight-light">Site</span>
-        <span>Title</span>
+        <span class="font-weight-light">Gym</span>
+        <span>Side</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
 
