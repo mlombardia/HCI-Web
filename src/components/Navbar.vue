@@ -2,10 +2,12 @@
   <nav>
     <v-toolbar color="#2d4059">
 <!--      <v-toolbar-side-icon></v-toolbar-side-icon> -->
-      <v-toolbar-title class="grey--text">
-        <span class="font-weight-light">Gym</span>
-        <span>Side</span>
-      </v-toolbar-title>
+      <a href="/" style="text-transform: none !important; text-decoration: none;">
+        <v-toolbar-title class="grey--text">
+          <span class="font-weight-light">Gym</span>
+          <span>Side</span>
+        </v-toolbar-title>
+      </a>
       <v-spacer></v-spacer>
 
       <!-- dropdown menu -->
