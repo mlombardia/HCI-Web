@@ -30,8 +30,6 @@
         New exercises
       </div>
     </v-col>
-
-    </v-col>
   </v-row>
     <div><v-carousel
     cycle

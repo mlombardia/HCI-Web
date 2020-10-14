@@ -12,7 +12,7 @@
       <v-spacer></v-spacer>
       
       <!-- <v-list-item v-for="link in links" :key="link.text" router :to="link.route"> -->
-      <v-btn v-for="view in views" :key="view.text" router :to="view.route" text style="margin-left: 50px;">
+      <v-btn color="white" v-for="view in views" :key="view.text" router :to="view.route" text style="margin-left: 50px;">
         {{ view.text }}
       </v-btn>
       <!-- </v-list-item> -->
@@ -27,7 +27,7 @@
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
         <!-- <v-btn text slot="activator"> -->
-        <v-btn text v-on="on">
+        <v-btn color="white" text v-on="on">
           <v-icon left>expand_more</v-icon>
           <span>Menu</span>
         </v-btn>
@@ -40,7 +40,7 @@
         </v-list>
       </v-menu>
 
-      <v-btn text>
+      <v-btn color="white" text>
         <span>Sign Out</span>
         <v-icon right>exit_to_app</v-icon>
       </v-btn>
@@ -54,6 +54,7 @@ export default {
   data: () => ({
     links: [
       { icon: 'home', text: 'Home', route: '/'},
+      { icon: 'profile', text: 'Profile', route: '/about'},
       { icon: 'about', text: 'About', route: '/about'},
     ],
     views: [
