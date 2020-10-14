@@ -54,7 +54,7 @@ export default {
   data: () => ({
     links: [
       { icon: 'home', text: 'Home', route: '/'},
-      { icon: 'profile', text: 'Profile', route: '/about'},
+      { icon: 'profile', text: 'Profile', route: '/profile'},
       { icon: 'about', text: 'About', route: '/about'},
     ],
     views: [
