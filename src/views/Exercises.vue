@@ -5,7 +5,7 @@
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
         <!-- <v-btn text slot="activator"> -->
-        <v-btn text v-on="on">
+        <v-btn style="margin-left: 400px;" text v-on="on">
           <v-icon left>expand_more</v-icon>
           <span>Filter by</span>
         </v-btn>
@@ -16,23 +16,15 @@
             <v-list-item-title>{{ link.text }}</v-list-item-title>
           </v-list-item>
         </v-list>
-      </v-menu>
-    
+      </v-menu>    
     </div>
-    <v-row class="text-center" justify="center">
-    <v-col
-      cols="12"
-      md="3"
-    >
-      <div
-        class="pa-4 secondary text-no-wrap rounded-pill"
-      >
-        New exercises
-      </div>
-    </v-col>
-  </v-row>
+  
+   <v-col cols="12" md="3">
+  <v-btn style="margin-left: 1100px;" color="#F06292" elevation="2" rounded >New exercise</v-btn>
+   </v-col>
+
   <div align="center">
-    <v-btn class="my-6" v-for="(i,j) in slides" :key="i" rounded color="primary" dark width="1000px" height="100px">
+    <v-btn class="my-6" v-for="(i,j) in slides" :key="i" rounded color="#2d4059" dark width="1000px" height="100px">
       <v-row>
       <v-col>{{i}}</v-col>
       <v-col>{{bodyparts[j]}}</v-col>
