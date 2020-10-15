@@ -31,122 +31,16 @@
       </div>
     </v-col>
   </v-row>
-    <div><v-carousel
-    cycle
-    height="400"
-    width="500"
-    hide-delimiter-background
-    show-arrows-on-hover
-  >
-    <v-carousel-item
-      v-for="(slide, i) in slides"
-      :key="i"
-    >
-      <v-sheet
-        color="indigo"
-        height="100%"
-      >
-        <v-row
-          class="fill-height"
-          align="center"
-          justify="center"
-        >
-          <div class="display-3">
-            {{ slide }}  {{ bodyparts[i] }}
-          </div>
-        </v-row>
-      </v-sheet>
-    </v-carousel-item>
-  </v-carousel></div>
-  <p></p>
-  <p></p>
-  <div><v-carousel
-    cycle
-    height="400"
-    width="500"
-    hide-delimiter-background
-    show-arrows-on-hover
-  >
-    <v-carousel-item
-      v-for="(slide, i) in slides"
-      :key="i"
-    >
-      <v-sheet
-        color="indigo"
-        height="100%"
-      >
-        <v-row
-          class="fill-height"
-          align="center"
-          justify="center"
-        >
-          <div class="display-3">
-            {{ slide }}  {{ bodyparts[i] }}
-          </div>
-        </v-row>
-      </v-sheet>
-    </v-carousel-item>
-  </v-carousel></div>
-    <p></p>
-  <p></p>
-  <div><v-carousel
-    cycle
-    height="400"
-    width="500"
-    hide-delimiter-background
-    show-arrows-on-hover
-  >
-    <v-carousel-item
-      v-for="(slide, i) in slides"
-      :key="i"
-    >
-      <v-sheet
-        color="indigo"
-        height="100%"
-      >
-        <v-row
-          class="fill-height"
-          align="center"
-          justify="center"
-        >
-          <div class="display-3">
-            {{ slide }}  {{ bodyparts[i] }}
-          </div>
-        </v-row>
-      </v-sheet>
-    </v-carousel-item>
-  </v-carousel></div>
-    <p></p>
-  <p></p>
-  <div><v-carousel
-    cycle
-    height="400"
-    width="500"
-    hide-delimiter-background
-    show-arrows-on-hover
-  >
-    <v-carousel-item
-      v-for="(slide, i) in slides"
-      :key="i"
-    >
-      <v-sheet
-        color="indigo"
-        height="100%"
-      >
-        <v-row
-          class="fill-height"
-          align="center"
-          justify="center"
-        >
-          <div class="display-3">
-            {{ slide }}  {{ bodyparts[i] }}
-          </div>
-        </v-row>
-      </v-sheet>
-    </v-carousel-item>
-  </v-carousel></div>
-    <p></p>
-    <p></p>
+  <div align="center">
+    <v-btn class="my-6" v-for="(i,j) in slides" :key="i" rounded color="primary" dark width="1000px" height="100px">
+      <v-row>
+      <v-col>{{i}}</v-col>
+      <v-col>{{bodyparts[j]}}</v-col>
+      <v-col>{{workout_type[j]}}</v-col>
+      <v-col>{{workout_level[j]}}</v-col>
+      </v-row>
+    </v-btn>
+  </div>
   </body>
 </template>
 
@@ -174,6 +68,20 @@
           '10 Reps',
           '10 Reps',
           '25 Reps',
+        ],
+        workout_type: [
+          'Legs',
+          'Abs',
+          'Legs',
+          'Abs',
+          'Arms'
+        ],
+        workout_level: [
+          'Begginer',
+          'Intermediate',
+          'Expert',
+          'Intermediate',
+          'Expert'
         ],
          links: [
       { icon: 'name', text: 'Name', route: '/exercises'},
