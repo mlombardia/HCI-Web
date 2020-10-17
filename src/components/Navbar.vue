@@ -40,12 +40,12 @@
         </v-list>
       </v-menu>
 
-      <!--<a href="/login">
+      <!-- <a href="/login">
       <v-btn color="white" text>
         <span>Sign Out</span>
         <v-icon right>exit_to_app</v-icon>
       </v-btn>
-      </a>-->
+      </a> -->
 
       <v-btn icon>
         <a href="/profile">

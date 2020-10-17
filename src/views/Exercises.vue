@@ -26,13 +26,16 @@
   </template>
   <v-card color="#2d4059">
         <v-card-title  color="white" >
+          <span class="white--text">
           <span class="headline">Add new exercise</span>
+          </span>
         </v-card-title>
-        <v-card-text>
+        
+        <v-card-text class="white--text">
           <v-container>
             <v-row>
               <v-col cols="12" sm="6" >
-                <v-select :items="['Upper body', 'Middle body', 'Lower mody', 'maxi sos gay?']" label="Body area*" required ></v-select>
+                <v-select  :items="['Upper body', 'Middle body', 'Lower mody', 'maxi sos gay?']" label="Body area*" required ></v-select>
               </v-col>
               <v-col cols="12" sm="6" >
                 <v-select :items="['Time', 'Reps']" label="Type of exercise*" required >
@@ -61,6 +64,7 @@
             Accept
           </v-btn>
         </v-card-actions>
+         
       </v-card>
       </v-dialog>
    </v-col>
