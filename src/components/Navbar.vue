@@ -40,12 +40,22 @@
         </v-list>
       </v-menu>
 
-      <a href="/login">
+      <!--<a href="/login">
       <v-btn color="white" text>
         <span>Sign Out</span>
         <v-icon right>exit_to_app</v-icon>
       </v-btn>
-      </a>
+      </a>-->
+
+      <v-btn icon>
+        <a href="/profile">
+        <v-avatar color="#F06292">
+          <span class="white--text headline">CJ</span>
+        </v-avatar>
+        </a>
+      </v-btn>
+      
+      
     </v-toolbar>
   </nav>
 </template>
@@ -56,8 +66,9 @@ export default {
   data: () => ({
     links: [
       { icon: 'home', text: 'Home', route: '/'},
-      { icon: 'profile', text: 'Profile', route: '/profile'},
       { icon: 'about', text: 'About', route: '/about'},
+      { icon: 'sign out', text: 'Sign out', route: '/login'},
+      
     ],
     views: [
       { text: 'Routines', route: '/routines'},

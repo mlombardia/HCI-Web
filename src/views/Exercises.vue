@@ -40,11 +40,12 @@
               </v-col>
               
               <v-col cols="12">
-                <v-text-field label="Add image" required
-                ></v-text-field>
+                <v-text-field label="Add image" required>
+                </v-text-field>
               </v-col>
               <v-col cols="12">
-                <v-text-field label="Add description" required ></v-text-field>
+                <v-text-field label="Add description" required>
+                </v-text-field>
               </v-col>
               
             </v-row>
