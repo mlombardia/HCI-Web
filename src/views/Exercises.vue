@@ -20,8 +20,50 @@
     </div>
   
    <v-col cols="12" md="3">
-  <v-btn style="margin-left: 1100px;" color="#F06292" elevation="2" rounded >New exercise</v-btn>
+     <v-dialog v-model="dialog" width="500">
+      <template v-slot:activator="{ on, attrs }">
+  <v-btn style="margin-left: 1100px;" color="#F06292" elevation="2" rounded v-bind="attrs" v-on="on" >New exercise</v-btn>
+  </template>
+  <v-card color="#2d4059">
+        <v-card-title  color="white" >
+          <span class="headline">Add new exercise</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col cols="12" sm="6" >
+                <v-select :items="['Upper body', 'Middle body', 'Lower mody', 'maxi sos gay?']" label="Body area*" required ></v-select>
+              </v-col>
+              <v-col cols="12" sm="6" >
+                <v-select :items="['Time', 'Reps']" label="Type of exercise*" required >
+                </v-select>
+              </v-col>
+              
+              <v-col cols="12">
+                <v-text-field label="Add image" required
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field label="Add description" required ></v-text-field>
+              </v-col>
+              
+            </v-row>
+          </v-container>
+          <small>*indicates required field</small>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="white" text @click="dialog = false" >
+            Cancel
+          </v-btn>
+          <v-btn color="white" text @click="dialog = false" >
+            Accept
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+      </v-dialog>
    </v-col>
+
 
   <div align="center">
     <v-btn class="my-6" v-for="(i,j) in slides" :key="i" rounded color="#2d4059" dark width="1000px" height="100px">
@@ -33,6 +75,7 @@
       </v-row>
     </v-btn>
   </div>
+  
   </body>
 </template>
 
@@ -47,6 +90,7 @@
           'red lighten-1',
           'deep-purple accent-4',
         ],*/
+        dialog: false,
         slides: [
           'Squats',
           'Planks',
