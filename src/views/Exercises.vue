@@ -23,12 +23,12 @@
    <v-col cols="12" md="3">
      <v-dialog v-model="dialog" width="500">
       <template v-slot:activator="{ on, attrs }">
-  <v-btn style="margin-left: 1100px;" color="#F06292" elevation="2" rounded v-bind="attrs" v-on="on" >New exercise</v-btn>
-  </template>
-  <v-card color="#2d4059">
+        <v-btn style="margin-left: 1100px;" color="#F06292" elevation="2" rounded v-bind="attrs" v-on="on" >New exercise</v-btn>
+      </template>
+     <v-card color="#2d4059">
         <v-card-title  color="white" >
           <span class="white--text">
-          <span class="headline">Add new exercise</span>
+            <span class="headline">Add new exercise</span>
           </span>
         </v-card-title>
         
@@ -64,12 +64,10 @@
           <v-btn color="white" text @click="dialog = false" >
             Accept
           </v-btn>
-        </v-card-actions>
-         
+        </v-card-actions>  
       </v-card>
       </v-dialog>
    </v-col>
-
 
   <div align="center">
     <v-btn class="my-6" v-for="(i,j) in slides" :key="i" rounded color="#2d4059" dark width="1000px" height="100px">

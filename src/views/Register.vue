@@ -1,15 +1,11 @@
 <template>
-    
-     <div class="register" align="center" >
-
+    <div class="register" align="center" >
     <v-card elevation="24" width="600" height="700" color = "#2d4059"  >
-
-      <v-card-title align = "center" >
-        <span class="white--text">Register</span>
+        <v-card-title align = "center" >
+            <span class="white--text">Register</span>
         </v-card-title>
     
       <v-col cols="12">
-
                 <v-text-field label="Name" required>
                 </v-text-field>
                 
@@ -37,7 +33,6 @@
                 <a href="/">
                     <v-btn class="white--text" color="#F06292" elevation="2" rounded >Register</v-btn>
                 </a>
-
         </v-col>
 
     </v-card>

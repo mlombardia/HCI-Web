@@ -50,7 +50,7 @@
       <v-btn icon>
         <a href="/profile">
         <v-avatar color="#F06292">
-          <span class="white--text headline">CJ</span>
+          <span class="white--text headline">MG</span>
         </v-avatar>
         </a>
       </v-btn>

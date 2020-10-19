@@ -9,14 +9,12 @@
     </v-stepper-step>
 
     <v-stepper-content step="1">
-      <v-card color="grey lighten-1" class="mb-12" height="200px" ></v-card>
-      
+      <v-card color="grey lighten-1" class="mb-12" height="200px" ></v-card> 
       <v-btn color="#2d4059" @click="e6 = 2" >
         <span class="white--text">
         Next step
         </span>
-      </v-btn>
-      
+      </v-btn> 
     </v-stepper-content>
 
     <v-stepper-step :complete="e6 > 2" step="2" >
@@ -55,7 +53,6 @@
         Next step
         </span>
       </v-btn>
-      
     </v-stepper-content>
   </v-stepper>
   </div>
