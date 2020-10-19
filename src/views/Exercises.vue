@@ -2,6 +2,7 @@
   <body>
     <div class="exercises">
       <h1>This is Exercises page</h1>  
+      <h2>BORRAR Y EDITAR EJERCICIOS</h2>
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
         <!-- <v-btn text slot="activator"> -->
@@ -31,7 +32,7 @@
           </span>
         </v-card-title>
         
-        <v-card-text class="white--text">
+        <v-card-text class="white--text" >
           <v-container>
             <v-row>
               <v-col cols="12" sm="6" >
