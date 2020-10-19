@@ -12,14 +12,14 @@
 
                 <v-text-field label="Name" required>
                 </v-text-field>
-
-                <v-text-field label="Surname" required>
-                </v-text-field>
                 
-                <v-text-field label="Age" required>
+                <v-text-field label="Weight" required>
                 </v-text-field>
 
-                <v-text-field label="Country" required>
+                <v-text-field label="Height" required>
+                </v-text-field>
+
+                <v-text-field label="Age" required>
                 </v-text-field>
 
                 <v-text-field label="User" required>
