@@ -38,14 +38,21 @@
         <v-card-text class="white--text" >
           <v-container>
             <v-row>
-              <v-col cols="12" sm="6" >
-                <v-select  :items="['Upper body', 'Middle body', 'Lower mody', 'maxi sos gay?']" label="Body area*" required ></v-select>
+              <v-col cols="12" sm="4" >
+                <v-select :items="['Upper body', 'Middle body', 'Lower mody', 'maxi sos gay?']" label="Body area*" required ></v-select>
               </v-col>
-              <v-col cols="12" sm="6" >
+              <v-col cols="12" sm="4" >
+                <v-text-field label="Qty." required>
+                </v-text-field>
+              </v-col>
+              <v-col cols="12" sm="4" >
                 <v-select :items="['Time', 'Reps']" label="Type of exercise*" required >
                 </v-select>
               </v-col>
-              
+              <v-col cols="12">
+                <v-select :items="workout_level" label="Difficulty" required >
+                </v-select>
+              </v-col>
               <v-col cols="12">
                 <v-text-field label="Add image" required>
                 </v-text-field>
@@ -72,7 +79,75 @@
       </v-dialog>
    </v-col>
 
-  <div align="center">
+   <div align="center">
+     <v-dialog v-model="dialog2" width="500">
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn v-for="(i,j) in slides" :key="i" class="my-6" color="#2d4059" dark width="1000px" height="100px" elevation="2" v-bind="attrs" v-on="on" rounded>
+          <v-row>
+            <v-col>{{i}}</v-col>
+            <v-col>{{bodyparts[j]}}</v-col>
+            <v-col>{{workout_type[j]}}</v-col>
+            <v-col>{{workout_level[j]}}</v-col>
+          </v-row>
+        </v-btn>
+      </template>
+      <v-card color="#2d4059">
+        <v-card-title  color="white" >
+          <span class="white--text">
+          <span class="headline">Exercise details</span>
+          </span>
+          <v-btn icon color="pink" >
+            <v-icon>mdi-heart</v-icon>
+          </v-btn>
+        </v-card-title>
+        
+        <v-card-text class="white--text" >
+          <v-container>
+            <v-row>
+            </v-row>
+            <v-row>
+              <v-col cols="12" sm="4" >
+                <v-select v-model="workout_type" :items="workout_type" label="Workout type" required ></v-select>
+              </v-col>
+              <v-col cols="12" sm="4" >
+                <v-text-field label="Qty." required>
+                </v-text-field>
+              </v-col>
+              <v-col cols="12" sm="4" >
+                <v-select :items="['Time', 'Reps']" label="Type of exercise*" required >
+                </v-select>
+              </v-col>
+              <v-col cols="12">
+                <v-select :items="workout_level" label="Difficulty" required >
+                </v-select>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field label="Add image" required>
+                </v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field label="Add description" required>
+                </v-text-field>
+              </v-col>
+              
+            </v-row>
+          </v-container>
+          <small>*indicates required field</small>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="white" text @click="dialog2 = false" >
+            Cancel
+          </v-btn>
+          <v-btn color="white" text @click="dialog2 = false" >
+            Accept
+          </v-btn>
+        </v-card-actions>  
+      </v-card>
+      </v-dialog>
+  </div>
+    
+  <!--<div align="center">
     <v-btn class="my-6" v-for="(i,j) in slides" :key="i" rounded color="#2d4059" dark width="1000px" height="100px">
       <v-row>
       <v-col>{{i}}</v-col>
@@ -84,7 +159,7 @@
       </v-btn>
       </v-row>
     </v-btn>
-  </div>
+  </div>-->
   
   </body>
 </template>
@@ -101,6 +176,7 @@
           'deep-purple accent-4',
         ],*/
         dialog: false,
+        dialog2: false,
         slides: [
           'Squats',
           'Planks',
