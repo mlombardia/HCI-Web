@@ -18,7 +18,9 @@
         <v-col cols="12">
         <v-dialog v-model="dialog" width="500">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn class="white--text" color="#F06292" elevation="2" rounded v-bind="attrs" v-on="on" >Edit</v-btn>
+            <v-btn class="white--text" color="#F06292" elevation="2" rounded v-bind="attrs" v-on="on" >Edit
+              <v-icon>fas fa-edit</v-icon>
+              </v-btn>
          </template>
          <v-card color="#2d4059">
           <v-card-title  color="white" >
@@ -71,13 +73,15 @@
         <v-card-title align = "center" >
           <span class="white--text">About me</span>
         </v-card-title>
-          <h4 class="white--text"> Marcelo Daniel Gallardo (Merlo, Buenos Aires; 18 de enero de 1976) es un exfutbolista y entrenador argentino que dirige al Club Atlético River Plate. Con River ganó cuatro campeonatos nacionales y siete internacionales, siendo el entrenador más exitoso en la historia del club. En AS Mónaco fue elegido mejor jugador de la Liga Francesa en 2000. Con la selección argentina disputó 46 partidos, anotó 14 goles y fue convocado a los Mundiales de Francia 1998 y Corea del Sur/Japón 2002. </h4>
+          <p class="white--text"> Marcelo Daniel Gallardo (Merlo, Buenos Aires; 18 de enero de 1976) es un exfutbolista y entrenador argentino que dirige al Club Atlético River Plate. Con River ganó cuatro campeonatos nacionales y siete internacionales, siendo el entrenador más exitoso en la historia del club. En AS Mónaco fue elegido mejor jugador de la Liga Francesa en 2000. Con la selección argentina disputó 46 partidos, anotó 14 goles y fue convocado a los Mundiales de Francia 1998 y Corea del Sur/Japón 2002. </p>
 
       <v-col cols="12">
            <v-col cols="12" md="3">
      <v-dialog v-model="dialog" width="500">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn class="white--text" color="#F06292" elevation="2" rounded v-bind="attrs" v-on="on" >Edit</v-btn>
+        <v-btn class="white--text" color="#F06292" elevation="2" rounded v-bind="attrs" v-on="on" >
+          Edit
+        </v-btn>
        </template>
       <v-card color="#2d4059">
         <v-card-title  color="white" >

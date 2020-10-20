@@ -23,12 +23,15 @@
    <v-col cols="12" md="3">
      <v-dialog v-model="dialog" width="500">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn style="margin-left: 1100px;" color="#F06292" elevation="2" rounded v-bind="attrs" v-on="on" >New exercise</v-btn>
+        <v-btn class="white--text" style="margin-left: 1100px;" color="#F06292" elevation="2" rounded v-bind="attrs" v-on="on" >New exercise
+          <v-icon >mdi-plus</v-icon>
+        </v-btn>
       </template>
      <v-card color="#2d4059">
         <v-card-title  color="white" >
           <span class="white--text">
-            <span class="headline">Add new exercise</span>
+            <span class="headline">Add new exercise
+            </span>
           </span>
         </v-card-title>
         
@@ -76,6 +79,9 @@
       <v-col>{{bodyparts[j]}}</v-col>
       <v-col>{{workout_type[j]}}</v-col>
       <v-col>{{workout_level[j]}}</v-col>
+      <v-btn icon color="pink" >
+              <v-icon>mdi-heart</v-icon>
+      </v-btn>
       </v-row>
     </v-btn>
   </div>

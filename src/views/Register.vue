@@ -8,6 +8,9 @@
       <v-col cols="12">
                 <v-text-field label="Name" required>
                 </v-text-field>
+
+                <v-text-field label="Email" required>
+                </v-text-field>
                 
                 <v-text-field label="Weight" required>
                 </v-text-field>
@@ -30,7 +33,7 @@
                 <a href="/login">
                     <v-btn class="white--text" color="#F06292" elevation="2" rounded  >Cancel</v-btn>
                 </a>
-                <a href="/">
+                <a href="/confirmEmail">
                     <v-btn class="white--text" color="#F06292" elevation="2" rounded >Register</v-btn>
                 </a>
         </v-col>

@@ -29,6 +29,9 @@
       <v-col>{{bodyparts[j]}}</v-col>
       <v-col>{{workout_type[j]}}</v-col>
       <v-col>{{workout_level[j]}}</v-col>
+      <v-btn icon color="pink">
+              <v-icon>mdi-heart</v-icon>
+      </v-btn>
       </v-row>
     </v-btn>
   </div>
