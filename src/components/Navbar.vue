@@ -17,9 +17,9 @@
       </v-btn>
       <!-- </v-list-item> -->
 
-      <form style="margin-left: 50px;">
-			  <input type="search" onkeyup="" placeholder="Buscar">
-		  </form>
+    <form style="margin-left: 50px;">
+			<input type="search" onkeyup="" placeholder="Buscar">
+		</form>
 
       <v-spacer></v-spacer>
 
