@@ -1,8 +1,9 @@
 <template>
   <div class="routines">
     <h1 align="center" style="margin-top: 15px;">Routines</h1>
-    <div>
-      <div align="left" style="margin-left: 13%; margin-top: 20px; float: left;">
+    <div align="center">
+    <div style="width: 1000px;">
+    <div style="margin-top: 20px; float: left;">
         <v-menu offset-y>
             <template v-slot:activator="{ on }">
             <!-- <v-btn text slot="activator"> -->
@@ -19,7 +20,7 @@
             </v-list>
         </v-menu> 
       </div>
-      <div style="float: right; margin-right: 13%; margin-top: 5px;">
+      <div style="float: right; margin-right: 70px; margin-top: 5px;">
         <v-col cols="12" md="3">
         <v-dialog v-model="dialog" width="500">
           <template v-slot:activator="{ on, attrs }">
@@ -78,10 +79,9 @@
           </v-card>
           </v-dialog>
       </v-col>
-    </div>
-    <br style="clear: both;">
-  </div>
-    <div align="center">
+      </div>
+      </div>
+      <br style="clear: both;">
     <v-dialog v-model="dialog2" width="500">
       <template v-slot:activator="{ on, attrs }">
         <v-btn v-for="(i,j) in slides" :key="i" class="my-6" color="#2d4059" dark width="1000px" height="100px" elevation="2" v-bind="attrs" v-on="on" rounded>
