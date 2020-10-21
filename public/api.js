@@ -33,9 +33,9 @@ class Api {
       return result;
     } catch (error) {
       if (!error.code) {
-        error = { "code": 99, "description": error.message.toLowerCase() };
+        var errorMessage = { "code": 99, "description": error.message.toLowerCase() };
       }
-      throw error;
+      throw errorMessage;
     } finally {
       clearTimeout(timer);
     }
