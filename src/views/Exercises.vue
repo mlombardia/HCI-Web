@@ -212,6 +212,9 @@
     ],
       }
     },
+    created(){
+      window.alert(window.Api.timeout());
+    }
   }
 </script>
 
