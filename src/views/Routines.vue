@@ -23,14 +23,14 @@
         <v-col cols="12" md="3">
         <v-dialog v-model="dialog" width="500">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn class="white--text" color="#F06292" elevation="2" rounded v-bind="attrs" v-on="on" >New exercise
+            <v-btn class="white--text" color="#F06292" elevation="2" rounded v-bind="attrs" v-on="on" >New routine
               <v-icon >mdi-plus</v-icon>
             </v-btn>
           </template>
         <v-card color="#2d4059">
             <v-card-title  color="white" >
               <span class="white--text">
-                <span class="headline">Add new exercise
+                <span class="headline">Add new routine
                 </span>
               </span>
             </v-card-title>
