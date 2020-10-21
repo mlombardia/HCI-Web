@@ -1,23 +1,86 @@
 <template>
   <div class="routines">
     <h1 align="center" style="margin-top: 15px;">Routines</h1>
-    <div align="left" style="margin-left: 13%; margin-top: 20px;">
-      <v-menu offset-y>
-          <template v-slot:activator="{ on }">
-          <!-- <v-btn text slot="activator"> -->
-          <v-btn text v-on="on">
-            <v-icon left>expand_more</v-icon>
-            <span>Filter by</span>
-          </v-btn>
+    <div>
+      <div align="left" style="margin-left: 13%; margin-top: 20px; float: left;">
+        <v-menu offset-y>
+            <template v-slot:activator="{ on }">
+            <!-- <v-btn text slot="activator"> -->
+            <v-btn text v-on="on">
+              <v-icon left>expand_more</v-icon>
+              <span>Filter by</span>
+            </v-btn>
+            </template>
+            <v-list>
+              <!-- v-list-tile is changed to v-list-item -->
+              <v-list-item v-for="link in links" :key="link.text" router :to="link.route">
+                <v-list-item-title>{{ link.text }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+        </v-menu> 
+      </div>
+      <div style="float: right; margin-right: 13%; margin-top: 5px;">
+        <v-col cols="12" md="3">
+        <v-dialog v-model="dialog" width="500">
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn class="white--text" color="#F06292" elevation="2" rounded v-bind="attrs" v-on="on" >New exercise
+              <v-icon >mdi-plus</v-icon>
+            </v-btn>
           </template>
-          <v-list>
-            <!-- v-list-tile is changed to v-list-item -->
-            <v-list-item v-for="link in links" :key="link.text" router :to="link.route">
-              <v-list-item-title>{{ link.text }}</v-list-item-title>
-            </v-list-item>
-          </v-list>
-      </v-menu> 
+        <v-card color="#2d4059">
+            <v-card-title  color="white" >
+              <span class="white--text">
+                <span class="headline">Add new exercise
+                </span>
+              </span>
+            </v-card-title>
+            
+            <v-card-text class="white--text" >
+              <v-container>
+                <v-row>
+                  <v-col cols="12" sm="4" >
+                    <v-select :items="['Upper body', 'Middle body', 'Lower mody', 'maxi sos gay?']" label="Body area*" required ></v-select>
+                  </v-col>
+                  <v-col cols="12" sm="4" >
+                    <v-text-field label="Qty." required>
+                    </v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="4" >
+                    <v-select :items="['Time', 'Reps']" label="Type of exercise*" required >
+                    </v-select>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-select :items="workout_level" label="Difficulty" required >
+                    </v-select>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-text-field label="Add image" required>
+                    </v-text-field>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-text-field label="Add description" required>
+                    </v-text-field>
+                  </v-col>
+                  
+                </v-row>
+              </v-container>
+              <small>*indicates required field</small>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="white" text @click="dialog = false" >
+                Cancel
+              </v-btn>
+              <v-btn color="white" text @click="dialog = false" >
+                Accept
+              </v-btn>
+            </v-card-actions>  
+          </v-card>
+          </v-dialog>
+      </v-col>
     </div>
+    <br style="clear: both;">
+  </div>
     <div align="center">
     <v-dialog v-model="dialog2" width="500">
       <template v-slot:activator="{ on, attrs }">
