@@ -17,9 +17,7 @@
       </v-btn>
       <!-- </v-list-item> -->
 
-    <form style="margin-left: 50px;">
-			<input type="search" onkeyup="" placeholder="Buscar">
-		</form>
+
 
       <v-spacer></v-spacer>
 
@@ -49,7 +47,7 @@
 
       <v-btn icon>
         <a href="/profile">
-        <v-avatar color="#F06292">
+        <v-avatar color="#AB47BC">
           <span class="white--text headline">MG</span>
         </v-avatar>
         </a>
@@ -62,6 +60,7 @@
 
 
 <script>
+import {UserApi} from '@/user'
 export default {
   data: () => ({
     links: [
@@ -76,5 +75,8 @@ export default {
       { text: 'Favourites', route: '/favourites'},
     ]
   }),
+  logout(){
+    window.alert(UserApi.url);
+  }
 }
 </script>

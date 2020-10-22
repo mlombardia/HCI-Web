@@ -36,7 +36,7 @@
                 <v-text-field label="Password" v-model="password" required>
                 </v-text-field>
 
-                <v-text-field label="Confirm password" required>
+                <v-text-field v-model="psw2" label="Confirm password" required>
                 </v-text-field>
 
                 <a href="/login">

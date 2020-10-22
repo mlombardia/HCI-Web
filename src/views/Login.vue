@@ -1,6 +1,5 @@
 <template>
   <body>
-    <h1> REGISTRARSE</h1>
     <div align="center" >
       
     <v-card elevation="24" width="600" height="300" color = "#2d4059"  >
@@ -15,11 +14,9 @@
           </v-text-field>
 
           <a href="/register">
-            <v-btn class="white--text" color="#F06292" elevation="2" rounded  >Sign up</v-btn>
+            <v-btn class="white--text" color="#AB47BC" elevation="2" rounded  >Sign up</v-btn>
           </a>
-          <a href="/">
               <v-btn class="white--text" @click="login" color="#F06292" elevation="2" rounded >Log in</v-btn>
-          </a>
         </v-col>
 
     </v-card>
@@ -38,12 +35,7 @@
     },
     methods: {
         login(){
-            var credentials = {
-              username: this.username,
-              password: this.password
-            }
-            
-            UserApi.login(credentials);
+            UserApi.login(this.username, this.password);
 
         }
     },
