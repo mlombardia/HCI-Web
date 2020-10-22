@@ -7,8 +7,8 @@ class UserApi {
         return `${Api.baseUrl}/user`;
     }
 
-    static async login(credentials, controller) {
-        const result = await Api.post(`${UserApi.url}/login`, false, credentials, controller);
+    static async login(user, password) {
+        const result = await Api.post(`${UserApi.url}/login`, false, new Credentials(user, password), true);
         Api.token = result.token;
     }
 
@@ -17,8 +17,9 @@ class UserApi {
         Api.token = undefined;
     }
 
-    static async register(data, controller) {
-        return await Api.post(`${UserApi.url}`, false, data, controller);
+    static async signup(credentials, controller) {
+        const result = await Api.post(`${UserApi.url}`, false, credentials, controller);
+        Api.token = undefined;
     }
 }
 

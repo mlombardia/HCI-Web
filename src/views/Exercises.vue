@@ -1,8 +1,7 @@
 <template>
   <body>
     <div class="exercises">
-      <h1>This is Exercises page</h1>  
-      <h2>BORRAR Y EDITAR EJERCICIOS</h2>
+       <h1 align="center" style="margin-top: 15px;">Exercises</h1>
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
         <!-- <v-btn text slot="activator"> -->
@@ -23,11 +22,11 @@
    <v-col cols="12" md="3">
      <v-dialog v-model="dialog" width="500">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn class="white--text" style="margin-left: 1100px;" color="#F06292" elevation="2" rounded v-bind="attrs" v-on="on" >New exercise
+        <v-btn class="white--text" style="margin-left: 1100px;" color="#AB47BC" elevation="2" rounded v-bind="attrs" v-on="on" >New exercise
           <v-icon >mdi-plus</v-icon>
         </v-btn>
       </template>
-     <v-card color="#2d4059">
+     <v-card color="#AB47BC">
         <v-card-title  color="white" >
           <span class="white--text">
             <span class="headline">Add new exercise
@@ -91,7 +90,7 @@
           </v-row>
         </v-btn>
       </template>
-      <v-card color="#2d4059">
+      <v-card color="#AB47BC">
         <v-card-title  color="white" >
           <span class="white--text">
           <span class="headline">Exercise details</span>
@@ -140,7 +139,7 @@
             Cancel
           </v-btn>
           <v-btn color="white" text @click="dialog2 = false" >
-            Accept
+            Save
           </v-btn>
         </v-card-actions>  
       </v-card>
