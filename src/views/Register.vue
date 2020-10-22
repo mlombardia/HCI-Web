@@ -6,25 +6,34 @@
         </v-card-title>
     
       <v-col cols="12">
-                <v-text-field v-model="name" label="Name" required>
-                 </v-text-field>
-
-                <v-text-field v-model="email" label="Email" required>
+                <v-text-field label="Name" v-model="name" required>
                 </v-text-field>
 
-                <v-text-field v-model="weight" label="Weight" required>
+                <v-text-field label="Email" v-model="email" required>
                 </v-text-field>
 
-                <v-text-field v-model="height" label="Height" required>
+                <v-text-field label="Phone" v-model="phone" required>
+                </v-text-field>
+                
+                <v-text-field label="Weight" >
                 </v-text-field>
 
-                <v-text-field v-model="age" label="Age" required>
+                <v-text-field label="Height" >
+                </v-text-field>
+                
+                <v-text-field label="Gender" v-model="gender" required>
                 </v-text-field>
 
-                <v-text-field v-model="user" label="User" required>
+                <v-text-field label="Age" v-model="age" required>
                 </v-text-field>
 
-                <v-text-field v-model="psw1" label="Password" required>
+                <v-text-field label="User" v-model="user" required>
+                </v-text-field>
+
+                <v-text-field label="Avatar" v-model="avatar" required>
+                </v-text-field>
+
+                <v-text-field label="Password" v-model="password" required>
                 </v-text-field>
 
                 <v-text-field v-model="psw2" label="Confirm password" required>
@@ -33,36 +42,48 @@
                 <a href="/login">
                     <v-btn class="white--text" color="#F06292" elevation="2" rounded  >Cancel</v-btn>
                 </a>
-                <a href="/confirmEmail">
-                    <v-btn class="white--text" color="#F06292" elevation="2" rounded v-on:click="register">Register</v-btn>
-                </a>
+                
+                    <v-btn class="white--text" @click="register" color="#F06292" elevation="2" rounded >Register</v-btn>
+                
         </v-col>
 
     </v-card>
   </div>
 </template>
-
-
-
 <script>
-  import {UserApi} from '@/user'
+    import {UserApi} from '@/user'
   export default {
     data () {
       return {
-        name: '',
-        email: '',
-        weight: '',
-        height: '',
-        age: '',
-        user: '',
-        psw1: '',
-        psw2: '',
+       name: null,
+       email: null,
+       phone: null,
+       gender: null,
+       age: null,
+       user: null,
+       avatar: null,
+       password: null
       }
     },
-    created(){
-      UserApi.signup(this.user, this.psw1)
-    
+    methods: {
+        register(){
+            var data = {
+                username: this.user,
+                password: this.password.toString(),
+                fullName: this.name,
+                gender: this.gender,
+                birthdate: parseInt(this.age),
+                email: this.email,
+                phone: this.phone.toString(),
+                avatarUrl: this.avatar
+            }
+            
+            UserApi.register(data);
+
+        }
+    },
+    created(){    
     }
   }
-</script>
 
+</script>
