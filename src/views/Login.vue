@@ -9,16 +9,16 @@
       </v-card-title>
     
       <v-col cols="12">
-          <v-text-field label="User" required>
+          <v-text-field label="User" v-model="username" required>
           </v-text-field>
-          <v-text-field label="Password" required>
+          <v-text-field label="Password" v-model="password" required>
           </v-text-field>
 
           <a href="/register">
             <v-btn class="white--text" color="#F06292" elevation="2" rounded  >Sign up</v-btn>
           </a>
           <a href="/">
-              <v-btn class="white--text" color="#F06292" elevation="2" rounded >Log in</v-btn>
+              <v-btn class="white--text" @click="login" color="#F06292" elevation="2" rounded >Log in</v-btn>
           </a>
         </v-col>
 
@@ -26,4 +26,29 @@
     </div>
 </body>
 </template>
+
+<script>
+     import {UserApi} from '@/user'
+  export default {
+    data () {
+      return {
+       username: null,
+       password: null
+      }
+    },
+    methods: {
+        login(){
+            var credentials = {
+              username: this.username,
+              password: this.password
+            }
+            
+            UserApi.login(credentials);
+
+        }
+    },
+    created(){    
+    }
+  }
+</script>
 
