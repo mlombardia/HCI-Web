@@ -152,7 +152,6 @@
 </template>
 
 <script>
-  import {SportApi} from '@/sport'
   export default {
     data () {
       return {
@@ -200,8 +199,7 @@
     ],
       }
     },
-    created(){
-      window.alert(SportApi.url);   
+    created(){  
     }
   }
 </script>
