@@ -1,3 +1,14 @@
+<style>
+  .v-label { 
+    color: white !important;
+  }
+  .v-select__selection {
+    color: white !important;
+  }
+  input {
+    color: white !important;
+  }
+</style>
 <template>
   <div class="routines">
     <h1 align="center" style="margin-top: 15px;">Routines</h1>
@@ -24,7 +35,7 @@
         <v-col cols="12" md="3">
         <v-dialog v-model="dialog" width="500">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn class="white--text" color="#AB47BC" elevation="2" rounded v-bind="attrs" v-on="on" >New routine
+            <v-btn class="white--text" color="#F06292" elevation="2" rounded v-bind="attrs" v-on="on" >New routine
               <v-icon >mdi-plus</v-icon>
             </v-btn>
           </template>
@@ -40,7 +51,7 @@
               <v-container>
                 <v-row>
                   <v-col cols="12" sm="4" >
-                    <v-select :items="['Upper body', 'Middle body', 'Lower mody', 'maxi sos gay?']" label="Body area*" required ></v-select>
+                    <v-select :items="['Upper body', 'Middle body', 'Lower mody']" label="Body area*" required ></v-select>
                   </v-col>
                   <v-col cols="12" sm="4" >
                     <v-text-field label="Qty." required>

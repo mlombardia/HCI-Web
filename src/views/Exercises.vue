@@ -1,3 +1,14 @@
+<style>
+  .v-label { 
+    color: white !important;
+  }
+  .v-select__selection {
+    color: white !important;
+  }
+  input {
+    color: white !important;
+  }
+</style>
 <template>
   <body>
     <div class="exercises">
@@ -22,11 +33,11 @@
    <v-col cols="12" md="3">
      <v-dialog v-model="dialog" width="500">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn class="white--text" style="margin-left: 1100px;" color="#AB47BC" elevation="2" rounded v-bind="attrs" v-on="on" >New exercise
+        <v-btn class="white--text" style="margin-left: 1100px;" color="#F06292" elevation="2" rounded v-bind="attrs" v-on="on" >New exercise
           <v-icon >mdi-plus</v-icon>
         </v-btn>
       </template>
-     <v-card color="#AB47BC">
+     <v-card color="#2d4059">
         <v-card-title  color="white" >
           <span class="white--text">
             <span class="headline">Add new exercise
@@ -38,7 +49,7 @@
           <v-container>
             <v-row>
               <v-col cols="12" sm="4" >
-                <v-select :items="['Upper body', 'Middle body', 'Lower mody', 'maxi sos gay?']" label="Body area*" required ></v-select>
+                <v-select :items="['Upper body', 'Middle body', 'Lower mody']" label="Body area*" required ></v-select>
               </v-col>
               <v-col cols="12" sm="4" >
                 <v-text-field label="Qty." required>
@@ -90,7 +101,7 @@
           </v-row>
         </v-btn>
       </template>
-      <v-card color="#AB47BC">
+      <v-card color="#2d4059">
         <v-card-title  color="white" >
           <span class="white--text">
           <span class="headline">Exercise details</span>

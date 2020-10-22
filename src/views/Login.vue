@@ -14,7 +14,7 @@
           </v-text-field>
 
           <a href="/register">
-            <v-btn class="white--text" color="#AB47BC" elevation="2" rounded  >Sign up</v-btn>
+            <v-btn class="white--text" color="#F06292" elevation="2" rounded  >Sign up</v-btn>
           </a>
               <v-btn class="white--text" @click="login" color="#F06292" elevation="2" rounded >Log in</v-btn>
         </v-col>

@@ -1,3 +1,14 @@
+<style>
+  .v-label { 
+    color: white !important;
+  }
+  .v-select__selection {
+    color: white !important;
+  }
+  input {
+    color: white !important;
+  }
+</style>
 <template>
 <body>
     <h1>This is the profile page</h1>
@@ -18,7 +29,7 @@
         <v-col cols="12">
         <v-dialog v-model="dialog" width="500">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn class="white--text" color="#AB47BC" elevation="2" rounded v-bind="attrs" v-on="on" >Edit
+            <v-btn class="white--text" color="#F06292" elevation="2" rounded v-bind="attrs" v-on="on" >Edit
               <v-icon>fas fa-edit</v-icon>
               </v-btn>
          </template>
@@ -79,7 +90,7 @@
            <v-col cols="12" md="3">
      <v-dialog v-model="dialog" width="500">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn class="white--text" color="#AB47BC" elevation="2" rounded v-bind="attrs" v-on="on" >
+        <v-btn class="white--text" color="#F06292" elevation="2" rounded v-bind="attrs" v-on="on" >
           Edit
         </v-btn>
        </template>
