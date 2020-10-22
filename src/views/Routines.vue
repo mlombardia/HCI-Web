@@ -24,7 +24,7 @@
         <v-col cols="12" md="3">
         <v-dialog v-model="dialog" width="500">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn class="white--text" color="#F06292" elevation="2" rounded v-bind="attrs" v-on="on" >New routine
+            <v-btn class="white--text" color="#AB47BC" elevation="2" rounded v-bind="attrs" v-on="on" >New routine
               <v-icon >mdi-plus</v-icon>
             </v-btn>
           </template>

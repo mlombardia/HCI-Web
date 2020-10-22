@@ -1,7 +1,7 @@
 <template>
   <body>
     <div class="exercises">
-      <h1>This is the Favourites page</h1>  
+      <h1 align="center" style="margin-top: 15px;">Favourites routines</h1>
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
         <!-- <v-btn text slot="activator"> -->

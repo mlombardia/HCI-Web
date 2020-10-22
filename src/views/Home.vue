@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>Home</h1>
+    <h1 align="center" style="margin-top: 15px;">Explore rutines</h1>
   
     <v-stepper color="#2d4059" v-model="e6" vertical>
     <v-stepper-step :complete="e6 > 1" step="1" >
