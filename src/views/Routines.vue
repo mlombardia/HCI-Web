@@ -125,71 +125,9 @@
         </v-col>
       </div>
       <br style="clear: both;">
-      <v-dialog v-model="dialog2" width="500">
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn v-for="routine in routines" :key="routine.id" class="my-6" color="#2d4059" dark width="1000px" height="100px" elevation="2" v-bind="attrs" v-on="on" rounded>
-              <v-row>
-                <v-col>{{routine.category.name}}</v-col>
-                <v-col>{{routine.difficulty}}</v-col>
-                <v-col>{{routine.name}}</v-col>
-                <v-col>{{routine.averageRating}}</v-col>
-              </v-row>
-            </v-btn>
-          </template>
-        <v-card color="#2d4059">
-          <v-card-title  color="white" >
-            <span class="white--text">
-            <span class="headline">Routine details</span>
-            </span>
-            <v-btn icon color="pink" >
-              <v-icon>mdi-heart</v-icon>
-            </v-btn>
-          </v-card-title>
-          
-          <v-card-text class="white--text" >
-            <v-container>
-              <v-row>
-              </v-row>
-              <v-row>
-                <v-col cols="12" sm="4" >
-                  <v-select v-model="workout_type" :items="workout_type" label="Workout type" required ></v-select>
-                </v-col>
-                <v-col cols="12" sm="4" >
-                  <v-text-field label="Qty." required>
-                  </v-text-field>
-                </v-col>
-                <v-col cols="12" sm="4" >
-                  <v-select :items="['Time', 'Reps']" label="Type of exercise*" required >
-                  </v-select>
-                </v-col>
-                <v-col cols="12">
-                  <v-select :items="workout_level" label="Difficulty" required >
-                  </v-select>
-                </v-col>
-                <v-col cols="12">
-                  <v-text-field label="Add image" required>
-                  </v-text-field>
-                </v-col>
-                <v-col cols="12">
-                  <v-text-field label="Add description" required>
-                  </v-text-field>
-                </v-col>
-                
-              </v-row>
-            </v-container>
-            <small>*indicates required field</small>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="white" text @click="dialog2 = false" >
-              Cancel
-            </v-btn>
-            <v-btn color="white" text @click="dialog2 = false" >
-              Accept
-            </v-btn>
-          </v-card-actions>  
-        </v-card>
-        </v-dialog>
+      <v-flex v-for="routine in routines" :key="routine.id">
+      <RoutineCard v-bind:routine="routine"></RoutineCard>
+      </v-flex>
     </div>
     </div>
   </div>
@@ -201,8 +139,12 @@
   import {UserApi} from '@/user'
   import {CategoriesApi} from '@/categories'
   import {RoutinesApi} from '@/routines'
+  import RoutineCard from '../components/RoutineCard.vue'
   export default {
     name: 'Routines',
+    components: {
+      'RoutineCard': RoutineCard
+    },
     data: () => ({
      
         dialog: false,
@@ -210,7 +152,7 @@
         dialog5: false,
         routines: [],
         user: null,
-        timer: 0,
+        cant: 0,
          links: [
           { icon: 'name', text: 'Name', route: '/exercises'},
           { icon: 'Body section', text: 'Body section', route: '/'},
@@ -259,6 +201,7 @@
         UserApi.getUserRoutines().then(data=>{
           for(var i = 0; i < data.totalCount; i++){
             this.routines.push(data.results[i]);
+            this.cant++;
           }
         });
       },
@@ -309,11 +252,12 @@
       this.getCategories();
       
       
+      
     },
     updated(){
       //this.getAllRoutines();
       this.getCategories();
-      window.alert(JSON.stringify(this.routines));
+      //window.alert(JSON.stringify(this.routines));
     }
   }
 </script>
