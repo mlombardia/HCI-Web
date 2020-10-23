@@ -131,8 +131,8 @@
         </v-col>
       </div>
       <br style="clear: both;">
-      <v-flex v-for="routine in routines" :key="routine.id">
-      <RoutineCard v-bind:routine="routine"></RoutineCard>
+      <v-flex  v-for="routine in routines" :key="routine.id" >
+      <RoutineCard :routine="routine"></RoutineCard>
       </v-flex>
     </div>
     </div>
@@ -205,9 +205,8 @@
     methods: {
       getRoutines(){
         UserApi.getUserRoutines().then(data=>{
-          for(var i = 0; i < data.totalCount; i++){
             this.routines = data.results;
-          }
+            this.routines.forEach(routine=> routine["categories"] = this.categories);
         });
       },
       getAllRoutines(){
@@ -253,16 +252,17 @@
       // CategoriesApi.add({"name": "Legs", "detail": "Legs"});
       // CategoriesApi.add({"name": "Middle Body", "detail": "Middle Body"});
       // CategoriesApi.add({"name": "Upper Body", "detail": "Upper Body"});
+      this.getCategories();
       this.getRoutines();
       
-      this.getCategories();
+      
       
       
       
     },
     updated(){
-      this.getRoutines();
       this.getCategories();
+      this.getRoutines();
       //window.alert(this.routines.length);
     }
   }
