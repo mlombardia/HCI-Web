@@ -175,7 +175,8 @@
 </template>
 
 <script>
-  import {SportApi} from '@/sport'
+  //import {SportApi} from '@/sport'
+  import {Api} from '@/api'
   export default {
     data () {
       return {
@@ -225,7 +226,7 @@
     },
     created(){
 
-      window.alert(SportApi.url);     
+      window.alert(Api.token);     
     }
   }
 </script>
