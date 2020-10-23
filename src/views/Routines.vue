@@ -8,6 +8,109 @@
   input {
     color: white !important;
   }
+
+  * {
+    margin: 0;
+    padding: 0;
+    /* box-sizing: border-box; */
+    color: white;
+    font-family: sans-serif;
+}
+
+.exercise-container {
+    /* margin: auto; */
+    position: relative;
+    /* padding: 1.5rem 2rem; */
+    display: flex;
+    justify-content: space-evenly;
+    align-content: center;
+    border-radius: 35px;
+}
+
+.flecha {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    font-weight: 900;
+}
+
+/* 
+==============
+LADO IZQUIERDO
+==============
+*/
+
+.all-excercises-container {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.all-excercises-container p {
+    margin-bottom: 1rem;
+}
+
+.all-exercises {
+    width: 500px;
+    height: 500px;
+    border-radius: 35px;
+    background-color: whitesmoke;
+    margin-bottom: 4rem;
+}
+
+.cancel-btn {
+    padding: .5rem 2rem;
+    background-color: whitesmoke;
+    color: black;
+    width: 30%;
+    border-radius: 35px;
+    outline: none;
+    cursor: pointer;
+    border: none;
+}
+
+/* 
+============
+LADO DERECHO
+============
+*/
+
+.added-exercises-container {
+    width: 50%;
+    height: 100%;
+    border-radius: 35px;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.added-exercises-container p {
+    margin-bottom: 1rem;
+}
+
+.added-exercises {
+    width: 500px;
+    height: 500px;
+    border-radius: 35px;
+    background-color: whitesmoke;
+    margin-bottom: 4rem;
+}
+
+.create-btn {
+    padding: .5rem 1rem;
+    background-color: whitesmoke;
+    color: black;
+    width: 35%;
+    outline: none;
+    cursor: pointer;
+    border-radius: 35px;
+    border: none;
+    white-space: nowrap;
+}
 </style>
 <template>
   <div class="routines">
@@ -80,7 +183,7 @@
       </div>
       <div style="float: right; margin-right: 70px; margin-top: 5px;">
         <v-col cols="12" md="3">
-        <v-dialog v-model="dialog3" width="500" :visible="false">
+        <v-dialog v-model="dialog3" width="1200" :visible="false">
         <v-card color="#2d4059">
             <v-card-title  color="white" >
               <span class="white--text">
@@ -88,15 +191,23 @@
                 </span>
               </span>
             </v-card-title>
-            <v-card-text class="white--text" >
-              <v-container>
-                <v-card-text class="white--text" >
-              <v-container class = "my-4" fluid>
-                 <v-layout row wrap></v-layout>
-              </v-container>
-            </v-card-text>
-              </v-container>
-            </v-card-text>
+            <body>
+              <div class="exercise-container">
+                <div class="all-excercises-container">
+                  <p>All Exercises</p>
+                  <div class="all-exercises">
+                      <!-- aca van los ejercicios -->
+                  </div>
+                </div>
+                <span class="flecha">- ></span>
+                <div class="added-exercises-container">
+                    <p>Added Exercises</p>
+                    <div class="added-exercises">
+                        <!-- aca van los ejercicios AGREGADOS -->
+                    </div>
+                </div>
+              </div>
+            </body>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="white" text @click="dialog3 = false">
@@ -191,39 +302,6 @@
         dialog: false,
         dialog2: false,
         dialog3: false,
-        slides: [
-          'Squats',
-          'Planks',
-          'Burpees',
-          'Crunches',
-          'Sit Ups',
-        ],
-        bodyparts: [
-          '20 Reps',
-          '30 Secs',
-          '10 Reps',
-          '10 Reps',
-          '25 Reps',
-        ],
-        workout_type: [
-          'Legs',
-          'Abs',
-          'Legs',
-          'Abs',
-          'Arms'
-        ],
-        workout_level: [
-          'Begginer',
-          'Intermediate',
-          'Expert',
-          'Intermediate',
-          'Expert'
-        ],
-        categories: [
-          'Category 1',
-          'Category 2',
-          'Category 3',
-        ],
         routines: [],
         user: null,
          links: [
