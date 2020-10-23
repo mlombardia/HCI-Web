@@ -70,8 +70,8 @@
               <v-btn color="white" text @click="dialog = false">
                 Cancel
               </v-btn>
-              <v-btn color="white" text  @click="dialog5 = true; dialog = false" >
-                Add exercises
+              <v-btn color="white" text  @click="dialog3 = true; dialog = false" >
+                Create routine
               </v-btn>
             </v-card-actions>  
           </v-card>
@@ -80,7 +80,7 @@
       </div>
       <div style="float: right; margin-right: 70px; margin-top: 5px;">
         <v-col cols="12" md="3">
-        <v-dialog v-model="dialog5" width="500" :visible="false">
+        <v-dialog v-model="dialog3" width="500" :visible="false">
         <v-card color="#2d4059">
             <v-card-title  color="white" >
               <span class="white--text">
@@ -90,29 +90,19 @@
             </v-card-title>
             <v-card-text class="white--text" >
               <v-container>
-                <v-row>
-                  <v-col cols="12">
-                    <v-text-field label="New Routine" required>
-                    </v-text-field>
-                  </v-col>
-                  <v-col cols="12">
-                    <v-select :items="categories" label="Category" required >
-                    </v-select>
-                  </v-col>
-                  <v-col cols="12">
-                    <v-select :items="workout_level" label="Difficulty" required >
-                    </v-select>
-                  </v-col>
-                </v-row>
+                <v-card-text class="white--text" >
+              <v-container class = "my-4" fluid>
+                 <v-layout row wrap></v-layout>
               </v-container>
-              <small>*indicates required field</small>
+            </v-card-text>
+              </v-container>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="white" text @click="dialog5 = false">
+              <v-btn color="white" text @click="dialog3 = false">
                 Cancel
               </v-btn>
-              <v-btn color="white" text @click="dialog5 = false" >
+              <v-btn color="white" text @click="dialog3 = false" >
                 Accept
               </v-btn>
             </v-card-actions>  
@@ -200,6 +190,7 @@
       return {
         dialog: false,
         dialog2: false,
+        dialog3: false,
         slides: [
           'Squats',
           'Planks',
