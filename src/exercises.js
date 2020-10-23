@@ -12,7 +12,7 @@ class ExercisesApi {
     }
     
     static async getExercises(controller){
-        return Api.get(ExercisesApi.url, true, controller);
+        return Api.get(`${ExercisesApi.url}?page=0&size=9999`, true, controller);
     }
 
     static async updateExercise(fullexercise, controller){

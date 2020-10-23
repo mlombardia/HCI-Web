@@ -239,8 +239,17 @@ export default {
       ],
     };
   },
+  updated(){
+    ExercisesApi.getExercises().then((data) => {
+      //eslint-disable-next-line
+      console.log("data results", data.results);
+      this.routine = data;
+      this.exercises = data.results;
+    });
+  },
   created() {
-    this.addExercise();
+    //this.addExercise();
+    //this.deleteExercise(2);
     //const result = ExercisesApi.getExercises();
     //window.alert(Api.token);
     //window.alert(JSON.stringify(ExercisesApi.getExercises()));}
@@ -282,8 +291,8 @@ export default {
     /*editExercise(){
         ExercisesApi.udpateExercise()
       }*/
-    deleteExcercise() {
-      ExercisesApi.deleteExercise(6);
+    deleteExercise(id) {
+      ExercisesApi.deleteExercise(id);
     },
     opendialog(exercise) {
       this.dialog2 = true;
