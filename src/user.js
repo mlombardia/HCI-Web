@@ -23,6 +23,14 @@ class UserApi {
         Api.token = undefined;
         return result;
     }
+
+    static async getuser(id, controller){
+        return await Api.get(`${UserApi.url}/${id}`, true, controller);
+    }
+
+    static async getUserRoutines(controller){
+        return await Api.get(`${UserApi.url}/current/routines/`, true, controller);
+    }
 }
 
 class Credentials {
