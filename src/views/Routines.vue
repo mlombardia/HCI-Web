@@ -200,39 +200,6 @@
       return {
         dialog: false,
         dialog2: false,
-        slides: [
-          'Squats',
-          'Planks',
-          'Burpees',
-          'Crunches',
-          'Sit Ups',
-        ],
-        bodyparts: [
-          '20 Reps',
-          '30 Secs',
-          '10 Reps',
-          '10 Reps',
-          '25 Reps',
-        ],
-        workout_type: [
-          'Legs',
-          'Abs',
-          'Legs',
-          'Abs',
-          'Arms'
-        ],
-        workout_level: [
-          'Begginer',
-          'Intermediate',
-          'Expert',
-          'Intermediate',
-          'Expert'
-        ],
-        categories: [
-          'Category 1',
-          'Category 2',
-          'Category 3',
-        ],
         routines: [],
         user: null,
          links: [
