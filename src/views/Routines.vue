@@ -201,6 +201,9 @@ LADO DERECHO
                   <p>All Exercises</p>
                   <div class="all-exercises">
                       <!-- aca van los ejercicios -->
+                      <v-flex v-for="exercise in allExercises" :key="exercise.id">
+                        <ExerciseCard v-bind:exercise="exercise"></ExerciseCard>
+                      </v-flex>
                   </div>
                 </div>
                 <span class="flecha">- ></span>
@@ -227,7 +230,7 @@ LADO DERECHO
       </div>
       <br style="clear: both;">
       <v-flex v-for="routine in routines" :key="routine.id">
-      <RoutineCard v-bind:routine="routine"></RoutineCard>
+        <RoutineCard v-bind:routine="routine"></RoutineCard>
       </v-flex>
     </div>
     </div>
@@ -241,10 +244,12 @@ LADO DERECHO
   import {CategoriesApi} from '@/categories'
   import {RoutinesApi} from '@/routines'
   import RoutineCard from '../components/RoutineCard.vue'
+  import ExerciseCard from '../components/ExerciseCard.vue'
   export default {
     name: 'Routines',
     components: {
-      'RoutineCard': RoutineCard
+      'RoutineCard': RoutineCard,
+      'ExerciseCard': ExerciseCard
     },
     data: () => ({
      
@@ -252,8 +257,10 @@ LADO DERECHO
         dialog2: false,
         dialog3: false,
         routines: [],
+        allExercises: [],
         user: null,
         cant: 0,
+        cantExercises: 0,
          links: [
           { icon: 'name', text: 'Name', route: '/exercises'},
           { icon: 'Body section', text: 'Body section', route: '/'},
@@ -298,6 +305,14 @@ LADO DERECHO
       
     }),
     methods: {
+      getAllExercises(){
+        UserApi.getExercises().then(data=>{
+          for(var i = 0; i < data.totalCount; i++){
+            this.allExercises.push(data.results[i]);
+            this.cantExercises++;
+          }
+        });
+      },
       getRoutines(){
         UserApi.getUserRoutines().then(data=>{
           for(var i = 0; i < data.totalCount; i++){
@@ -351,6 +366,7 @@ LADO DERECHO
       // CategoriesApi.add({"name": "Upper Body", "detail": "Upper Body"});
       this.getAllRoutines();
       this.getCategories();
+      this.getAllExercises();
       
       
       
