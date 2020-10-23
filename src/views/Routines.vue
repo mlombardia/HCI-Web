@@ -210,6 +210,7 @@
         dialog5: false,
         routines: [],
         user: null,
+        timer: 0,
          links: [
           { icon: 'name', text: 'Name', route: '/exercises'},
           { icon: 'Body section', text: 'Body section', route: '/'},
@@ -221,6 +222,36 @@
         difficulty: null,
         routineName: null,
         routineDetail: null,
+
+
+        slides: [
+          'Squats',
+          'Planks',
+          'Burpees',
+          'Crunches',
+          'Sit Ups',
+        ],
+        bodyparts: [
+          '20 Reps',
+          '30 Secs',
+          '10 Reps',
+          '10 Reps',
+          '25 Reps',
+        ],
+        workout_type: [
+          'Legs',
+          'Abs',
+          'Legs',
+          'Abs',
+          'Arms'
+        ],
+        workout_level: [
+          'Begginer',
+          'Intermediate',
+          'Expert',
+          'Intermediate',
+          'Expert'
+        ],
       
     }),
     methods: {
@@ -278,13 +309,11 @@
       this.getCategories();
       
       
-      
-      
     },
     updated(){
-      this.getAllRoutines();
+      //this.getAllRoutines();
       this.getCategories();
-      //window.alert(this.routines.length);
+      window.alert(JSON.stringify(this.routines));
     }
   }
 </script>
