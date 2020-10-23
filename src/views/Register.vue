@@ -43,7 +43,7 @@
                     <v-btn class="white--text" color="#F06292" elevation="2" rounded  >Cancel</v-btn>
                 </a>
                 
-                    <v-btn class="white--text" @click="register" color="#F06292" elevation="2" rounded >Register</v-btn>
+                <v-btn class="white--text" @click="register" color="#F06292" elevation="2" rounded >Register</v-btn>
                 
         </v-col>
 
@@ -52,7 +52,7 @@
 </template>
 <script>
     import {UserApi} from '@/user'
-  export default {
+    export default {
     data () {
       return {
        name: null,
@@ -79,7 +79,7 @@
             }
             
             UserApi.register(data);
-
+            
         }
     },
     created(){    

@@ -26,6 +26,7 @@
 
 <script>
      import {UserApi} from '@/user'
+     import {Api} from '@/api'
   export default {
     data () {
       return {
@@ -35,8 +36,8 @@
     },
     methods: {
         login(){
-            UserApi.login(this.username, this.password);
-
+           UserApi.login(this.username, this.password);
+           window.alert(Api.token);
         }
     },
     created(){    
