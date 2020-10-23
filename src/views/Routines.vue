@@ -227,13 +227,20 @@
         routines: [],
         user: null,
          links: [
-      { icon: 'name', text: 'Name', route: '/exercises'},
-      { icon: 'Body section', text: 'Body section', route: '/'},
-      { icon: 'Instensity', text: 'Intensity', route: '/'},
-    ],
+          { icon: 'name', text: 'Name', route: '/exercises'},
+          { icon: 'Body section', text: 'Body section', route: '/'},
+          { icon: 'Instensity', text: 'Intensity', route: '/'},
+        ],
       }
     },
     methods: {
+      getRoutines(){
+        UserApi.getUserRoutines().then(data=>{
+        for(var i = 0; i < data[0].totalCount; i++){
+          this.routines.push(data[0].results[i]);
+        }
+      });
+      }
     },
     created(){
       
@@ -241,15 +248,12 @@
       //   this.user = data;
       //   window.alert(JSON.stringify(this.user));
       // });
-      UserApi.getUserRoutines().then(data=>{
-        for(var i = 0; i < data[0].totalCount; i++){
-          this.routines.push(data[0].results[i]);
-        }
-      });
+      this.getRoutines();
       
       
     },
     updated(){
+      this.getRoutines();
     }
   }
 </script>
