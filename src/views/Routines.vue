@@ -46,51 +46,79 @@
                 </span>
               </span>
             </v-card-title>
-            
             <v-card-text class="white--text" >
               <v-container>
                 <v-row>
-                  <v-col cols="12" sm="4" >
-                    <v-select :items="['Upper body', 'Middle body', 'Lower mody', 'maxi sos gay?']" label="Body area*" required ></v-select>
-                  </v-col>
-                  <v-col cols="12" sm="4" >
-                    <v-text-field label="Qty." required>
+                  <v-col cols="12">
+                    <v-text-field label="New Routine" required>
                     </v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="4" >
-                    <v-select :items="['Time', 'Reps']" label="Type of exercise*" required >
+                  <v-col cols="12">
+                    <v-select :items="categories" label="Category" required >
                     </v-select>
                   </v-col>
                   <v-col cols="12">
                     <v-select :items="workout_level" label="Difficulty" required >
                     </v-select>
                   </v-col>
-                  <v-col cols="12">
-                    <v-text-field label="Add image" required>
-                    </v-text-field>
-                  </v-col>
-                  <v-col cols="12">
-                    <v-text-field label="Add description" required>
-                    </v-text-field>
-                  </v-col>
-                  
                 </v-row>
               </v-container>
               <small>*indicates required field</small>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="white" text @click="dialog = false" >
+              <v-btn color="white" text @click="dialog = false">
                 Cancel
               </v-btn>
-              <v-btn color="white" text @click="dialog = false" >
-                Accept
+              <v-btn color="white" text  @click="dialog5 = true; dialog = false" >
+                Add exercises
               </v-btn>
             </v-card-actions>  
           </v-card>
           </v-dialog>
       </v-col>
       </div>
+      <div style="float: right; margin-right: 70px; margin-top: 5px;">
+        <v-col cols="12" md="3">
+        <v-dialog v-model="dialog5" width="500" :visible="false">
+        <v-card color="#2d4059">
+            <v-card-title  color="white" >
+              <span class="white--text">
+                <span class="headline">Add exercices
+                </span>
+              </span>
+            </v-card-title>
+            <v-card-text class="white--text" >
+              <v-container>
+                <v-row>
+                  <v-col cols="12">
+                    <v-text-field label="New Routine" required>
+                    </v-text-field>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-select :items="categories" label="Category" required >
+                    </v-select>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-select :items="workout_level" label="Difficulty" required >
+                    </v-select>
+                  </v-col>
+                </v-row>
+              </v-container>
+              <small>*indicates required field</small>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="white" text @click="dialog5 = false">
+                Cancel
+              </v-btn>
+              <v-btn color="white" text @click="dialog5 = false" >
+                Accept
+              </v-btn>
+            </v-card-actions>  
+          </v-card>
+          </v-dialog>
+      </v-col>
       </div>
       <br style="clear: both;">
     <v-dialog v-model="dialog2" width="500">
@@ -159,6 +187,7 @@
       </v-card>
       </v-dialog>
     </div>
+    </div>
   </div>
   
 </template>
@@ -171,6 +200,39 @@
       return {
         dialog: false,
         dialog2: false,
+        slides: [
+          'Squats',
+          'Planks',
+          'Burpees',
+          'Crunches',
+          'Sit Ups',
+        ],
+        bodyparts: [
+          '20 Reps',
+          '30 Secs',
+          '10 Reps',
+          '10 Reps',
+          '25 Reps',
+        ],
+        workout_type: [
+          'Legs',
+          'Abs',
+          'Legs',
+          'Abs',
+          'Arms'
+        ],
+        workout_level: [
+          'Begginer',
+          'Intermediate',
+          'Expert',
+          'Intermediate',
+          'Expert'
+        ],
+        categories: [
+          'Category 1',
+          'Category 2',
+          'Category 3',
+        ],
         routines: [],
         user: null,
          links: [
