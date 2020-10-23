@@ -28,8 +28,8 @@ class UserApi {
         return await Api.put(`${UserApi.url}/current`, true, new InfoProfile(user, password, fullname, email), true);
       }
 
-    static async get() {
-        return await Api.get(`${UserApi.url}/cuurent`,true,  true);
+    static async get(controller) {
+        return await Api.get(`${UserApi.url}/current`,true, controller);
     }
 
     static async getuser(id, controller){

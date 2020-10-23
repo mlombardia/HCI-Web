@@ -183,16 +183,22 @@
     methods: {
     },
     created(){
-      
-      // UserApi.getuser(1).then(data=>{
-      //   this.user = data;
-      //   window.alert(JSON.stringify(this.user));
-      // });
-      UserApi.getUserRoutines().then(data=>{
+      var data = UserApi.getUserRoutines();
+       UserApi.getuser(1).then(data=>{
+         this.user = data;
+        window.alert(JSON.stringify(this.user));
+       });
+      /*UserApi.getUserRoutines().then(data=>{
         for(var i = 0; i < data[0].totalCount; i++){
           this.routines.push(data[0].results[i]);
         }
-      });
+      });*/
+
+      if (data != null){
+        for(var i=0; i < data[0].totalCount; i++){
+          this.routines.push(data[0].results[i]);
+        }
+      }
       
       
     },

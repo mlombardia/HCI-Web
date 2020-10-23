@@ -177,7 +177,9 @@
 
 <script>
   //import {SportApi} from '@/sport'
-  import {Api} from '@/api'
+  //import {Api} from '@/api'
+  import {ExercisesApi} from '@/exercises'
+  //import {UserApi} from '@/user'
   export default {
     data () {
       return {
@@ -190,6 +192,8 @@
         ],*/
         dialog: false,
         dialog2: false,
+        routine: null,
+        exercises: null,
         slides: [
           'Squats',
           'Planks',
@@ -226,9 +230,73 @@
       }
     },
     created(){
+      this.addExercise();
+      //const result = ExercisesApi.getExercises();
+      //window.alert(Api.token);
+      //window.alert(JSON.stringify(ExercisesApi.getExercises()));}
+      
+      var data = ExercisesApi.getExercises();
+       ExercisesApi.getExercises().then(data=>{
+        this.routine = data;
+        window.alert(JSON.stringify(this.routine.results));
+       });
+      /*var data = UserApi.get();
+       UserApi.get().then(data=>{
+         this.user = data;
+        window.alert(JSON.stringify(this.user));
+       });*/
 
-      window.alert(Api.token);     
+      if (data != null){
+        for(var i=0; i < data[0].totalCount; i++){
+          this.exercises.push(data[0].results[i]);
+        }
+      }
+
+      /*var response = UserApi.get();
+      this.user = response
+      window.alert(JSON.stringify(this.user));*/
+      /*UserApi.get().then(data=>{
+         this.user = data;
+        window.alert(JSON.stringify(this.user));
+       });*/
+      
+      
+      /*var response = UserApi.get();
+      UserApi.get().then(window.alert(JSON.stringify()))
+      window.alert(JSON.stringify(UserApi.get()));*/     
+    },
+    methods:{
+      addExercise(){
+        ExercisesApi.add("asd", "asd", "exercise", 30, 0);
+      },
+      editExercise(){
+        ExercisesApi.udpateExercise()
+      }
     }
   }
 </script>
 
+<!--
+
+FORMATO DEL JSON :
+
+{
+  "name": "Jumping Jacks",
+  "detail": "Jumping Jacks",
+  "type": "exercise",
+  "duration": 30,
+  "repetitions": 0
+}
+
+ -->
+
+
+ <!--
+
+ANTES DE EJECUTARSE: jj, cr, asd
+
+AGREGO asd (ya esta)
+
+MODIFICAR ALGUN EJ
+
+ -->

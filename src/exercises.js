@@ -1,31 +1,31 @@
-import { Api } from '/api.js'
+import { Api } from './api.js'
 
 export { ExercisesApi, Exercise, Exercises, FullExercise };
 
 class ExercisesApi {
     static get url(){
-        return `${Api.baseUrl}/routines/${routineId}/cycles/${cycleId}/exercises`;
+        return `${Api.baseUrl}/routines/1/cycles/1/exercises`;
     }
 
-    static async add(data, controller){
-        return await Api.post(ExercisesApi.url, true, data, controller);
+    static async add(name, detail, type, duration, repetitions, controller){
+        return await Api.post(ExercisesApi.url, true, new Exercise(name, detail, type, duration, repetitions), controller); //ExercisesApi.add(["Jumping Jacks", "Jumping Jacks", "exercise", 30, 0])
     }
     
     static async getExercises(controller){
         return await Api.get(ExercisesApi.url, true, controller);
     }
 
-    static async getExercise(id, controller){
+    /*static async getExercise(id, controller){
         return await Api.get(`${ExercisesApi.url}/${id}`, true, controller);
+    }*/
+
+    static async updateExercise(fullexercise, controller){
+        return await Api.put(`${ExercisesApi.url}/${fullexercise.id}`, true, fullexercise, controller);
     }
 
-    static async updateExercise(exercise, controller){
-        return await Api.put(`${ExercisesApi.url}/${id}`, true, exercise, controller);
-    }
-
-    static async deleteExercise(id, controller){
+    /*static async deleteExercise(id, controller){
         return await Api.delete(`${ExercisesApi.url}/${id}`, true, controller);
-    }
+    }*/
 }
 
 class Exercises {

@@ -152,6 +152,19 @@
         avatarUrl: "https://flic.kr/p/3ntH2u",
       }
     },
+    created(){
+    var data = UserApi.get();
+       UserApi.get().then(data=>{
+         this.user = data;
+        window.alert(JSON.stringify(this.user));
+       });
+
+      if (data != null){
+        for(var i=0; i < data[0].totalCount; i++){
+          this.routines.push(data[0].results[i]);
+        }
+      }
+  },
     changeInfo(){
       UserApi.modify(this.user, this.password, this.fullName, this.email, true)
     }
