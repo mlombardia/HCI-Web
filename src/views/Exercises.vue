@@ -91,14 +91,19 @@
    </v-col>
 
    <div align="center">
+     <!-- { "id": 2, "name": "Crunches", "detail": "Crunches", "type": "exercise", "duration": 30, "repetitions": 0, "order": 2 } -->
+     
+      <p></p>
      <v-dialog v-model="dialog2" width="500">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn v-for="(i,j) in slides" :key="i" class="my-6" color="#2d4059" dark width="1000px" height="100px" elevation="2" v-bind="attrs" v-on="on" rounded>
+        <v-btn v-for="exercise in exercises" :key="exercise.id" class="my-6" color="#2d4059" dark width="1000px" height="100px" elevation="2" v-bind="attrs" v-on="on" rounded>
           <v-row>
-            <v-col>{{i}}</v-col>
-            <v-col>{{bodyparts[j]}}</v-col>
-            <v-col>{{workout_type[j]}}</v-col>
-            <v-col>{{workout_level[j]}}</v-col>
+            <v-col>{{exercise.id}}</v-col>
+            <v-col>{{exercise.name}}</v-col>
+            <v-col>{{exercise.detail}}</v-col>
+            <v-col>{{exercise.type}}</v-col>
+            <v-col>{{exercise.duration}}</v-col>
+            <v-col>{{exercise.repetitions}}</v-col>
           </v-row>
         </v-btn>
       </template>
@@ -230,15 +235,16 @@
       }
     },
     created(){
-      this.addExercise();
+      //this.addExercise();
       //const result = ExercisesApi.getExercises();
       //window.alert(Api.token);
       //window.alert(JSON.stringify(ExercisesApi.getExercises()));}
       
-      var data = ExercisesApi.getExercises();
        ExercisesApi.getExercises().then(data=>{
+        //eslint-disable-next-line
+        console.log(data);
         this.routine = data;
-        window.alert(JSON.stringify(this.routine.results));
+        this.exercises = data.results;
        });
       /*var data = UserApi.get();
        UserApi.get().then(data=>{
@@ -246,11 +252,11 @@
         window.alert(JSON.stringify(this.user));
        });*/
 
-      if (data != null){
+      /*if (data != null){
         for(var i=0; i < data[0].totalCount; i++){
           this.exercises.push(data[0].results[i]);
         }
-      }
+      }*/
 
       /*var response = UserApi.get();
       this.user = response
@@ -263,14 +269,18 @@
       
       /*var response = UserApi.get();
       UserApi.get().then(window.alert(JSON.stringify()))
-      window.alert(JSON.stringify(UserApi.get()));*/     
+      window.alert(JSON.stringify(UserApi.get()));*/
+
     },
     methods:{
       addExercise(){
         ExercisesApi.add("asd", "asd", "exercise", 30, 0);
       },
-      editExercise(){
+      /*editExercise(){
         ExercisesApi.udpateExercise()
+      }*/
+      deleteExcercise(){
+        ExercisesApi.deleteExercise(6);
       }
     }
   }

@@ -12,20 +12,20 @@ class ExercisesApi {
     }
     
     static async getExercises(controller){
-        return await Api.get(ExercisesApi.url, true, controller);
+        return Api.get(ExercisesApi.url, true, controller);
+    }
+
+    static async updateExercise(fullexercise, controller){
+        return await Api.put(`${ExercisesApi.url}/${fullexercise.id}`, true, fullexercise, controller);
     }
 
     /*static async getExercise(id, controller){
         return await Api.get(`${ExercisesApi.url}/${id}`, true, controller);
     }*/
 
-    static async updateExercise(fullexercise, controller){
-        return await Api.put(`${ExercisesApi.url}/${fullexercise.id}`, true, fullexercise, controller);
-    }
-
-    /*static async deleteExercise(id, controller){
+    static async deleteExercise(id, controller){
         return await Api.delete(`${ExercisesApi.url}/${id}`, true, controller);
-    }*/
+    }
 }
 
 class Exercises {
