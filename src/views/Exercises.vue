@@ -1,3 +1,14 @@
+<style>
+  .v-label { 
+    color: white !important;
+  }
+  .v-select__selection {
+    color: white !important;
+  }
+  input {
+    color: white !important;
+  }
+</style>
 <template>
   
   <body>
@@ -23,11 +34,11 @@
    <v-col cols="12" md="3">
      <v-dialog v-model="dialog" width="500">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn class="white--text" style="margin-left: 1100px;" color="#AB47BC" elevation="2" rounded v-bind="attrs" v-on="on" >New exercise
+        <v-btn class="white--text" style="margin-left: 1100px;" color="#F06292" elevation="2" rounded v-bind="attrs" v-on="on" >New exercise
           <v-icon >mdi-plus</v-icon>
         </v-btn>
       </template>
-     <v-card color="#AB47BC">
+     <v-card color="#2d4059">
         <v-card-title  color="white" >
           <span class="white--text">
             <span class="headline">Add new exercise
@@ -39,7 +50,7 @@
           <v-container>
             <v-row>
               <v-col cols="12" sm="4" >
-                <v-select :items="['Upper body', 'Middle body', 'Lower mody', 'maxi sos gay?']" label="Body area*" required ></v-select>
+                <v-select :items="['Upper body', 'Middle body', 'Lower mody']" label="Body area*" required ></v-select>
               </v-col>
               <v-col cols="12" sm="4" >
                 <v-text-field label="Qty." required>
@@ -91,7 +102,7 @@
           </v-row>
         </v-btn>
       </template>
-      <v-card color="#AB47BC">
+      <v-card color="#2d4059">
         <v-card-title  color="white" >
           <span class="white--text">
           <span class="headline">Exercise details</span>
@@ -165,7 +176,10 @@
 </template>
 
 <script>
-  import {SportApi} from '@/sport'
+  //import {SportApi} from '@/sport'
+  //import {Api} from '@/api'
+  import {ExercisesApi} from '@/exercises'
+  //import {UserApi} from '@/user'
   export default {
     data () {
       return {
@@ -178,6 +192,8 @@
         ],*/
         dialog: false,
         dialog2: false,
+        routine: null,
+        exercises: null,
         slides: [
           'Squats',
           'Planks',
@@ -214,9 +230,73 @@
       }
     },
     created(){
+      this.addExercise();
+      //const result = ExercisesApi.getExercises();
+      //window.alert(Api.token);
+      //window.alert(JSON.stringify(ExercisesApi.getExercises()));}
+      
+      var data = ExercisesApi.getExercises();
+       ExercisesApi.getExercises().then(data=>{
+        this.routine = data;
+        window.alert(JSON.stringify(this.routine.results));
+       });
+      /*var data = UserApi.get();
+       UserApi.get().then(data=>{
+         this.user = data;
+        window.alert(JSON.stringify(this.user));
+       });*/
 
-      window.alert(SportApi.url);     
+      if (data != null){
+        for(var i=0; i < data[0].totalCount; i++){
+          this.exercises.push(data[0].results[i]);
+        }
+      }
+
+      /*var response = UserApi.get();
+      this.user = response
+      window.alert(JSON.stringify(this.user));*/
+      /*UserApi.get().then(data=>{
+         this.user = data;
+        window.alert(JSON.stringify(this.user));
+       });*/
+      
+      
+      /*var response = UserApi.get();
+      UserApi.get().then(window.alert(JSON.stringify()))
+      window.alert(JSON.stringify(UserApi.get()));*/     
+    },
+    methods:{
+      addExercise(){
+        ExercisesApi.add("asd", "asd", "exercise", 30, 0);
+      },
+      editExercise(){
+        ExercisesApi.udpateExercise()
+      }
     }
   }
 </script>
 
+<!--
+
+FORMATO DEL JSON :
+
+{
+  "name": "Jumping Jacks",
+  "detail": "Jumping Jacks",
+  "type": "exercise",
+  "duration": 30,
+  "repetitions": 0
+}
+
+ -->
+
+
+ <!--
+
+ANTES DE EJECUTARSE: jj, cr, asd
+
+AGREGO asd (ya esta)
+
+MODIFICAR ALGUN EJ
+
+ -->

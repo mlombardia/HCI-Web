@@ -1,3 +1,14 @@
+<style>
+  .v-label { 
+    color: white !important;
+  }
+  .v-select__selection {
+    color: white !important;
+  }
+  input {
+    color: white !important;
+  }
+</style>
 <template>
 <body>
     <h1>This is the profile page</h1>
@@ -10,15 +21,16 @@
          <v-avatar size="102">
             <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John">
           </v-avatar>
-           <h2 class="white--text"> Marcelo Gallardo </h2>
-           <h3 class="white--text"> 28 years old </h3>
-           <h3 class="white--text"> 78 kg </h3>
-           <h3 class="white--text"> 182 cm </h3>
+            <h2 class="white--text"> {{ response.user }} </h2>
+           <h3 class="white--text"> {{ response.password }} </h3>
+           <h3 class="white--text"> {{ response.fullname }} </h3>
+           <h3 class="white--text"> {{ response.gender }} </h3>
+           <h3 class="white--text"> {{ response.email }} </h3>
               
         <v-col cols="12">
         <v-dialog v-model="dialog" width="500">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn class="white--text" color="#AB47BC" elevation="2" rounded v-bind="attrs" v-on="on" >Edit
+            <v-btn class="white--text" color="#F06292" elevation="2" rounded v-bind="attrs" v-on="on" >Edit
               <v-icon>fas fa-edit</v-icon>
               </v-btn>
          </template>
@@ -33,19 +45,19 @@
           <v-container>
             <v-row>
               <v-col cols="12">
-                <v-text-field label="Name" required>
+                <v-text-field label="FullName"  v-model="fullNameChange" required>
                 </v-text-field>
               </v-col>
               <v-col cols="12">
-                <v-text-field label="Age" required>
+                <v-text-field label="User"  v-model="usernameChange" required>
                 </v-text-field>
               </v-col>
                <v-col cols="12">
-                <v-text-field label="Weight" required>
+                <v-text-field label="Password"  v-model="passwordChange" required>
                 </v-text-field>
               </v-col>
                <v-col cols="12">
-                <v-text-field label="Height" required>
+                <v-text-field label="Email"  v-model="emailChange" required>
                 </v-text-field>
               </v-col>
             </v-row>
@@ -56,7 +68,7 @@
           <v-btn color="white" text @click="dialog = false" >
             Cancel
           </v-btn>
-          <v-btn color="white" text @click="dialog = false" >
+          <v-btn color="white" text @click="changeInfo" >
             Save
           </v-btn>
         </v-card-actions>
@@ -79,7 +91,7 @@
            <v-col cols="12" md="3">
      <v-dialog v-model="dialog" width="500">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn class="white--text" color="#AB47BC" elevation="2" rounded v-bind="attrs" v-on="on" >
+        <v-btn class="white--text" color="#F06292" elevation="2" rounded v-bind="attrs" v-on="on" >
           Edit
         </v-btn>
        </template>
@@ -106,7 +118,7 @@
           <v-btn color="white" text @click="dialog = false" >
             Cancel
           </v-btn>
-          <v-btn color="white" text @click="dialog = false" >
+          <v-btn color="white" text @click="changeInfo" >
             Save
           </v-btn>
         </v-card-actions>
@@ -129,12 +141,36 @@
   export default {
     data () {
       return {
-        aboutme: '',
+        response: '',
+        user: null,
+        password: null,
+        fullName: null,
+        gender: "other",
+        birthdate: 1,
+        email: null,
+        phone: 2,
+        avatarUrl: "https://flic.kr/p/3ntH2u",
       }
     },
     created(){
-      UserApi.signup(this.user, this.psw1)
-      UserApi.sendEmail(this.email)
+    var data = UserApi.get();
+       UserApi.get().then(data=>{
+         this.user = data;
+        window.alert(JSON.stringify(this.user));
+       });
+
+      if (data != null){
+        for(var i=0; i < data[0].totalCount; i++){
+          this.routines.push(data[0].results[i]);
+        }
+      }
+  },
+    changeInfo(){
+      UserApi.modify(this.user, this.password, this.fullName, this.email, true)
     }
   }
 </script>
+
+
+
+              
