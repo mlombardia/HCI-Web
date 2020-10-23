@@ -46,7 +46,7 @@ input {
             rounded
             v-bind="attrs"
             v-on="on"
-            @click="addExercise()"
+            @click="addExercise"
             >New exercise
             <v-icon>mdi-plus</v-icon>
           </v-btn>
