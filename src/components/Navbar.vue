@@ -47,7 +47,7 @@
 
       <v-btn icon>
         <a href="/profile">
-        <v-avatar color="#AB47BC">
+        <v-avatar color="#F06292">
           <span class="white--text headline">MG</span>
         </v-avatar>
         </a>
@@ -70,7 +70,7 @@ export default {
       
     ],
     views: [
-      { text: 'Routines', route: '/routines'},
+      { text: 'My routines', route: '/routines'},
       { text: 'Exercises', route: '/exercises'},
       { text: 'Favourites', route: '/favourites'},
     ]
