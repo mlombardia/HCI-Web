@@ -47,8 +47,8 @@
     },
     methods: {
         login(){
-            UserApi.login(this.username, this.password);
-            window.alert(Api.token);
+           UserApi.login(this.username, this.password);
+           window.alert(Api.token);
         }
     },
     created(){    

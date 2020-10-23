@@ -10,6 +10,7 @@ class UserApi {
     static async login(user, password) {
         const result = await Api.post(`${UserApi.url}/login`, false, new Credentials(user, password), true);
         Api.token = result.token;
+        return result.token;
     }
 
     static async logout(controller) {
@@ -29,6 +30,14 @@ class UserApi {
 
     static async get() {
         return await Api.get(`${UserApi.url}/cuurent`,true,  true);
+    }
+
+    static async getuser(id, controller){
+        return await Api.get(`${UserApi.url}/${id}`, true, controller);
+    }
+
+    static async getUserRoutines(controller){
+        return await Api.get(`${UserApi.url}/current/routines/`, true, controller);
     }
 }
 

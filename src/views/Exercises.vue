@@ -10,6 +10,7 @@
   }
 </style>
 <template>
+  
   <body>
     <div class="exercises">
        <h1 align="center" style="margin-top: 15px;">Exercises</h1>
