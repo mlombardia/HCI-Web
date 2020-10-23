@@ -95,12 +95,12 @@
       <br style="clear: both;">
     <v-dialog v-model="dialog2" width="500">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn v-for="(i,j) in slides" :key="i" class="my-6" color="#2d4059" dark width="1000px" height="100px" elevation="2" v-bind="attrs" v-on="on" rounded>
+        <v-btn v-for="i in routines" :key="i" class="my-6" color="#2d4059" dark width="1000px" height="100px" elevation="2" v-bind="attrs" v-on="on" rounded>
             <v-row>
-              <v-col>{{i}}</v-col>
-              <v-col>{{bodyparts[j]}}</v-col>
-              <v-col>{{workout_type[j]}}</v-col>
-              <v-col>{{workout_level[j]}}</v-col>
+              <v-col>{{i.category.name}}</v-col>
+              <v-col>{{i.difficulty}}</v-col>
+              <v-col>{{i.name}}</v-col>
+              <v-col>{{i.averageRating}}</v-col>
             </v-row>
           </v-btn>
         </template>
@@ -160,49 +160,19 @@
       </v-dialog>
     </div>
   </div>
+  
 </template>
 
 <script>
+  // import {RoutinesApi} from '@/routines'
+  import {UserApi} from '@/user'
   export default {
     data () {
       return {
-       /* colors: [
-          'indigo',
-          'warning',
-          'pink darken-2',
-          'red lighten-1',
-          'deep-purple accent-4',
-        ],*/
         dialog: false,
         dialog2: false,
-        slides: [
-          'Squats',
-          'Planks',
-          'Burpees',
-          'Crunches',
-          'Sit Ups',
-        ],
-        bodyparts: [
-          '20 Reps',
-          '30 Secs',
-          '10 Reps',
-          '10 Reps',
-          '25 Reps',
-        ],
-        workout_type: [
-          'Legs',
-          'Abs',
-          'Legs',
-          'Abs',
-          'Arms'
-        ],
-        workout_level: [
-          'Begginer',
-          'Intermediate',
-          'Expert',
-          'Intermediate',
-          'Expert'
-        ],
+        routines: [],
+        user: null,
          links: [
       { icon: 'name', text: 'Name', route: '/exercises'},
       { icon: 'Body section', text: 'Body section', route: '/'},
@@ -210,7 +180,23 @@
     ],
       }
     },
-    created(){  
+    methods: {
+    },
+    created(){
+      
+      // UserApi.getuser(1).then(data=>{
+      //   this.user = data;
+      //   window.alert(JSON.stringify(this.user));
+      // });
+      UserApi.getUserRoutines().then(data=>{
+        for(var i = 0; i < data[0].totalCount; i++){
+          this.routines.push(data[0].results[i]);
+        }
+      });
+      
+      
+    },
+    updated(){
     }
   }
 </script>
