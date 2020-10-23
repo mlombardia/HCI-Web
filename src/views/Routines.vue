@@ -58,6 +58,12 @@
                     </v-text-field>
                   </v-col>
                   <v-col cols="12">
+                  <label for="public" style="margin-right: 20px;">Public</label>
+                  <input type="radio" value="true" v-model="isPublic" style="top: 2px; position: relative;">
+                  <label for="private" style="margin-left: 100px; margin-right: 20px;">Private</label>
+                  <input type="radio" value="false" v-model="isPublic" style="top: 2px; position: relative;">
+                  </v-col>
+                  <v-col cols="12">
                     <v-select v-model="category" :items="categories" item-value="id" item-text="name" label="Category">
                     </v-select>
                   </v-col>
@@ -148,10 +154,10 @@
     data: () => ({
      
         dialog: false,
-        dialog2: false,
         dialog5: false,
         routines: [],
         user: null,
+        isPublic: null,
         cant: 0,
          links: [
           { icon: 'name', text: 'Name', route: '/exercises'},
@@ -200,8 +206,7 @@
       getRoutines(){
         UserApi.getUserRoutines().then(data=>{
           for(var i = 0; i < data.totalCount; i++){
-            this.routines.push(data.results[i]);
-            this.cant++;
+            this.routines = data.results;
           }
         });
       },
@@ -224,14 +229,14 @@
         var data = {
           name: this.routineName,
           detail: this.routineDetail,
-          isPublic: true,
+          isPublic: this.isPublic,
           difficulty: this.difficulty,
           category: {
-            id: this.category
+            id: parseInt(this.category)
           }
         }
-        this.dialog = false;
         RoutinesApi.add(data);
+        this.dialog = false;
       }
     },
     created(){
@@ -248,16 +253,17 @@
       // CategoriesApi.add({"name": "Legs", "detail": "Legs"});
       // CategoriesApi.add({"name": "Middle Body", "detail": "Middle Body"});
       // CategoriesApi.add({"name": "Upper Body", "detail": "Upper Body"});
-      this.getAllRoutines();
+      this.getRoutines();
+      
       this.getCategories();
       
       
       
     },
     updated(){
-      //this.getAllRoutines();
+      this.getRoutines();
       this.getCategories();
-      //window.alert(JSON.stringify(this.routines));
+      //window.alert(this.routines.length);
     }
   }
 </script>
