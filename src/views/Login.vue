@@ -1,3 +1,14 @@
+<style>
+  .v-label { 
+    color: white !important;
+  }
+  .v-select__selection {
+    color: white !important;
+  }
+  input {
+    color: white !important;
+  }
+</style>
 <template>
   <body>
     <div align="center" >

@@ -22,11 +22,30 @@ class UserApi {
         Api.token = undefined;
         return result;
     }
+    
+    static async modify(user, password, fullname, email) {
+        return await Api.put(`${UserApi.url}/current`, true, new InfoProfile(user, password, fullname, email), true);
+      }
+
+    static async get() {
+        return await Api.get(`${UserApi.url}/cuurent`,true,  true);
+    }
 }
 
 class Credentials {
     constructor(username, password) {
         this.username = username;
         this.password = password;
+    }
+}
+
+class InfoProfile {
+    constructor(user, password, fullname, email){
+        this.user = user;
+        this.password = password;
+        this.fullname = fullname;
+        this.email = email;
+        this.birthday = 1;
+        this.gender = "other";
     }
 }
