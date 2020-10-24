@@ -238,55 +238,43 @@
               this.routineDetail = this.routin.detail;
               this.getCycles();
               this.getAllExercises();
-              this.getCyclesExercises();
             },
             methods: {
               hola(){
                 window.alert("hola");
               },
               removeExerciseW(exercise){
-                ExercisesApi.deleteExercise(this.routin.id, this.cycles[0], exercise.id);
-                window.alert(this.addedExercisesWarmup.indexOf(exercise));
+                ExercisesApi.deleteExercise(this.routin.id, parseInt(this.cycles[0].id), exercise.id);
+                //window.alert(this.addedExercisesWarmup.indexOf(exercise));
                 this.addedExercisesWarmup.splice(this.addedExercisesWarmup.indexOf(exercise),1);
               },
               removeExerciseE(exercise){
-                ExercisesApi.deleteExercise(this.routin.id, this.cycles[0], exercise.id);
+                ExercisesApi.deleteExercise(this.routin.id, parseInt(this.cycles[1].id), exercise.id);
                 this.addedExercisesExercise.splice(this.addedExercisesExercise.indexOf(exercise),1);
               },
               removeExerciseC(exercise){
-                ExercisesApi.deleteCooldown(this.routin.id, this.cycles[0], exercise.id);
+                ExercisesApi.deleteExercise(this.routin.id, parseInt(this.cycles[2].id), exercise.id);
                 this.addedExercisesCooldown.splice(this.addedExercisesCooldown.indexOf(exercise),1);
-              },
-              getCyclesExercises(){
-                this.cycles.forEach(element => ExercisesApi.getExercises(this.routin.id, element.id).then(data => { 
-                  if(this.cycles[0].id == element.id){
-  
-                    this.addedExercisesWarmup = data.results;
-                  }
-                  else if(this.cycles[1].id == element.id){
-                    this.addedExercisesExercise = data.results;
-                  }
-                  else {
-                    this.addedExercisesCooldown = data.results;
-                  }
-                }))
               },
               addExercice(exercise){
                    if(this.cycle == this.cycles[0].id){
+                        exercise.add = true;
                         this.addedExercisesWarmup.push(exercise);
                    }
                    else if(this.cycle == this.cycles[1].id){
+                     exercise.add = true;
                      this.addedExercisesExercise.push(exercise);
                    }
                    else{
+                     exercise.add = true;
                     this.addedExercisesCooldown.push(exercise);
                    }
                },
               addExercisesToCycles(){
-                this.addedExercisesWarmup.forEach(element => ExercisesApi.add(this.routin.id, this.cycles[0].id, element.name, element.detail, element.type, element.duration, element.repetitions));
-                this.addedExercisesExercise.forEach(element => ExercisesApi.add(this.routin.id, this.cycles[1].id, element.name, element.detail, element.type, element.duration, element.repetitions));
-                this.addedExercisesCooldown.forEach(element => ExercisesApi.add(this.routin.id, this.cycles[2].id, element.name, element.detail, element.type, element.duration, element.repetitions));
-                this.dialog4 = false; 
+                this.addedExercisesWarmup.forEach(element => {if(element.add){ ExercisesApi.add(this.routin.id, parseInt(this.cycles[0].id), element.name, element.detail, element.type, element.duration, element.repetitions); element.add = false;}});
+                this.addedExercisesExercise.forEach(element => {if(element.add){ ExercisesApi.add(this.routin.id, parseInt(this.cycles[1].id), element.name, element.detail, element.type, element.duration, element.repetitions); element.add = false;}});
+                this.addedExercisesCooldown.forEach(element => {if(element.add){ ExercisesApi.add(this.routin.id, parseInt(this.cycles[2].id), element.name, element.detail, element.type, element.duration, element.repetitions); element.add = false;}});
+                this.dialog4 = false;
               },
               getAllExercises(){
               ExercisesApi.getExercises(1,1).then(data=>{
@@ -297,7 +285,7 @@
                 var data = {
                     name: this.routineName,
                     detail: this.routineDetail,
-                    isPublic: this.isPublic,
+                    isPublic: this.isPublic == "true" ? true : false,
                     difficulty: this.difficulty,
                     category: {
                       id: parseInt(this.category)
@@ -309,11 +297,11 @@
               },
               deleteRoutine(){
                 this.cycles.forEach(cycle=>{
-                  ExercisesApi.getExercises(this.routin.id, cycle.id).then(data=>{
+                  ExercisesApi.getExercises(this.routin.id, parseInt(cycle.id)).then(data=>{
                     var exers = data.results;
-                    exers.forEach(ex=> ExercisesApi.deleteExercise(this.routin.id, cycle.id, ex.id));
+                    exers.forEach(ex=> ExercisesApi.deleteExercise(this.routin.id, parseInt(cycle.id), parseInt(ex.id)));
                   });
-                  CyclesApi.deleteCycle(this.routin.id, cycle.id);
+                  CyclesApi.deleteCycle(this.routin.id, parseInt(cycle.id));
                 });
                 RoutinesApi.deleteRoutine(this.routin.id);
                 this.dialog3 = false;
@@ -335,6 +323,21 @@
                     this.cycles = data.results;
                   }
                   this.cycle = this.cycles[0].id;
+                  this.cycles.forEach(element => ExercisesApi.getExercises(this.routin.id, element.id).then(data => { 
+                  if(this.cycles[0].id == element.id){
+                    this.addedExercisesWarmup = data.results;
+                    this.addedExercisesWarmup.forEach(elem=> elem["add"]=false)
+                  }
+                  else if(this.cycles[1].id == element.id){
+                    this.addedExercisesExercise = data.results;
+                    this.addedExercisesExercise.forEach(elem=> elem["add"]=false)
+                  }
+                  else {
+                    this.addedExercisesCooldown = data.results;
+                    this.addedExercisesCooldown.forEach(elem=> elem["add"]=false)
+                  }
+                  //window.alert(this.addedExercisesWarmup.length);
+                }));
                 });
               }
             }

@@ -349,6 +349,7 @@ LADO DERECHO
     updated(){
       this.getCategories();
       this.getRoutines();
+      this.getAllExercises();
       //window.alert(this.routines.length);
     }
   }
