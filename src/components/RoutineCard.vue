@@ -233,8 +233,7 @@
             methods: {
               getAllExercises(){
               ExercisesApi.getExercises().then(data=>{
-              window.alert(data.totalCount);
-              this.allExercises = data.results;
+                this.allExercises = data.results;
         });
       },
               editRoutine(){
@@ -252,7 +251,13 @@
                   this.dialog2 = false;
               },
               deleteRoutine(){
-
+                this.cycles.forEach(cycle=>{
+                  ExercisesApi.getExercises(this.routin.id, cycle.id).then(data=>{
+                    var exers = data.results;
+                    exers.forEach(ex=> ExercisesApi.deleteExercise(this.routin.id, cycle.id, ex.id));
+                  });
+                  CyclesApi.deleteCycle(this.routin.id, cycle.id);
+                });
                 RoutinesApi.deleteRoutine(this.routin.id);
                 this.dialog3 = false;
                 this.dialog2 = false;
