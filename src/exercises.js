@@ -4,7 +4,7 @@ export { ExercisesApi, Exercise, Exercises, FullExercise };
 
 class ExercisesApi {
     static get url(){
-        return `${Api.baseUrl}/routines/1/cycles/1/exercises`;
+        return `${Api.baseUrl}/routines/1/cycles/1/exercises`; //para la rut 1 cicl 1 es `${Api.baseUrl}/routines/1/cycles/1/exercises`;
     }
 
     static async add(name, detail, type, duration, repetitions, controller){
@@ -19,9 +19,9 @@ class ExercisesApi {
         return await Api.put(`${ExercisesApi.url}/${id}`, true, data, controller);
     }
 
-    /*static async getExercise(id, controller){
-        return await Api.get(`${ExercisesApi.url}/${id}`, true, controller);
-    }*/
+    static async getExercise(id, controller){
+        return Api.get(`${ExercisesApi.url}/${id}`, true, controller);
+    }
 
     static async deleteExercise(id, controller){
         return await Api.delete(`${ExercisesApi.url}/${id}`, true, controller);

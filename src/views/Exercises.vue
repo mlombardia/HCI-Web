@@ -272,6 +272,15 @@ export default {
     },
     opendialog(exercise) {
       this.currentId = exercise.id;
+      ExercisesApi.getExercise(parseInt(this.currentId)).then((data) => {
+      //eslint-disable-next-line
+      console.log("data results", data.results);
+      this.exerciseModiName = data.name;
+      this.exerciseModiDetail = data.detail;
+      this.exerciseModiType = data.type;
+      this.exerciseModiDuration = data.duration;
+      this.exerciseModiRepetitions = data.repetitions;
+    });
       this.dialog2 = true;
       //eslint-disable-next-line
       console.log("EJERCICIO", exercise.id);
