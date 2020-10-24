@@ -59,6 +59,8 @@ LADO IZQUIERDO
     border-radius: 35px;
     background-color: whitesmoke;
     margin-bottom: 4rem;
+    overflow-y:scroll;
+    overflow-x:hidden;
 }
 
 .cancel-btn {
@@ -234,6 +236,39 @@ LADO DERECHO
           </v-dialog>
         </v-col>
       </div>
+      <v-dialog v-model="dialog5" width="500" :visible="false">
+        <v-card color="#2d4059">
+            <v-card-title  color="white" >
+              <span class="white--text">
+                <span class="headline">Exercice Details
+                </span>
+              </span>
+            </v-card-title>
+            <body>
+              <v-container>
+              <v-row>
+                <v-col cols="12">
+                  <v-number-field label="Duration" required>
+                  </v-number-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-number-field label="Repetition" required>
+                  </v-number-field>
+                </v-col>
+              </v-row>
+            </v-container>
+            </body>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="white" text @click="dialog5 = false">
+                Cancel
+              </v-btn>
+              <v-btn color="white" text @click="dialog5 = false" >
+                Accept
+              </v-btn>
+            </v-card-actions>  
+          </v-card>
+          </v-dialog>
       <br style="clear: both;">
       <v-flex v-for="routine in routines" :key="routine.id">
         <RoutineCard v-bind:routine="routine"></RoutineCard>
@@ -249,6 +284,7 @@ LADO DERECHO
   import {UserApi} from '@/user'
   import {CategoriesApi} from '@/categories'
   import {RoutinesApi} from '@/routines'
+  import {ExercisesApi} from '@/exercises'
   import RoutineCard from '../components/RoutineCard.vue'
   import ExerciseCard from '../components/ExerciseCard.vue'
   export default {
@@ -262,6 +298,7 @@ LADO DERECHO
         dialog: false,
         dialog2: false,
         dialog3: false,
+        dialog5: false,
         routines: [],
         allExercises: [],
         user: null,
@@ -313,11 +350,9 @@ LADO DERECHO
     }),
     methods: {
       getAllExercises(){
-        UserApi.getExercises().then(data=>{
-          for(var i = 0; i < data.totalCount; i++){
-            this.allExercises.push(data.results[i]);
-            this.cantExercises++;
-          }
+        ExercisesApi.getExercises().then(data=>{
+          window.alert(data.totalCount);
+          this.allExercises = data.results;
         });
       },
       getRoutines(){
@@ -384,4 +419,6 @@ LADO DERECHO
       //window.alert(this.routines.length);
     }
   }
+  const dialog5=false;
+  export {dialog5}
 </script>
