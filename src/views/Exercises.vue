@@ -68,7 +68,7 @@ input {
                   <v-text-field v-model="exerciseDetail" label="Detail" required> </v-text-field>
                 </v-col>
                 <v-col cols="12">
-                  <v-text-field v-model="exerciseType" label="Type" required></v-text-field>
+                  <v-select v-model="exerciseType" :items="types" label="Type" required ></v-select>
                 </v-col>
                 <v-col cols="12" sm="6">
                   <v-text-field v-model="exerciseDuration" label="Duration" required> </v-text-field>
@@ -131,19 +131,19 @@ input {
               <v-row> </v-row>
               <v-row>
                 <v-col cols="12" >
-                  <v-text-field label="Name" required></v-text-field>
+                  <v-text-field v-model="exerciseModiName" label="Name" required></v-text-field>
                 </v-col>
                 <v-col cols="12">
-                  <v-text-field  label="Detail" required> </v-text-field>
+                  <v-text-field v-model="exerciseModiDetail" label="Detail" required> </v-text-field>
                 </v-col>
                 <v-col cols="12">
-                  <v-text-field  label="Type" required></v-text-field>
+                  <v-select v-model="type" :items="types" label="Type" required ></v-select>
                 </v-col>
                 <v-col cols="12" sm="6">
-                  <v-text-field  label="Duration" required> </v-text-field>
+                  <v-text-field v-model="exerciseModiDuration" label="Duration" required> </v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6">
-                  <v-text-field  label="Repetitions" required></v-text-field>
+                  <v-text-field v-model="exerciseModiRepetitions" label="Repetitions" required></v-text-field>
                 </v-col>
               </v-row>
             </v-container>
@@ -152,7 +152,7 @@ input {
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="white" text @click="dialog2 = false"> Cancel </v-btn>
-            <v-btn color="white" text @click="dialog2 = false"> Save </v-btn>
+            <v-btn color="white" text @click="editExercise"> Save </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -193,9 +193,11 @@ export default {
       dialog2: false,
       routine: null,
       exercises: null,
+      currentId: null,
       slides: ["Squats", "Planks", "Burpees", "Crunches", "Sit Ups"],
       bodyparts: ["20 Reps", "30 Secs", "10 Reps", "10 Reps", "25 Reps"],
       workout_type: ["Legs", "Abs", "Legs", "Abs", "Arms"],
+      types: ["exercise", "rest"],
       workout_level: [
         "Begginer",
         "Intermediate",
@@ -269,10 +271,44 @@ export default {
       ExercisesApi.deleteExercise(id);
     },
     opendialog(exercise) {
+      this.currentId = exercise.id;
+      ExercisesApi.getExercise(parseInt(this.currentId)).then((data) => {
+      //eslint-disable-next-line
+      console.log("data results", data.results);
+      this.exerciseModiName = data.name;
+      this.exerciseModiDetail = data.detail;
+      this.exerciseModiType = data.type;
+      this.exerciseModiDuration = data.duration;
+      this.exerciseModiRepetitions = data.repetitions;
+    });
       this.dialog2 = true;
       //eslint-disable-next-line
       console.log("EJERCICIO", exercise.id);
     },
+    editExercise(){
+         var data = {
+            name: this.exerciseModiName,
+            detail: this.exerciseModiDetail,
+            type: this.exerciseModiType,
+            duration: parseInt(this.exerciseModiDuration),
+            repetitions: parseInt(this.exerciseModiRepetitions)
+          }
+          ExercisesApi.updateExercise(parseInt(this.currentId), data);
+          this.dialog2 = false;
+      },
+    /*modifyExercise(){
+      //eslint-disable-next-line
+      console.log("LOS DATOS SON ",this.exerciseModiName, this.exerciseModiDetail, this.exerciseModiType, this.exerciseModiDuration, this.exerciseModiRepetitions);
+      ExercisesApi.update(3,this.exerciseModiName, this.exerciseModiDetail, this.exerciseModiType, parseInt(this.exerciseModiDuration), parseInt(this.exerciseModiRepetitions)).then((data)=>{
+        var i;
+        for (i = 0; i < this.exercises.length; i++) {
+          if (this.exercises[i].id == 3){
+            this.exercises[i] = data;
+          }
+        } 
+      });
+      this.dialog2 = false;
+    }*/
   },
 };
 </script>

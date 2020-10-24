@@ -21,14 +21,11 @@
           </v-avatar>
           <div>
             
-           <v-row>
-          <v-col class="white--text"><h3>{{ responses.username }} </h3></v-col>
+          <v-row>
+          <v-col class="white--text"><h3> Fullname: {{ responses.fullName }} </h3> </v-col>
           </v-row>
           <v-row>
-          <v-col class="white--text"><h3> {{ responses.fullName }} </h3> </v-col>
-          </v-row>
-          <v-row>
-          <v-col class="white--text"><h3> {{ responses.email }}</h3> </v-col>
+          <v-col class="white--text"><h3> Gender: {{ responses.gender }}</h3> </v-col>
           </v-row>
 
           </div>
@@ -54,13 +51,9 @@
                 <v-text-field label="FullName"  v-model="fullNameChange" required>
                 </v-text-field>
               </v-col>
-              <v-col cols="12">
-                <v-text-field label="User"  v-model="usernameChange" required>
-                </v-text-field>
-              </v-col>
                <v-col cols="12">
-                <v-text-field label="Email"  v-model="emailChange" required>
-                </v-text-field>
+                <v-select :items="['male', 'female', 'other']" label="Gender"  v-model="genderChange" required>
+                </v-select>
               </v-col>
             </v-row>
           </v-container>
@@ -70,7 +63,7 @@
           <v-btn color="white" text @click="dialog = false" >
             Cancel
           </v-btn>
-          <v-btn color="white" text @click="changeInfo" >
+          <v-btn color="white" text @click="editInfo" >
             Save
           </v-btn>
         </v-card-actions>
@@ -91,7 +84,7 @@
 
       <v-col cols="12">
            <v-col cols="12" md="3">
-     <v-dialog v-model="dialog" width="500">
+     <v-dialog v-model="dialog4" width="500">
       <template v-slot:activator="{ on, attrs }">
         <v-btn class="white--text" color="#F06292" elevation="2" rounded v-bind="attrs" v-on="on" >
           Edit
@@ -144,8 +137,19 @@
     data () {
       return {
         responses: null,
-        //fullName
+        usermame: null,
+        password: null,
+        email: null,
+        fullName: null,
       }
+    },
+    updated(){
+              UserApi.get().then((data) => {
+      //eslint-disable-next-line
+      console.log("data", data);
+      this.responses = data;
+      //this.fullName = this.responses.fullName;
+      });
     },
     created(){
 
@@ -154,12 +158,22 @@
       console.log("data", data);
       this.responses = data;
       //this.fullName = this.responses.fullName;
-    });
+      });
+    },
+    methods: {
+      editInfo(){
+        var data = {
+          password: "password",
+          username: "username",
+          fullName: this.fullNameChange,       
+          email: "johndoe7@email.com",
+          birthdate: 1,
+          gender: this.genderChange,
+        }
+        UserApi.modify(data);
+      }
+    },
 
-  },
-    /*changeInfo(){
-      UserApi.modify(this.user, this.password, this.fullName, this.email, true)
-    }*/
   }
 </script>
 
