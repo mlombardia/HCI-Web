@@ -51,10 +51,25 @@
                 Cancel
               </v-btn>
               <v-spacer></v-spacer>
-              <v-dialog v-model="dialog3">
-                <v-btn color="white" text @click="deleteRoutine">
-                  Delete Routine
-                </v-btn>
+              
+              <v-btn color="red" text @click="dialog3 = true">
+                Delete Routine
+              </v-btn>
+              <v-dialog v-model="dialog3" width="530">
+                <v-card color="#2d4059" >
+                  <v-card-title>
+                    <span class="white--text headline">Are you sure you want to delete this routine?</span>
+                  </v-card-title>
+                  <v-card-actions>
+                    <v-btn color="white" text  @click="dialog3 = false" >
+                      Cancel
+                    </v-btn>
+                    <v-spacer></v-spacer>
+                    <v-btn color="red" text  @click="deleteRoutine" >
+                      Delete
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
               </v-dialog>
               <v-btn color="white" text  @click="editRoutine" >
                 Save Routine
@@ -144,6 +159,8 @@
        deleteRoutine(){
 
          RoutinesApi.deleteRoutine(this.routin.id);
+         this.dialog3 = false;
+         this.dialog2 = false;
        }
     }
         }
