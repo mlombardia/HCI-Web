@@ -202,6 +202,31 @@ LADO DERECHO
                 </span>
               </span>
             </v-card-title>
+            <template>
+              <v-container fluid>
+                <v-row align="center">
+                  <v-col cols="6">
+                    <v-subheader>
+                      Custom items
+                    </v-subheader>
+                  </v-col>
+
+                  <v-col cols="6">
+                    <v-select
+                      v-model="select"
+                      :hint="`${select.state}, ${select.abbr}`"
+                      :items="items"
+                      item-text="state"
+                      item-value="abbr"
+                      label="Select"
+                      persistent-hint
+                      return-object
+                      single-line
+                    ></v-select>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </template>
             <body>
               <div class="exercise-container">
                 <div class="all-excercises-container">
@@ -218,6 +243,9 @@ LADO DERECHO
                     <p>Added Exercises</p>
                     <div class="added-exercises">
                         <!-- aca van los ejercicios AGREGADOS -->
+                        <v-flex v-for="exercise in addedExercises" :key="exercise.id" :data="{duration: exercise.duration, repetitions: exercise.repetitions}">
+                        <ExerciseCard v-bind:exercise="exercise"></ExerciseCard>
+                      </v-flex>
                     </div>
                 </div>
               </div>
@@ -267,6 +295,7 @@ LADO DERECHO
         dialog5: false,
         routines: [],
         allExercises: [],
+        addedExercises: [],
         user: null,
         isPublic: null,
         cant: 0,
