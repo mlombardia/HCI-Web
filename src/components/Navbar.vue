@@ -45,12 +45,10 @@
       </v-btn>
       </a> -->
 
-      <v-btn icon>
-        <a href="/profile">
+      <v-btn icon router :to="viewprofile.route">
         <v-avatar color="#F06292">
           <span class="white--text headline">MG</span>
         </v-avatar>
-        </a>
       </v-btn>
       
       
@@ -73,7 +71,10 @@ export default {
       { text: 'My routines', route: '/routines'},
       { text: 'Exercises', route: '/exercises'},
       { text: 'Favourites', route: '/favourites'},
-    ]
+    ],
+    viewprofile: {
+      route: '/profile'
+    }
   }),
   logout(){
     window.alert(UserApi.url);
