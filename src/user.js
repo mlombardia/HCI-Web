@@ -18,8 +18,8 @@ class UserApi {
         Api.token = undefined;
     }
 
-    static async signup(credentials, controller) {
-        const result = await Api.post(`${UserApi.url}`, false, credentials, controller);
+    static async signup(data, controller) {
+        const result = await Api.post(`${UserApi.url}`, false, data, controller);
         Api.token = undefined;
         return result;
     }
