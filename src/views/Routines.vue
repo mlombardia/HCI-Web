@@ -336,8 +336,15 @@ LADO DERECHO
 
       getCategories(){
         CategoriesApi.get().then(data=>{
-          for(var j = 0; j < data.totalCount; j++){
-            this.categories.push({name: data.results[j].name, id: data.results[j].id});
+          if(data.totalCount <= 0){
+            CategoriesApi.add({"name": "Full Body", "detail": "Full Body"});
+            CategoriesApi.add({"name": "Legs", "detail": "Legs"});
+            CategoriesApi.add({"name": "Middle Body", "detail": "Middle Body"});
+            CategoriesApi.add({"name": "Upper Body", "detail": "Upper Body"});
+          } else {
+            for(var j = 0; j < data.totalCount; j++){
+              this.categories.push({name: data.results[j].name, id: data.results[j].id});
+            }
           }
         });
       },

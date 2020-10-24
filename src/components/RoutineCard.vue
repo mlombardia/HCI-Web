@@ -80,88 +80,108 @@
         </template>
         <script>
         import {RoutinesApi} from '@/routines'
+        import {CyclesApi} from '@/cycles'
         export default {
             props: {
               routine: Object
             },
-    data: () => ({
-        dialog2: false,
-        dialog3: false,
-         links: [
-          { icon: 'name', text: 'Name', route: '/exercises'},
-          { icon: 'Body section', text: 'Body section', route: '/'},
-          { icon: 'Instensity', text: 'Intensity', route: '/'},
-        ],
-        routin: null,
-        isPublic: null,
-        cats: [],
-        category: null,
-        difficulties: ['rookie', 'beginner', 'intermediate', 'advanced', 'expert'],
-        difficulty: null,
-        routineName: null,
-        routineDetail: null,
+        data: () => ({
+            dialog2: false,
+            dialog3: false,
+            links: [
+              { icon: 'name', text: 'Name', route: '/exercises'},
+              { icon: 'Body section', text: 'Body section', route: '/'},
+              { icon: 'Instensity', text: 'Intensity', route: '/'},
+            ],
+            routin: null,
+            isPublic: null,
+            cycles: [],
+            cats: [],
+            category: null,
+            difficulties: ['rookie', 'beginner', 'intermediate', 'advanced', 'expert'],
+            difficulty: null,
+            routineName: null,
+            routineDetail: null,
 
 
-        slides: [
-          'Squats',
-          'Planks',
-          'Burpees',
-          'Crunches',
-          'Sit Ups',
-        ],
-        bodyparts: [
-          '20 Reps',
-          '30 Secs',
-          '10 Reps',
-          '10 Reps',
-          '25 Reps',
-        ],
-        workout_type: [
-          'Legs',
-          'Abs',
-          'Legs',
-          'Abs',
-          'Arms'
-        ],
-        workout_level: [
-          'Begginer',
-          'Intermediate',
-          'Expert',
-          'Intermediate',
-          'Expert'
-        ],
-      
-    }),
-    mounted(){
-      this.routin = this.routine;
-      this.cats = this.routin.categories;
-      this.isPublic = this.routin.isPublic;
-      this.category = this.routin.category.id;
-      this.difficulty = this.routin.difficulty;
-      this.routineName = this.routin.name;
-      this.routineDetail = this.routin.detail;
-    },
-    methods: {
-       editRoutine(){
-         var data = {
-            name: this.routineName,
-            detail: this.routineDetail,
-            isPublic: this.isPublic,
-            difficulty: this.difficulty,
-            category: {
-              id: parseInt(this.category)
-            }
+            slides: [
+              'Squats',
+              'Planks',
+              'Burpees',
+              'Crunches',
+              'Sit Ups',
+            ],
+            bodyparts: [
+              '20 Reps',
+              '30 Secs',
+              '10 Reps',
+              '10 Reps',
+              '25 Reps',
+            ],
+            workout_type: [
+              'Legs',
+              'Abs',
+              'Legs',
+              'Abs',
+              'Arms'
+            ],
+            workout_level: [
+              'Begginer',
+              'Intermediate',
+              'Expert',
+              'Intermediate',
+              'Expert'
+            ],
+          
+        }),
+        mounted(){
+          this.routin = this.routine;
+          this.cats = this.routin.categories;
+          this.isPublic = this.routin.isPublic;
+          this.category = this.routin.category.id;
+          this.difficulty = this.routin.difficulty;
+          this.routineName = this.routin.name;
+          this.routineDetail = this.routin.detail;
+          this.getCycles();
+        },
+        methods: {
+          editRoutine(){
+            var data = {
+                name: this.routineName,
+                detail: this.routineDetail,
+                isPublic: this.isPublic,
+                difficulty: this.difficulty,
+                category: {
+                  id: parseInt(this.category)
+                }
+              }
+              RoutinesApi.updateRoutine(parseInt(this.routin.id) ,data);
+              // window.alert(JSON.stringify(data));
+              this.dialog2 = false;
+          },
+          deleteRoutine(){
+
+            RoutinesApi.deleteRoutine(this.routin.id);
+            this.dialog3 = false;
+            this.dialog2 = false;
+          },
+          getCycles(){
+            CyclesApi.getRoutineCycles(this.routin.id).then(data=>{
+              if(data.totalCount <= 0){
+                CyclesApi.add(this.routin.id,{"name": "Warmup", "detail": "Fast Warmup", "type": "warmup", "order": 1, "repetitions": 1}).then(firstcycle=>{
+                  this.cycles.push(firstcycle);
+                });
+                CyclesApi.add(this.routin.id,{"name": "Exercise", "detail": "Exercise", "type": "exercise", "order": 2, "repetitions": 1}).then(secondcycle=>{
+                  this.cycles.push(secondcycle);
+                });
+                CyclesApi.add(this.routin.id,{"name": "Cooldown", "detail": "Cooldown", "type": "cooldown", "order": 3, "repetitions": 1}).then(thirdcycle=>{
+                  this.cycles.push(thirdcycle);
+                });
+              } else {
+                this.cycles = data.results;
+              }
+            });
           }
-          RoutinesApi.updateRoutine(parseInt(this.routin.id) ,data);
-          // window.alert(JSON.stringify(data));
-          this.dialog2 = false;
-       },
-       deleteRoutine(){
-
-         RoutinesApi.deleteRoutine(this.routin.id);
-         this.dialog3 = false;
-         this.dialog2 = false;
-       }
-    }
+        }
         }
     </script>
