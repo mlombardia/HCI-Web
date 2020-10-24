@@ -8,16 +8,28 @@ class RoutinesApi {
         return `${Api.baseUrl}/routines`;
     }
 
+    static get currentUserRoutinesurl(){
+        return `${Api.baseUrl}/user/current/routines/`;
+    }
+
     static async add(data, controller){
         return await Api.post(RoutinesApi.url, true, data, controller);
     }
     
     static async getRoutines(controller){
-        return await Api.get(RoutinesApi.url, true, controller);
+        return  Api.get(RoutinesApi.currentUserRoutinesurl, true, controller);
+    }
+
+    static async getCurrentUserRoutines(controller){
+        return await Api.get(RoutinesApi.currentUserRoutinesurl, true, controller);
     }
 
     static async getRoutine(id, controller){
-        return await Api.get(`${RoutinesApi.url}/${id}`, true, controller);
+        return Api.get(`${RoutinesApi.url}/${id}`, true, controller);
+    }
+
+    static async getCycles(id, controller){
+        return Api.get(`${RoutinesApi.url}/${id}/cycles`,true,controller);
     }
 
     static async updateRoutine(id, routine, controller){

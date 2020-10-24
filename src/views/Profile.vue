@@ -33,7 +33,7 @@
         <v-col cols="12">
         <v-dialog v-model="dialog" width="500">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn class="white--text" color="#F06292" elevation="2" rounded v-bind="attrs" v-on="on" >Edit
+            <v-btn class="white--text" color="#F06292" elevation="2" rounded v-bind="attrs" v-on="on" ><v-icon>mdi-pencil</v-icon>Edit
               <v-icon>fas fa-edit</v-icon>
               </v-btn>
          </template>
@@ -88,7 +88,7 @@
            <v-col cols="12" md="3">
      <v-dialog v-model="dialog4" width="500">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn class="white--text" color="#F06292" elevation="2" rounded v-bind="attrs" v-on="on" >
+        <v-btn class="white--text" color="#F06292" elevation="2" rounded v-bind="attrs" v-on="on" ><v-icon>mdi-pencil</v-icon>
           Edit
         </v-btn>
        </template>

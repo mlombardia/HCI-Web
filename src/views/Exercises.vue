@@ -185,6 +185,7 @@ input {
 //import {SportApi} from '@/sport'
 //import {Api} from '@/api'
 import { ExercisesApi } from "@/exercises";
+import { RoutinesApi } from "@/routines";
 //import {UserApi} from '@/user'
 export default {
   data() {
@@ -201,6 +202,10 @@ export default {
       routine: null,
       exercises: null,
       currentId: null,
+      total_routines: null,
+      total_cycles: null,
+      total_exercises: null,
+      total_total_exercises: null,
       slides: ["Squats", "Planks", "Burpees", "Crunches", "Sit Ups"],
       bodyparts: ["20 Reps", "30 Secs", "10 Reps", "10 Reps", "25 Reps"],
       workout_type: ["Legs", "Abs", "Legs", "Abs", "Arms"],
@@ -220,7 +225,7 @@ export default {
     };
   },
   updated(){
-    ExercisesApi.getExercises(1,1).then((data) => {
+    ExercisesApi.getExercises(2,2).then((data) => {
       //eslint-disable-next-line
       console.log("data results", data.results);
       this.routine = data;
@@ -228,41 +233,50 @@ export default {
     });
   },
   created() {
-    //this.addExercise();
-    //this.deleteExercise(2);
-    //const result = ExercisesApi.getExercises();
-    //window.alert(Api.token);
-    //window.alert(JSON.stringify(ExercisesApi.getExercises()));}
 
-    ExercisesApi.getExercises(1,1).then((data) => {
+    RoutinesApi.getCurrentUserRoutines().then((data)=> {
+
+      this.total_routines = data.results;
+      var i,j,k;
+      for(i=0; i < this.total_routines.length; i++){
+        //eslint-disable-next-line
+        console.log("this.total_routines[i].id ", this.total_routines[i].id);
+        //window.alert(this.total_routines[i].name);
+
+        RoutinesApi.getCycles(this.total_routines[i].id).then((data) => {
+          this.total_cycles=data.results;
+          for(j=0; j < this.total_cycles.length; j++){
+            //eslint-disable-next-line
+            console.log("this.total_cycles[j].id ", this.total_cycles[j].id);
+            //window.alert(this.total_cycles[j].name);
+
+            ExercisesApi.getExercises(this.total_routines[i].id,this.total_cycles[j].id).then((data) => {
+              this.total_exercises = data.results;
+              for(k=0;k < this.total_exercises.length; k++){
+                this.total_total_exercises = this.total_total_exercises.push(this.total_exercises[k]);
+
+                //eslint-disable-next-line
+                console.log("count ", this.total_total_exercises.length);
+                //window.alert(this.total_exercises[k].name);
+              }
+            });
+          }
+        });
+      }
+      /*RoutinesApi.getRoutine(this.total_routines[0].id).then((data)=> {
+
+      this.total_exercises = data;
+      window.alert(this.total_exercises);
+    });
+      window.alert(this.total_routines[0].id);*/
+    });
+
+    ExercisesApi.getExercises(2,2).then((data) => {
       //eslint-disable-next-line
       console.log("data results", data.results);
       this.routine = data;
       this.exercises = data.results;
     });
-    /*var data = UserApi.get();
-       UserApi.get().then(data=>{
-         this.user = data;
-        window.alert(JSON.stringify(this.user));
-       });*/
-
-    /*if (data != null){
-        for(var i=0; i < data[0].totalCount; i++){
-          this.exercises.push(data[0].results[i]);
-        }
-      }*/
-
-    /*var response = UserApi.get();
-      this.user = response
-      window.alert(JSON.stringify(this.user));*/
-    /*UserApi.get().then(data=>{
-         this.user = data;
-        window.alert(JSON.stringify(this.user));
-       });*/
-
-    /*var response = UserApi.get();
-      UserApi.get().then(window.alert(JSON.stringify()))
-      window.alert(JSON.stringify(UserApi.get()));*/
   },
   methods: {
     addExercise() {
@@ -345,3 +359,12 @@ AGREGO asd (ya esta)
 MODIFICAR ALGUN EJ
 
  -->
+
+<!--
+  TODAS LAS RUTINAS CURRENT
+      ID -> RUTINA
+                CICLOS
+                  EJERCICIOS
+      ID -> RUTINA
+              EJERCICIOS
+  -->
