@@ -153,7 +153,7 @@
         </v-dialog>
         </template>
   <script>
-            import ExerciseCard from '../components/ExerciseCard.vue'
+            import ExerciseCard from './ExerciseCard'
             import {RoutinesApi} from '@/routines'
             import {CyclesApi} from '@/cycles'
             import {ExercisesApi} from '@/exercises'
@@ -162,8 +162,8 @@
                   routine: Object
                 },
                 components: {
-          'ExerciseCard': ExerciseCard
-        },
+                  'ExerciseCard': ExerciseCard
+                },
             data: () => ({
                 dialog2: false,
                 dialog3: false,
@@ -232,7 +232,7 @@
             },
             methods: {
               getAllExercises(){
-              ExercisesApi.getExercises().then(data=>{
+                ExercisesApi.getExercises().then(data=>{
                 this.allExercises = data.results;
         });
       },
