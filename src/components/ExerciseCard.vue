@@ -1,7 +1,7 @@
 <template>
-    <v-dialog v-model="dialog4" width="500">
-        <template v-slot:activator="{ on, attrs }">  
-            <v-btn class="my-6" color="#2d4059" margin=auto dark width="450px" height="100px" elevation="2" v-bind="attrs" v-on="on" rounded @click="addExercice">      
+    <v-container width="500">
+        <template >  
+            <v-btn class="my-6" color="#2d4059" margin=auto dark width="450px" height="100px" elevation="2" rounded>      
                 <v-row>
                     <v-col>{{ exercise.name }}</v-col>
                     <v-col>{{ exercise.detail }}</v-col>
@@ -44,7 +44,7 @@
                 </v-row>
             </v-btn>
         </template>
-    </v-dialog>
+    </v-container>
 </template>
 
 <script>
@@ -58,7 +58,17 @@
          mounted(){
             },
             methods: {
-              
+            //   addExercice(){
+            //       if(this.cycle == cycle[0].id){
+            //         //   addedExercisesWarmup.add(exercise);
+            //       }
+            //       if(this.cycle == cycle[1].id){
+            //         //   addedExercisesExercise.add(exercise);
+            //       }
+            //       if(this.cycle == cycle[2].id){
+            //         //   addedExercisesCooldown.add(exercise);
+            //       }
+            //   }
             }
             }
 </script>
