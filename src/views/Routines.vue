@@ -263,7 +263,7 @@ LADO DERECHO
               <v-btn color="white" text @click="dialog5 = false">
                 Cancel
               </v-btn>
-              <v-btn color="white" text @click="dialog5 = false" >
+              <v-btn color="white" text @click="dialog5 = false ; " >
                 Accept
               </v-btn>
             </v-card-actions>  
@@ -407,7 +407,6 @@ LADO DERECHO
       this.getCategories();
       this.getRoutines();
       this.getAllExercises();
-      
       
       
     },
