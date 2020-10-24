@@ -29,7 +29,7 @@ class UserApi {
       }
 
     static async get(controller) {
-        return await Api.get(`${UserApi.url}/current`,true, controller);
+        return Api.get(`${UserApi.url}/current`,true, controller);
     }
 
     static async getuser(id, controller){

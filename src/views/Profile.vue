@@ -19,11 +19,19 @@
          <v-avatar size="102">
             <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John">
           </v-avatar>
-            <h2 class="white--text"> {{ response.user }} </h2>
-           <h3 class="white--text"> {{ response.password }} </h3>
-           <h3 class="white--text"> {{ response.fullname }} </h3>
-           <h3 class="white--text"> {{ response.gender }} </h3>
-           <h3 class="white--text"> {{ response.email }} </h3>
+          <div>
+            
+           <v-row>
+          <v-col class="white--text"><h3>{{ responses.username }} </h3></v-col>
+          </v-row>
+          <v-row>
+          <v-col class="white--text"><h3> {{ responses.fullName }} </h3> </v-col>
+          </v-row>
+          <v-row>
+          <v-col class="white--text"><h3> {{ responses.email }}</h3> </v-col>
+          </v-row>
+
+          </div>
               
         <v-col cols="12">
         <v-dialog v-model="dialog" width="500">
@@ -48,10 +56,6 @@
               </v-col>
               <v-col cols="12">
                 <v-text-field label="User"  v-model="usernameChange" required>
-                </v-text-field>
-              </v-col>
-               <v-col cols="12">
-                <v-text-field label="Password"  v-model="passwordChange" required>
                 </v-text-field>
               </v-col>
                <v-col cols="12">
@@ -139,36 +143,24 @@
   export default {
     data () {
       return {
-        response: '',
-        user: null,
-        password: null,
-        fullName: null,
-        gender: "other",
-        birthdate: 1,
-        email: null,
-        phone: 2,
-        avatarUrl: "https://flic.kr/p/3ntH2u",
+        responses: null,
+        //fullName
       }
     },
     created(){
-    var data = UserApi.get();
-       UserApi.get().then(data=>{
-         this.user = data;
-        window.alert(JSON.stringify(this.user));
-       });
 
-      if (data != null){
-        for(var i=0; i < data[0].totalCount; i++){
-          this.routines.push(data[0].results[i]);
-        }
-      }
+      UserApi.get().then((data) => {
+      //eslint-disable-next-line
+      console.log("data", data);
+      this.responses = data;
+      //this.fullName = this.responses.fullName;
+    });
+
   },
-    changeInfo(){
+    /*changeInfo(){
       UserApi.modify(this.user, this.password, this.fullName, this.email, true)
-    }
+    }*/
   }
 </script>
 
 
-
-              
