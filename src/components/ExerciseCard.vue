@@ -1,14 +1,14 @@
 <template>
     <v-dialog v-model="dialog4" width="500">
         <template v-slot:activator="{ on, attrs }">  
-            <v-btn class="my-6" color="#2d4059" margin=auto dark width="450px" height="100px" elevation="2" v-bind="attrs" v-on="on" rounded @click="dialog5 = true">      
+            <v-btn class="my-6" color="#2d4059" margin=auto dark width="450px" height="100px" elevation="2" v-bind="attrs" v-on="on" rounded @click="addExercice">      
                 <v-row>
                     <v-col>{{ exercise.name }}</v-col>
                     <v-col>{{ exercise.detail }}</v-col>
                     <v-col>{{ exercise.type }}</v-col>
                     <!-- <v-col>{{ exercise.duration }}</v-col> -->
                     <!-- <v-col>{{ exercise.repetitions }}</v-col> -->
-                    <v-dialog v-model="dialog5" width="500" :visible="false">
+                    <!-- <v-dialog v-model="dialog5" width="500" :visible="false">
                         <v-card color="#2d4059">
                             <v-card-title  color="white" >
                             <span class="white--text">
@@ -40,7 +40,7 @@
                             </v-btn>
                             </v-card-actions>  
                         </v-card>
-                    </v-dialog>
+                    </v-dialog> -->
                 </v-row>
             </v-btn>
         </template>
@@ -79,8 +79,12 @@ import {ExercisesApi} from '@/exercises'
                   ExercisesApi.updateExercise(parseInt(this.routin.id) ,data);
                   window.alert(JSON.stringify(data));
                   this.dialog2 = false;
-              }
+              },
+              addExercice(){
+                ExercisesApi.add()
             }
+            }
+            
         }
         
 </script>
