@@ -1,3 +1,7 @@
+<style>
+  
+
+</style>
 <template>
 <v-dialog v-model="dialog2" width="500">
         <template v-slot:activator="{ on, attrs }">
@@ -102,11 +106,13 @@
             <body>
               <div class="exercise-container">
                 <div class="all-excercises-container">
-                  <p>All Exercises</p>
+                  <p color="white">All Exercises</p>
                   <div class="all-exercises">
                       <!-- aca van los ejercicios -->
                       <v-flex v-for="exercise in allExercises" :key="exercise.id">
+                        <v-btn @click="addExercice(exercise)" style="width:450px; height:100px; margin:10px; border-radius:30px;">
                         <ExerciseCard v-bind:exercise="exercise"></ExerciseCard>
+                        </v-btn>
                       </v-flex>
                   </div>
                 </div>
@@ -115,20 +121,26 @@
                     <p>Added Exercises</p>
                     <div class="added-exercises" v-if="cycle == cycles[0].id">
                         <!-- aca van los ejercicios AGREGADOS -->
-                        <v-flex  v-for="exercise in addedExercisesWarmup" :key="exercise.id" :data="{duration: exercise.duration, repetitions: exercise.repetitions}">
+                        <v-flex  v-for="exercise in addedExercisesWarmup" :key="exercise.id" >
+                        <v-btn @click="removeExerciseW(exercise)" style="width:450px; height:100px; margin:10px; border-radius:30px;">
                         <ExerciseCard v-bind:exercise="exercise"></ExerciseCard>
+                        </v-btn>
                         </v-flex>
                     </div>
                     <div class="added-exercises" v-if="cycle == cycles[1].id">
                         <!-- aca van los ejercicios AGREGADOS -->
-                        <v-flex  v-for="exercise in addedExercisesExercise" :key="exercise.id" :data="{duration: exercise.duration, repetitions: exercise.repetitions}">
+                        <v-flex  v-for="exercise in addedExercisesExercise" :key="exercise.id" >
+                        <v-btn @click="removeExerciseE(exercise)" style="width:450px; height:100px; margin:10px; border-radius:30px;">
                         <ExerciseCard v-bind:exercise="exercise"></ExerciseCard>
+                        </v-btn>
                         </v-flex>
                     </div>
                     <div class="added-exercises" v-if="cycle == cycles[2].id">
                         <!-- aca van los ejercicios AGREGADOS -->
-                        <v-flex  v-for="exercise in addedExercisesCooldown" :key="exercise.id" :data="{duration: exercise.duration, repetitions: exercise.repetitions}">
+                        <v-flex  v-for="exercise in addedExercisesCooldown" :key="exercise.id" >
+                        <v-btn @click="removeExerciseC(exercise)" style="width:450px; height:100px; margin:10px; border-radius:30px;">
                         <ExerciseCard v-bind:exercise="exercise"></ExerciseCard>
+                        </v-btn>
                         </v-flex>
                     </div>
                 </div>
@@ -139,7 +151,7 @@
               <v-btn color="white" text @click="dialog4 = false">
                 Cancel
               </v-btn>
-              <v-btn color="white" text @click="dialog4 = false" >
+              <v-btn color="white" text @click="addExercisesToCycles" >
                 Accept
               </v-btn>
             </v-card-actions>  
@@ -226,8 +238,56 @@
               this.routineDetail = this.routin.detail;
               this.getCycles();
               this.getAllExercises();
+              this.getCyclesExercises();
             },
             methods: {
+              hola(){
+                window.alert("hola");
+              },
+              removeExerciseW(exercise){
+                ExercisesApi.deleteExercise(this.routin.id, this.cycles[0], exercise.id);
+                window.alert(this.addedExercisesWarmup.indexOf(exercise));
+                this.addedExercisesWarmup.splice(this.addedExercisesWarmup.indexOf(exercise),1);
+              },
+              removeExerciseE(exercise){
+                ExercisesApi.deleteExercise(this.routin.id, this.cycles[0], exercise.id);
+                this.addedExercisesExercise.splice(this.addedExercisesExercise.indexOf(exercise),1);
+              },
+              removeExerciseC(exercise){
+                ExercisesApi.deleteCooldown(this.routin.id, this.cycles[0], exercise.id);
+                this.addedExercisesCooldown.splice(this.addedExercisesCooldown.indexOf(exercise),1);
+              },
+              getCyclesExercises(){
+                this.cycles.forEach(element => ExercisesApi.getExercises(this.routin.id, element.id).then(data => { 
+                  if(this.cycles[0].id == element.id){
+  
+                    this.addedExercisesWarmup = data.results;
+                  }
+                  if(this.cycles[1].id == element.id){
+                    this.addedExercisesExercise = data.results;
+                  }
+                  if(this.cycles[2].id == element.id){
+                    this.addedExercisesCooldown = data.results;
+                  }
+                }))
+              },
+              addExercice(exercise){
+                   if(this.cycle == this.cycles[0].id){
+                        this.addedExercisesWarmup.push(exercise);
+                   }
+                   if(this.cycle == this.cycle[1].id){
+                     this.addedExercisesExercise.push(exercise);
+                   }
+                   if(this.cycle == this.cycle[2].id){
+                    this.addedExercisesCooldown.push(exercise);
+                   }
+               },
+              addExercisesToCycles(){
+                this.addedExercisesWarmup.forEach(element => ExercisesApi.add(this.routin.id, this.cycles[0].id,element.name, element.detail, element.type, element.duration, element.repetitions));
+                this.addedExercisesExercise.forEach(element => ExercisesApi.add(this.routin.id, this.cycles[1].id,element.name, element.detail, element.type, element.duration, element.repetitions));
+                this.addedExercisesCooldown.forEach(element => ExercisesApi.add(this.routin.id, this.cycles[2].id,element.name, element.detail, element.type, element.duration, element.repetitions));
+                this.dialog4 = false; 
+              },
               getAllExercises(){
               ExercisesApi.getExercises(1,1).then(data=>{
                 this.allExercises = data.results;

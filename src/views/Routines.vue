@@ -99,6 +99,8 @@ LADO DERECHO
     border-radius: 35px;
     background-color: whitesmoke;
     margin-bottom: 4rem;
+    overflow-y:scroll;
+    overflow-x:hidden;
 }
 
 .create-btn {
