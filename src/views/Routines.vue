@@ -228,6 +228,8 @@ LADO DERECHO
         addedExercises: [],
         user: null,
         isPublic: null,
+        id_routine: null,
+        id_cycle: null,
         cant: 0,
         cantExercises: 0,
          links: [
@@ -275,7 +277,7 @@ LADO DERECHO
     }),
     methods: {
       getAllExercises(){
-        ExercisesApi.getExercises(1,1).then(data=>{
+        ExercisesApi.getExercises(this.id_routine, this.id_cycle).then(data=>{
           //window.alert(data.totalCount);
           this.allExercises = data.results;
         });
@@ -340,6 +342,12 @@ LADO DERECHO
       // CategoriesApi.add({"name": "Legs", "detail": "Legs"});
       // CategoriesApi.add({"name": "Middle Body", "detail": "Middle Body"});
       // CategoriesApi.add({"name": "Upper Body", "detail": "Upper Body"});
+      RoutinesApi.getCurrentUserRoutines().then((data) => {
+        this.id_routine = data.results[0].id;
+        RoutinesApi.getCycles(this.id_routine).then((data) => {
+          this.id_cycle = data.results[0].id;
+        });
+      });
       this.getCategories();
       this.getRoutines();
       this.getAllExercises();

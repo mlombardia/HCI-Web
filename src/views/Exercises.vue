@@ -61,20 +61,43 @@ input {
             <v-container>
               <v-row> </v-row>
               <v-row>
-                <v-col cols="12" >
-                  <v-text-field v-model="exerciseName" label="Name" required></v-text-field>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="exerciseName"
+                    label="Name"
+                    required
+                  ></v-text-field>
                 </v-col>
                 <v-col cols="12">
-                  <v-text-field v-model="exerciseDetail" label="Detail" required> </v-text-field>
+                  <v-text-field
+                    v-model="exerciseDetail"
+                    label="Detail"
+                    required
+                  >
+                  </v-text-field>
                 </v-col>
                 <v-col cols="12">
-                  <v-select v-model="exerciseType" :items="types" label="Type" required ></v-select>
+                  <v-select
+                    v-model="exerciseType"
+                    :items="types"
+                    label="Type"
+                    required
+                  ></v-select>
                 </v-col>
                 <v-col cols="12" sm="6">
-                  <v-text-field v-model="exerciseDuration" label="Duration" required> </v-text-field>
+                  <v-text-field
+                    v-model="exerciseDuration"
+                    label="Duration"
+                    required
+                  >
+                  </v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6">
-                  <v-text-field v-model="exerciseRepetitions" label="Repetitions" required></v-text-field>
+                  <v-text-field
+                    v-model="exerciseRepetitions"
+                    label="Repetitions"
+                    required
+                  ></v-text-field>
                 </v-col>
               </v-row>
             </v-container>
@@ -120,15 +143,17 @@ input {
           <v-card-title color="white">
             <v-row>
               <v-col cols="12" sm="7">
-              <span class="white--text">
-                <span class="headline">Exercise details</span>
-              </span>
-              <v-btn icon color="pink">
-                <v-icon>mdi-heart</v-icon>
-              </v-btn>
+                <span class="white--text">
+                  <span class="headline">Exercise details</span>
+                </span>
+                <v-btn icon color="pink">
+                  <v-icon>mdi-heart</v-icon>
+                </v-btn>
               </v-col>
               <v-card-actions>
-                <v-btn color="white" text @click="deleteExercise"> Delete Exercise </v-btn>
+                <v-btn color="white" text @click="deleteExercise">
+                  Delete Exercise
+                </v-btn>
               </v-card-actions>
             </v-row>
           </v-card-title>
@@ -137,20 +162,43 @@ input {
             <v-container>
               <v-row> </v-row>
               <v-row>
-                <v-col cols="12" >
-                  <v-text-field v-model="exerciseModiName" label="Name" required></v-text-field>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="exerciseModiName"
+                    label="Name"
+                    required
+                  ></v-text-field>
                 </v-col>
                 <v-col cols="12">
-                  <v-text-field v-model="exerciseModiDetail" label="Detail" required> </v-text-field>
+                  <v-text-field
+                    v-model="exerciseModiDetail"
+                    label="Detail"
+                    required
+                  >
+                  </v-text-field>
                 </v-col>
                 <v-col cols="12">
-                  <v-select v-model="exerciseModiType" :items="types" label="Type" required ></v-select>
+                  <v-select
+                    v-model="exerciseModiType"
+                    :items="types"
+                    label="Type"
+                    required
+                  ></v-select>
                 </v-col>
                 <v-col cols="12" sm="6">
-                  <v-text-field v-model="exerciseModiDuration" label="Duration" required> </v-text-field>
+                  <v-text-field
+                    v-model="exerciseModiDuration"
+                    label="Duration"
+                    required
+                  >
+                  </v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6">
-                  <v-text-field v-model="exerciseModiRepetitions" label="Repetitions" required></v-text-field>
+                  <v-text-field
+                    v-model="exerciseModiRepetitions"
+                    label="Repetitions"
+                    required
+                  ></v-text-field>
                 </v-col>
               </v-row>
             </v-container>
@@ -206,6 +254,8 @@ export default {
       total_cycles: null,
       total_exercises: null,
       total_total_exercises: null,
+      id_routine: null,
+      id_cycle: null,
       slides: ["Squats", "Planks", "Burpees", "Crunches", "Sit Ups"],
       bodyparts: ["20 Reps", "30 Secs", "10 Reps", "10 Reps", "25 Reps"],
       workout_type: ["Legs", "Abs", "Legs", "Abs", "Arms"],
@@ -224,100 +274,109 @@ export default {
       ],
     };
   },
-  updated(){
-    ExercisesApi.getExercises(2,2).then((data) => {
-      //eslint-disable-next-line
-      console.log("data results", data.results);
-      this.routine = data;
-      this.exercises = data.results;
+  updated() {
+    ExercisesApi.getExercises(this.id_routine, this.id_cycle).then((data) => {
+          //eslint-disable-next-line
+          console.log("data results", data.results);
+          this.routine = data;
+          this.exercises = data.results;
     });
   },
   created() {
-
-    RoutinesApi.getCurrentUserRoutines().then((data)=> {
-
+    /*
+    ------------------CODIGO DE DEMO PARA MOSTRAR SOLUCION PENSADA-------------------------
+    ------------------PARA LEVANTAR TODOS LOS EJERCICIOS CREADOS POR USUARIO---------------
+    RoutinesApi.getCurrentUserRoutines().then((data) => {
       this.total_routines = data.results;
-      var i,j,k;
-      for(i=0; i < this.total_routines.length; i++){
-        //eslint-disable-next-line
-        console.log("this.total_routines[i].id ", this.total_routines[i].id);
-        //window.alert(this.total_routines[i].name);
-
-        RoutinesApi.getCycles(this.total_routines[i].id).then((data) => {
-          this.total_cycles=data.results;
-          for(j=0; j < this.total_cycles.length; j++){
-            //eslint-disable-next-line
-            console.log("this.total_cycles[j].id ", this.total_cycles[j].id);
-            //window.alert(this.total_cycles[j].name);
-
-            ExercisesApi.getExercises(this.total_routines[i].id,this.total_cycles[j].id).then((data) => {
-              this.total_exercises = data.results;
-              for(k=0;k < this.total_exercises.length; k++){
-                this.total_total_exercises = this.total_total_exercises.push(this.total_exercises[k]);
-
-                //eslint-disable-next-line
-                console.log("count ", this.total_total_exercises.length);
-                //window.alert(this.total_exercises[k].name);
+      data.results.forEach((routine) => {
+        RoutinesApi.getCycles(routine.id).then((cycles) => {
+          this.total_cycles = cycles.results;
+          cycles.forEach((cycle) => {
+            ExercisesApi.getExercises(routine.id, cycle.id).then(
+              (exercises) => {  
+                this.total_exercises = exercises.results;
+                this.total_total_exercises.push(exercises);
               }
-            });
-          }
+            );
+          });
         });
-      }
-      /*RoutinesApi.getRoutine(this.total_routines[0].id).then((data)=> {
+      });
+    });*/
 
-      this.total_exercises = data;
-      window.alert(this.total_exercises);
+    RoutinesApi.getCurrentUserRoutines().then((data) => {
+      this.id_routine = data.results[0].id;
+      RoutinesApi.getCycles(this.id_routine).then((data) => {
+        this.id_cycle = data.results[0].id;
+        ExercisesApi.getExercises(this.id_routine, this.id_cycle).then((data) => {
+          //eslint-disable-next-line
+          console.log("data results", data.results);
+          this.routine = data;
+          this.exercises = data.results;
     });
-      window.alert(this.total_routines[0].id);*/
+      })
     });
 
-    ExercisesApi.getExercises(2,2).then((data) => {
+    /*ExercisesApi.getExercises(1, 1).then((data) => {
       //eslint-disable-next-line
       console.log("data results", data.results);
       this.routine = data;
       this.exercises = data.results;
-    });
+    });*/
   },
   methods: {
     addExercise() {
       //eslint-disable-next-line
-      console.log("LOS DATOS SON ", this.exerciseName, this.exerciseDetail, this.exerciseType, this.exerciseDuration, this.exerciseRepetitions);
-      ExercisesApi.add(1,1,this.exerciseName, this.exerciseDetail, this.exerciseType, parseInt(this.exerciseDuration), parseInt(this.exerciseRepetitions));
+      console.log(
+        "LOS DATOS SON ",
+        this.exerciseName,
+        this.exerciseDetail,
+        this.exerciseType,
+        this.exerciseDuration,
+        this.exerciseRepetitions
+      );
+      ExercisesApi.add(
+        this.id_routine, this.id_cycle,
+        this.exerciseName,
+        this.exerciseDetail,
+        this.exerciseType,
+        parseInt(this.exerciseDuration),
+        parseInt(this.exerciseRepetitions)
+      );
       this.dialog = false;
     },
     /*editExercise(){
         ExercisesApi.udpateExercise()
       }*/
     deleteExercise() {
-      ExercisesApi.deleteExercise(1,1,this.currentId);
+      ExercisesApi.deleteExercise(this.id_routine, this.id_cycle, this.currentId);
       this.dialog2 = false;
     },
     opendialog(exercise) {
       this.currentId = exercise.id;
-      ExercisesApi.getExercise(1,1,parseInt(this.currentId)).then((data) => {
-      //eslint-disable-next-line
-      console.log("data results", data.results);
-      this.exerciseModiName = data.name;
-      this.exerciseModiDetail = data.detail;
-      this.exerciseModiType = data.type;
-      this.exerciseModiDuration = data.duration;
-      this.exerciseModiRepetitions = data.repetitions;
-    });
+      ExercisesApi.getExercise(this.id_routine, this.id_cycle, parseInt(this.currentId)).then((data) => {
+        //eslint-disable-next-line
+        console.log("data results", data.results);
+        this.exerciseModiName = data.name;
+        this.exerciseModiDetail = data.detail;
+        this.exerciseModiType = data.type;
+        this.exerciseModiDuration = data.duration;
+        this.exerciseModiRepetitions = data.repetitions;
+      });
       this.dialog2 = true;
       //eslint-disable-next-line
       console.log("EJERCICIO", exercise.id);
     },
-    editExercise(){
-         var data = {
-            name: this.exerciseModiName,
-            detail: this.exerciseModiDetail,
-            type: this.exerciseModiType,
-            duration: parseInt(this.exerciseModiDuration),
-            repetitions: parseInt(this.exerciseModiRepetitions)
-          }
-          ExercisesApi.updateExercise(1,1,parseInt(this.currentId), data);
-          this.dialog2 = false;
-      },
+    editExercise() {
+      var data = {
+        name: this.exerciseModiName,
+        detail: this.exerciseModiDetail,
+        type: this.exerciseModiType,
+        duration: parseInt(this.exerciseModiDuration),
+        repetitions: parseInt(this.exerciseModiRepetitions),
+      };
+      ExercisesApi.updateExercise(this.id_routine, this.id_cycle, parseInt(this.currentId), data);
+      this.dialog2 = false;
+    },
     /*modifyExercise(){
       //eslint-disable-next-line
       console.log("LOS DATOS SON ",this.exerciseModiName, this.exerciseModiDetail, this.exerciseModiType, this.exerciseModiDuration, this.exerciseModiRepetitions);
@@ -334,37 +393,3 @@ export default {
   },
 };
 </script>
-
-<!--
-
-FORMATO DEL JSON :
-
-{
-  "name": "Jumping Jacks",
-  "detail": "Jumping Jacks",
-  "type": "exercise",
-  "duration": 30,
-  "repetitions": 0
-}
-
- -->
-
-
- <!--
-
-ANTES DE EJECUTARSE: jj, cr, asd
-
-AGREGO asd (ya esta)
-
-MODIFICAR ALGUN EJ
-
- -->
-
-<!--
-  TODAS LAS RUTINAS CURRENT
-      ID -> RUTINA
-                CICLOS
-                  EJERCICIOS
-      ID -> RUTINA
-              EJERCICIOS
-  -->
