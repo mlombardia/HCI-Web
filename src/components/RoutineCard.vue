@@ -131,9 +131,6 @@
                         <ExerciseCard v-bind:exercise="exercise"></ExerciseCard>
                         </v-flex>
                     </div>
-                    <div class="added-exercises" v-if="cycle == null">
-                        <!-- aca van los ejercicios AGREGADOS -->
-                    </div>
                 </div>
               </div>
             </body>
@@ -153,7 +150,7 @@
         </v-dialog>
         </template>
   <script>
-            import ExerciseCard from '../components/ExerciseCard.vue'
+            import ExerciseCard from './ExerciseCard'
             import {RoutinesApi} from '@/routines'
             import {CyclesApi} from '@/cycles'
             import {ExercisesApi} from '@/exercises'
@@ -232,7 +229,7 @@
             },
             methods: {
               getAllExercises(){
-              ExercisesApi.getExercises().then(data=>{
+              ExercisesApi.getExercises(1,1).then(data=>{
                 this.allExercises = data.results;
         });
       },
@@ -277,6 +274,7 @@
                   } else {
                     this.cycles = data.results;
                   }
+                  this.cycle = this.cycles[0].id;
                 });
               }
             }
