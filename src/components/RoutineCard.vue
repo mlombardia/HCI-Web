@@ -47,12 +47,32 @@
               <small>*indicates required field</small>
             </v-card-text>
             <v-card-actions>
-              <v-spacer></v-spacer>
               <v-btn color="white" text @click="dialog2 = false">
                 Cancel
               </v-btn>
+              <v-spacer></v-spacer>
+              
+              <v-btn color="red" text @click="dialog3 = true">
+                Delete Routine
+              </v-btn>
+              <v-dialog v-model="dialog3" width="530">
+                <v-card color="#2d4059" >
+                  <v-card-title>
+                    <span class="white--text headline">Are you sure you want to delete this routine?</span>
+                  </v-card-title>
+                  <v-card-actions>
+                    <v-btn color="white" text  @click="dialog3 = false" >
+                      Cancel
+                    </v-btn>
+                    <v-spacer></v-spacer>
+                    <v-btn color="red" text  @click="deleteRoutine" >
+                      Delete
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
               <v-btn color="white" text  @click="editRoutine" >
-                Create Routine
+                Save Routine
               </v-btn>
             </v-card-actions>  
           </v-card>
@@ -66,6 +86,7 @@
             },
     data: () => ({
         dialog2: false,
+        dialog3: false,
          links: [
           { icon: 'name', text: 'Name', route: '/exercises'},
           { icon: 'Body section', text: 'Body section', route: '/'},
@@ -132,8 +153,14 @@
             }
           }
           RoutinesApi.updateRoutine(parseInt(this.routin.id) ,data);
-          window.alert(JSON.stringify(data));
+          // window.alert(JSON.stringify(data));
           this.dialog2 = false;
+       },
+       deleteRoutine(){
+
+         RoutinesApi.deleteRoutine(this.routin.id);
+         this.dialog3 = false;
+         this.dialog2 = false;
        }
     }
         }

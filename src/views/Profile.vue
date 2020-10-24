@@ -11,9 +11,6 @@
 </style>
 <template>
 <body>
-    <h1 align="center" style="margin-top: 15px">Profile</h1>
-   
-   
     <div align="center" class="row">
       
       <div class="col-md-6 pr-md-1" >

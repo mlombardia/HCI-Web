@@ -8,6 +8,110 @@
   input {
     color: white !important;
   }
+
+  * {
+    margin: 0;
+    padding: 0;
+    /* box-sizing: border-box; */
+    font-family: sans-serif;
+  }
+
+.exercise-container {
+    /* margin: auto; */
+    position: relative;
+    /* padding: 1.5rem 2rem; */
+    display: flex;
+    justify-content: space-evenly;
+    align-content: center;
+    border-radius: 35px;
+}
+
+.flecha {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    font-weight: 900;
+}
+
+/* 
+==============
+LADO IZQUIERDO
+==============
+*/
+
+.all-excercises-container {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.all-excercises-container p {
+    margin-bottom: 1rem;
+}
+
+.all-exercises {
+    width: 500px;
+    height: 500px;
+    border-radius: 35px;
+    background-color: whitesmoke;
+    margin-bottom: 4rem;
+    overflow-y:scroll;
+    overflow-x:hidden;
+}
+
+.cancel-btn {
+    padding: .5rem 2rem;
+    background-color: whitesmoke;
+    color: black;
+    width: 30%;
+    border-radius: 35px;
+    outline: none;
+    cursor: pointer;
+    border: none;
+}
+
+/* 
+============
+LADO DERECHO
+============
+*/
+
+.added-exercises-container {
+    width: 50%;
+    height: 100%;
+    border-radius: 35px;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.added-exercises-container p {
+    margin-bottom: 1rem;
+}
+
+.added-exercises {
+    width: 500px;
+    height: 500px;
+    border-radius: 35px;
+    background-color: whitesmoke;
+    margin-bottom: 4rem;
+}
+
+.create-btn {
+    padding: .5rem 1rem;
+    background-color: whitesmoke;
+    color: black;
+    width: 35%;
+    outline: none;
+    cursor: pointer;
+    border-radius: 35px;
+    border: none;
+    white-space: nowrap;
+}
 </style>
 <template>
   <div class="routines">
@@ -90,7 +194,7 @@
       </div>
       <div style="float: right; margin-right: 70px; margin-top: 5px;">
         <v-col cols="12" md="3">
-        <v-dialog v-model="dialog5" width="500" :visible="false">
+        <v-dialog v-model="dialog3" width="1200" :visible="false">
         <v-card color="#2d4059">
             <v-card-title  color="white" >
               <span class="white--text">
@@ -98,31 +202,32 @@
                 </span>
               </span>
             </v-card-title>
-            <v-card-text class="white--text" >
-              <v-container>
-                <v-row>
-                  <v-col cols="12">
-                    <v-text-field label="New Routine" required>
-                    </v-text-field>
-                  </v-col>
-                  <v-col cols="12">
-                    <v-select :options="categories" :reduce="category => category.id" label="Category" required >
-                    </v-select>
-                  </v-col>
-                  <v-col cols="12">
-                    <v-select :items="workout_level" label="Difficulty" required >
-                    </v-select>
-                  </v-col>
-                </v-row>
-              </v-container>
-              <small>*indicates required field</small>
-            </v-card-text>
+            <body>
+              <div class="exercise-container">
+                <div class="all-excercises-container">
+                  <p>All Exercises</p>
+                  <div class="all-exercises">
+                      <!-- aca van los ejercicios -->
+                      <v-flex v-for="exercise in allExercises" :key="exercise.id" :data="{duration: exercise.duration, repetitions: exercise.repetitions}">
+                        <ExerciseCard v-bind:exercise="exercise"></ExerciseCard>
+                      </v-flex>
+                  </div>
+                </div>
+                <span class="flecha">- ></span>
+                <div class="added-exercises-container">
+                    <p>Added Exercises</p>
+                    <div class="added-exercises">
+                        <!-- aca van los ejercicios AGREGADOS -->
+                    </div>
+                </div>
+              </div>
+            </body>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="white" text @click="dialog5 = false">
+              <v-btn color="white" text @click="dialog3 = false">
                 Cancel
               </v-btn>
-              <v-btn color="white" text @click="dialog5 = false" >
+              <v-btn color="white" text @click="dialog3 = false" >
                 Accept
               </v-btn>
             </v-card-actions>  
@@ -145,20 +250,27 @@
   import {UserApi} from '@/user'
   import {CategoriesApi} from '@/categories'
   import {RoutinesApi} from '@/routines'
+  import {ExercisesApi} from '@/exercises'
   import RoutineCard from '../components/RoutineCard.vue'
+  import ExerciseCard from '../components/ExerciseCard.vue'
   export default {
     name: 'Routines',
     components: {
-      'RoutineCard': RoutineCard
+      'RoutineCard': RoutineCard,
+      'ExerciseCard': ExerciseCard
     },
     data: () => ({
      
         dialog: false,
+        dialog2: false,
+        dialog3: false,
         dialog5: false,
         routines: [],
+        allExercises: [],
         user: null,
         isPublic: null,
         cant: 0,
+        cantExercises: 0,
          links: [
           { icon: 'name', text: 'Name', route: '/exercises'},
           { icon: 'Body section', text: 'Body section', route: '/'},
@@ -203,6 +315,12 @@
       
     }),
     methods: {
+      getAllExercises(){
+        ExercisesApi.getExercises().then(data=>{
+          window.alert(data.totalCount);
+          this.allExercises = data.results;
+        });
+      },
       getRoutines(){
         UserApi.getUserRoutines().then(data=>{
             this.routines = data.results;
@@ -236,6 +354,7 @@
         }
         RoutinesApi.add(data);
         this.dialog = false;
+        this.dialog3 = true;
       }
     },
     created(){
@@ -254,9 +373,7 @@
       // CategoriesApi.add({"name": "Upper Body", "detail": "Upper Body"});
       this.getCategories();
       this.getRoutines();
-      
-      
-      
+      this.getAllExercises();
       
       
     },
@@ -266,4 +383,6 @@
       //window.alert(this.routines.length);
     }
   }
+  const dialog5=false;
+  export {dialog5}
 </script>

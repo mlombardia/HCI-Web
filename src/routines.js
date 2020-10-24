@@ -27,4 +27,5 @@ class RoutinesApi {
     static async deleteRoutine(id, controller){
         return await Api.delete(`${RoutinesApi.url}/${id}`, true, controller);
     }
+    
 }
