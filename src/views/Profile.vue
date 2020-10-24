@@ -21,11 +21,16 @@
          <v-avatar size="102">
             <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John">
           </v-avatar>
-            <h2 class="white--text"> {{ response.user }} </h2>
-           <h3 class="white--text"> {{ response.password }} </h3>
-           <h3 class="white--text"> {{ response.fullname }} </h3>
-           <h3 class="white--text"> {{ response.gender }} </h3>
-           <h3 class="white--text"> {{ response.email }} </h3>
+          <div>
+            
+          <v-row>
+          <v-col class="white--text"><h3> Fullname: {{ responses.fullName }} </h3> </v-col>
+          </v-row>
+          <v-row>
+          <v-col class="white--text"><h3> Gender: {{ responses.gender }}</h3> </v-col>
+          </v-row>
+
+          </div>
               
         <v-col cols="12">
         <v-dialog v-model="dialog" width="500">
@@ -48,17 +53,9 @@
                 <v-text-field label="FullName"  v-model="fullNameChange" required>
                 </v-text-field>
               </v-col>
-              <v-col cols="12">
-                <v-text-field label="User"  v-model="usernameChange" required>
-                </v-text-field>
-              </v-col>
                <v-col cols="12">
-                <v-text-field label="Password"  v-model="passwordChange" required>
-                </v-text-field>
-              </v-col>
-               <v-col cols="12">
-                <v-text-field label="Email"  v-model="emailChange" required>
-                </v-text-field>
+                <v-select :items="['male', 'female', 'other']" label="Gender"  v-model="genderChange" required>
+                </v-select>
               </v-col>
             </v-row>
           </v-container>
@@ -68,7 +65,7 @@
           <v-btn color="white" text @click="dialog = false" >
             Cancel
           </v-btn>
-          <v-btn color="white" text @click="changeInfo" >
+          <v-btn color="white" text @click="editInfo" >
             Save
           </v-btn>
         </v-card-actions>
@@ -89,7 +86,7 @@
 
       <v-col cols="12">
            <v-col cols="12" md="3">
-     <v-dialog v-model="dialog" width="500">
+     <v-dialog v-model="dialog4" width="500">
       <template v-slot:activator="{ on, attrs }">
         <v-btn class="white--text" color="#F06292" elevation="2" rounded v-bind="attrs" v-on="on" >
           Edit
@@ -141,36 +138,45 @@
   export default {
     data () {
       return {
-        response: '',
-        user: null,
+        responses: null,
+        usermame: null,
         password: null,
-        fullName: null,
-        gender: "other",
-        birthdate: 1,
         email: null,
-        phone: 2,
-        avatarUrl: "https://flic.kr/p/3ntH2u",
+        fullName: null,
       }
     },
+    updated(){
+              UserApi.get().then((data) => {
+      //eslint-disable-next-line
+      console.log("data", data);
+      this.responses = data;
+      //this.fullName = this.responses.fullName;
+      });
+    },
     created(){
-    var data = UserApi.get();
-       UserApi.get().then(data=>{
-         this.user = data;
-        window.alert(JSON.stringify(this.user));
-       });
 
-      if (data != null){
-        for(var i=0; i < data[0].totalCount; i++){
-          this.routines.push(data[0].results[i]);
+      UserApi.get().then((data) => {
+      //eslint-disable-next-line
+      console.log("data", data);
+      this.responses = data;
+      //this.fullName = this.responses.fullName;
+      });
+    },
+    methods: {
+      editInfo(){
+        var data = {
+          password: "password",
+          username: "username",
+          fullName: this.fullNameChange,       
+          email: "johndoe7@email.com",
+          birthdate: 1,
+          gender: this.genderChange,
         }
+        UserApi.modify(data);
       }
-  },
-    changeInfo(){
-      UserApi.modify(this.user, this.password, this.fullName, this.email, true)
-    }
+    },
+
   }
 </script>
 
 
-
-              

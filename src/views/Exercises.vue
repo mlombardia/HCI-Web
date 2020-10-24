@@ -1,169 +1,164 @@
 <style>
-  .v-label { 
-    color: white !important;
-  }
-  .v-select__selection {
-    color: white !important;
-  }
-  input {
-    color: white !important;
-  }
+.v-label {
+  color: white !important;
+}
+.v-select__selection {
+  color: white !important;
+}
+input {
+  color: white !important;
+}
 </style>
 <template>
-  
   <body>
     <div class="exercises">
-       <h1 align="center" style="margin-top: 15px;">Exercises</h1>
+      <h1 align="center" style="margin-top: 15px">Exercises</h1>
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
-        <!-- <v-btn text slot="activator"> -->
-        <v-btn style="margin-left: 400px;" text v-on="on">
-          <v-icon left>expand_more</v-icon>
-          <span>Filter by</span>
-        </v-btn>
+          <!-- <v-btn text slot="activator"> -->
+          <v-btn style="margin-left: 400px" text v-on="on">
+            <v-icon left>expand_more</v-icon>
+            <span>Filter by</span>
+          </v-btn>
         </template>
         <v-list>
           <!-- v-list-tile is changed to v-list-item -->
-          <v-list-item v-for="link in links" :key="link.text" router :to="link.route">
+          <v-list-item
+            v-for="link in links"
+            :key="link.text"
+            router
+            :to="link.route"
+          >
             <v-list-item-title>{{ link.text }}</v-list-item-title>
           </v-list-item>
         </v-list>
-      </v-menu>    
+      </v-menu>
     </div>
-  
-   <v-col cols="12" md="3">
-     <v-dialog v-model="dialog" width="500">
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn class="white--text" style="margin-left: 1100px;" color="#F06292" elevation="2" rounded v-bind="attrs" v-on="on" >New exercise
-          <v-icon >mdi-plus</v-icon>
-        </v-btn>
-      </template>
-     <v-card color="#2d4059">
-        <v-card-title  color="white" >
-          <span class="white--text">
-            <span class="headline">Add new exercise
-            </span>
-          </span>
-        </v-card-title>
-        
-        <v-card-text class="white--text" >
-          <v-container>
-            <v-row>
-              <v-col cols="12" sm="4" >
-                <v-select :items="['Upper body', 'Middle body', 'Lower mody']" label="Body area*" required ></v-select>
-              </v-col>
-              <v-col cols="12" sm="4" >
-                <v-text-field label="Qty." required>
-                </v-text-field>
-              </v-col>
-              <v-col cols="12" sm="4" >
-                <v-select :items="['Time', 'Reps']" label="Type of exercise*" required >
-                </v-select>
-              </v-col>
-              <v-col cols="12">
-                <v-select :items="workout_level" label="Difficulty" required >
-                </v-select>
-              </v-col>
-              <v-col cols="12">
-                <v-text-field label="Add image" required>
-                </v-text-field>
-              </v-col>
-              <v-col cols="12">
-                <v-text-field label="Add description" required>
-                </v-text-field>
-              </v-col>
-              
-            </v-row>
-          </v-container>
-          <small>*indicates required field</small>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="white" text @click="dialog = false" >
-            Cancel
-          </v-btn>
-          <v-btn color="white" text @click="dialog = false" >
-            Accept
-          </v-btn>
-        </v-card-actions>  
-      </v-card>
-      </v-dialog>
-   </v-col>
 
-   <div align="center">
-     <!-- { "id": 2, "name": "Crunches", "detail": "Crunches", "type": "exercise", "duration": 30, "repetitions": 0, "order": 2 } -->
-     
-      <p></p>
-     <v-dialog v-model="dialog2" width="500">
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn v-for="exercise in exercises" :key="exercise.id" class="my-6" color="#2d4059" dark width="1000px" height="100px" elevation="2" v-bind="attrs" v-on="on" rounded>
-          <v-row>
-            <v-col>{{exercise.id}}</v-col>
-            <v-col>{{exercise.name}}</v-col>
-            <v-col>{{exercise.detail}}</v-col>
-            <v-col>{{exercise.type}}</v-col>
-            <v-col>{{exercise.duration}}</v-col>
-            <v-col>{{exercise.repetitions}}</v-col>
-          </v-row>
-        </v-btn>
-      </template>
-      <v-card color="#2d4059">
-        <v-card-title  color="white" >
-          <span class="white--text">
-          <span class="headline">Exercise details</span>
-          </span>
-          <v-btn icon color="pink" >
-            <v-icon>mdi-heart</v-icon>
+    <v-col cols="12" md="3">
+      <v-dialog v-model="dialog" width="500">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            class="white--text"
+            style="margin-left: 1100px"
+            color="#F06292"
+            elevation="2"
+            rounded
+            v-bind="attrs"
+            v-on="on"
+            >New exercise
+            <v-icon>mdi-plus</v-icon>
           </v-btn>
-        </v-card-title>
-        
-        <v-card-text class="white--text" >
-          <v-container>
-            <v-row>
-            </v-row>
-            <v-row>
-              <v-col cols="12" sm="4" >
-                <v-select v-model="workout_type" :items="workout_type" label="Workout type" required ></v-select>
-              </v-col>
-              <v-col cols="12" sm="4" >
-                <v-text-field label="Qty." required>
-                </v-text-field>
-              </v-col>
-              <v-col cols="12" sm="4" >
-                <v-select :items="['Time', 'Reps']" label="Type of exercise*" required >
-                </v-select>
-              </v-col>
-              <v-col cols="12">
-                <v-select :items="workout_level" label="Difficulty" required >
-                </v-select>
-              </v-col>
-              <v-col cols="12">
-                <v-text-field label="Add image" required>
-                </v-text-field>
-              </v-col>
-              <v-col cols="12">
-                <v-text-field label="Add description" required>
-                </v-text-field>
-              </v-col>
-              
-            </v-row>
-          </v-container>
-          <small>*indicates required field</small>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="white" text @click="dialog2 = false" >
-            Cancel
-          </v-btn>
-          <v-btn color="white" text @click="dialog2 = false" >
-            Save
-          </v-btn>
-        </v-card-actions>  
-      </v-card>
+        </template>
+        <v-card color="#2d4059">
+          <v-card-title color="white">
+            <span class="white--text">
+              <span class="headline">Add new exercise </span>
+            </span>
+          </v-card-title>
+
+          <v-card-text class="white--text">
+            <v-container>
+              <v-row> </v-row>
+              <v-row>
+                <v-col cols="12" >
+                  <v-text-field v-model="exerciseName" label="Name" required></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field v-model="exerciseDetail" label="Detail" required> </v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-select v-model="exerciseType" :items="types" label="Type" required ></v-select>
+                </v-col>
+                <v-col cols="12" sm="6">
+                  <v-text-field v-model="exerciseDuration" label="Duration" required> </v-text-field>
+                </v-col>
+                <v-col cols="12" sm="6">
+                  <v-text-field v-model="exerciseRepetitions" label="Repetitions" required></v-text-field>
+                </v-col>
+              </v-row>
+            </v-container>
+            <small>*indicates required field</small>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="white" text @click="dialog = false"> Cancel </v-btn>
+            <v-btn color="white" text @click="addExercise"> Accept </v-btn>
+          </v-card-actions>
+        </v-card>
       </v-dialog>
-  </div>
-    
-  <!--<div align="center">
+    </v-col>
+
+    <div align="center">
+      <!-- { "id": 2, "name": "Crunches", "detail": "Crunches", "type": "exercise", "duration": 30, "repetitions": 0, "order": 2 } -->
+
+      <v-btn
+        v-for="exercise in exercises"
+        :key="exercise.id"
+        class="my-6"
+        color="#2d4059"
+        dark
+        width="1000px"
+        height="100px"
+        elevation="2"
+        v-bind="attrs"
+        v-on="on"
+        rounded
+        @click="opendialog(exercise)"
+      >
+        <v-row>
+          <v-col>{{ exercise.id }}</v-col>
+          <v-col>{{ exercise.name }}</v-col>
+          <v-col>{{ exercise.detail }}</v-col>
+          <v-col>{{ exercise.type }}</v-col>
+          <v-col>{{ exercise.duration }}</v-col>
+          <v-col>{{ exercise.repetitions }}</v-col>
+        </v-row>
+      </v-btn>
+      <v-dialog v-model="dialog2" width="500">
+        <v-card color="#2d4059">
+          <v-card-title color="white">
+            <span class="white--text">
+              <span class="headline">Exercise details</span>
+            </span>
+            <v-btn icon color="pink">
+              <v-icon>mdi-heart</v-icon>
+            </v-btn>
+          </v-card-title>
+
+          <v-card-text class="white--text">
+            <v-container>
+              <v-row> </v-row>
+              <v-row>
+                <v-col cols="12" >
+                  <v-text-field v-model="exerciseModiName" label="Name" required></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field v-model="exerciseModiDetail" label="Detail" required> </v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-select v-model="type" :items="types" label="Type" required ></v-select>
+                </v-col>
+                <v-col cols="12" sm="6">
+                  <v-text-field v-model="exerciseModiDuration" label="Duration" required> </v-text-field>
+                </v-col>
+                <v-col cols="12" sm="6">
+                  <v-text-field v-model="exerciseModiRepetitions" label="Repetitions" required></v-text-field>
+                </v-col>
+              </v-row>
+            </v-container>
+            <small>*indicates required field</small>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="white" text @click="dialog2 = false"> Cancel </v-btn>
+            <v-btn color="white" text @click="editExercise"> Save </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </div>
+
+    <!--<div align="center">
     <v-btn class="my-6" v-for="(i,j) in slides" :key="i" rounded color="#2d4059" dark width="1000px" height="100px">
       <v-row>
       <v-col>{{i}}</v-col>
@@ -176,114 +171,146 @@
       </v-row>
     </v-btn>
   </div>-->
-  
   </body>
 </template>
 
 <script>
-  //import {SportApi} from '@/sport'
-  //import {Api} from '@/api'
-  import {ExercisesApi} from '@/exercises'
-  //import {UserApi} from '@/user'
-  export default {
-    data () {
-      return {
-       /* colors: [
+//import {SportApi} from '@/sport'
+//import {Api} from '@/api'
+import { ExercisesApi } from "@/exercises";
+//import {UserApi} from '@/user'
+export default {
+  data() {
+    return {
+      /* colors: [
           'indigo',
           'warning',
           'pink darken-2',
           'red lighten-1',
           'deep-purple accent-4',
         ],*/
-        dialog: false,
-        dialog2: false,
-        routine: null,
-        exercises: null,
-        slides: [
-          'Squats',
-          'Planks',
-          'Burpees',
-          'Crunches',
-          'Sit Ups',
-        ],
-        bodyparts: [
-          '20 Reps',
-          '30 Secs',
-          '10 Reps',
-          '10 Reps',
-          '25 Reps',
-        ],
-        workout_type: [
-          'Legs',
-          'Abs',
-          'Legs',
-          'Abs',
-          'Arms'
-        ],
-        workout_level: [
-          'Begginer',
-          'Intermediate',
-          'Expert',
-          'Intermediate',
-          'Expert'
-        ],
-         links: [
-      { icon: 'name', text: 'Name', route: '/exercises'},
-      { icon: 'Body section', text: 'Body section', route: '/'},
-      { icon: 'Instensity', text: 'Intensity', route: '/'},
-    ],
-      }
-    },
-    created(){
-      //this.addExercise();
-      //const result = ExercisesApi.getExercises();
-      //window.alert(Api.token);
-      //window.alert(JSON.stringify(ExercisesApi.getExercises()));}
-      
-       ExercisesApi.getExercises().then(data=>{
-        //eslint-disable-next-line
-        console.log(data);
-        this.routine = data;
-        this.exercises = data.results;
-       });
-      /*var data = UserApi.get();
+      dialog: false,
+      dialog2: false,
+      routine: null,
+      exercises: null,
+      currentId: null,
+      slides: ["Squats", "Planks", "Burpees", "Crunches", "Sit Ups"],
+      bodyparts: ["20 Reps", "30 Secs", "10 Reps", "10 Reps", "25 Reps"],
+      workout_type: ["Legs", "Abs", "Legs", "Abs", "Arms"],
+      types: ["exercise", "rest"],
+      workout_level: [
+        "Begginer",
+        "Intermediate",
+        "Expert",
+        "Intermediate",
+        "Expert",
+      ],
+      links: [
+        { icon: "name", text: "Name", route: "/exercises" },
+        { icon: "Body section", text: "Body section", route: "/" },
+        { icon: "Instensity", text: "Intensity", route: "/" },
+      ],
+    };
+  },
+  updated(){
+    ExercisesApi.getExercises().then((data) => {
+      //eslint-disable-next-line
+      console.log("data results", data.results);
+      this.routine = data;
+      this.exercises = data.results;
+    });
+  },
+  created() {
+    //this.addExercise();
+    //this.deleteExercise(2);
+    //const result = ExercisesApi.getExercises();
+    //window.alert(Api.token);
+    //window.alert(JSON.stringify(ExercisesApi.getExercises()));}
+
+    ExercisesApi.getExercises().then((data) => {
+      //eslint-disable-next-line
+      console.log("data results", data.results);
+      this.routine = data;
+      this.exercises = data.results;
+    });
+    /*var data = UserApi.get();
        UserApi.get().then(data=>{
          this.user = data;
         window.alert(JSON.stringify(this.user));
        });*/
 
-      /*if (data != null){
+    /*if (data != null){
         for(var i=0; i < data[0].totalCount; i++){
           this.exercises.push(data[0].results[i]);
         }
       }*/
 
-      /*var response = UserApi.get();
+    /*var response = UserApi.get();
       this.user = response
       window.alert(JSON.stringify(this.user));*/
-      /*UserApi.get().then(data=>{
+    /*UserApi.get().then(data=>{
          this.user = data;
         window.alert(JSON.stringify(this.user));
        });*/
-      
-      
-      /*var response = UserApi.get();
+
+    /*var response = UserApi.get();
       UserApi.get().then(window.alert(JSON.stringify()))
       window.alert(JSON.stringify(UserApi.get()));*/
-
+  },
+  methods: {
+    addExercise() {
+      //eslint-disable-next-line
+      console.log("LOS DATOS SON ", this.exerciseName, this.exerciseDetail, this.exerciseType, this.exerciseDuration, this.exerciseRepetitions);
+      ExercisesApi.add(this.exerciseName, this.exerciseDetail, this.exerciseType, parseInt(this.exerciseDuration), parseInt(this.exerciseRepetitions));
+      this.dialog = false;
     },
-    methods:{
-      addExercise(){
-        ExercisesApi.add("asd", "asd", "exercise", 30, 0);
-      },
-      /*editExercise(){
+    /*editExercise(){
         ExercisesApi.udpateExercise()
       }*/
-      deleteExcercise(){
-        ExercisesApi.deleteExercise(6);
-      }
-    }
-  }
+    deleteExercise(id) {
+      ExercisesApi.deleteExercise(id);
+    },
+    opendialog(exercise) {
+      this.currentId = exercise.id;
+      ExercisesApi.getExercise(parseInt(this.currentId)).then((data) => {
+      //eslint-disable-next-line
+      console.log("data results", data.results);
+      this.exerciseModiName = data.name;
+      this.exerciseModiDetail = data.detail;
+      this.exerciseModiType = data.type;
+      this.exerciseModiDuration = data.duration;
+      this.exerciseModiRepetitions = data.repetitions;
+    });
+      this.dialog2 = true;
+      //eslint-disable-next-line
+      console.log("EJERCICIO", exercise.id);
+    },
+    editExercise(){
+         var data = {
+            name: this.exerciseModiName,
+            detail: this.exerciseModiDetail,
+            type: this.exerciseModiType,
+            duration: parseInt(this.exerciseModiDuration),
+            repetitions: parseInt(this.exerciseModiRepetitions)
+          }
+          ExercisesApi.updateExercise(parseInt(this.currentId), data);
+          this.dialog2 = false;
+      },
+    /*modifyExercise(){
+      //eslint-disable-next-line
+      console.log("LOS DATOS SON ",this.exerciseModiName, this.exerciseModiDetail, this.exerciseModiType, this.exerciseModiDuration, this.exerciseModiRepetitions);
+      ExercisesApi.update(3,this.exerciseModiName, this.exerciseModiDetail, this.exerciseModiType, parseInt(this.exerciseModiDuration), parseInt(this.exerciseModiRepetitions)).then((data)=>{
+        var i;
+        for (i = 0; i < this.exercises.length; i++) {
+          if (this.exercises[i].id == 3){
+            this.exercises[i] = data;
+          }
+        } 
+      });
+      this.dialog2 = false;
+    }*/
+  },
+};
 </script>
 
 <!--

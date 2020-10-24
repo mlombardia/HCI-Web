@@ -32,8 +32,8 @@
                 <v-text-field label="Height" >
                 </v-text-field>
                 
-                <v-text-field label="Gender" v-model="gender" required>
-                </v-text-field>
+                <v-select :items="['male', 'female', 'other']" label="Gender" v-model="gender" required>
+                </v-select>
 
                 <v-text-field label="Age" v-model="age" required>
                 </v-text-field>
