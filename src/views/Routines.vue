@@ -209,7 +209,7 @@ LADO DERECHO
                   <p>All Exercises</p>
                   <div class="all-exercises">
                       <!-- aca van los ejercicios -->
-                      <v-flex v-for="exercise in allExercises" :key="exercise.id">
+                      <v-flex v-for="exercise in allExercises" :key="exercise.id" :data="{duration: exercise.duration, repetitions: exercise.repetitions}">
                         <ExerciseCard v-bind:exercise="exercise"></ExerciseCard>
                       </v-flex>
                   </div>
@@ -236,39 +236,6 @@ LADO DERECHO
           </v-dialog>
         </v-col>
       </div>
-      <v-dialog v-model="dialog5" width="500" :visible="false">
-        <v-card color="#2d4059">
-            <v-card-title  color="white" >
-              <span class="white--text">
-                <span class="headline">Exercice Details
-                </span>
-              </span>
-            </v-card-title>
-            <body>
-              <v-container>
-              <v-row>
-                <v-col cols="12">
-                  <v-number-field label="Duration" required>
-                  </v-number-field>
-                </v-col>
-                <v-col cols="12">
-                  <v-number-field label="Repetition" required>
-                  </v-number-field>
-                </v-col>
-              </v-row>
-            </v-container>
-            </body>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="white" text @click="dialog5 = false">
-                Cancel
-              </v-btn>
-              <v-btn color="white" text @click="dialog5 = false ; " >
-                Accept
-              </v-btn>
-            </v-card-actions>  
-          </v-card>
-          </v-dialog>
       <br style="clear: both;">
       <v-flex  v-for="routine in routines" :key="routine.id" >
       <RoutineCard :routine="routine"></RoutineCard>
