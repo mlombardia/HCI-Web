@@ -57,7 +57,11 @@
                 </v-text-field>
               </v-col>
               <v-col cols="12">
-                <v-text-field label="User"  v-model="usernameChange" required>
+                <v-text-field label="Username"  v-model="usernameChange" required>
+                </v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field label="Password"  v-model="usernameChange" required>
                 </v-text-field>
               </v-col>
                <v-col cols="12">
@@ -146,7 +150,10 @@
     data () {
       return {
         responses: null,
-        //fullName
+        usermame: null,
+        password: null,
+        email: null,
+        fullName: null,
       }
     },
     created(){
@@ -157,12 +164,13 @@
       this.responses = data;
       //this.fullName = this.responses.fullName;
     });
-
   },
-    /*changeInfo(){
-      UserApi.modify(this.user, this.password, this.fullName, this.email, true)
-    }*/
+  methods: {
+    updated(){
+      UserApi.modify(this.username, this.fullName, this.email, this.password, true);
   }
+  }
+}
 </script>
 
 
