@@ -192,56 +192,6 @@ LADO DERECHO
           </v-dialog>
         </v-col>
       </div>
-      <div style="float: right; margin-right: 70px; margin-top: 5px;">
-        <v-col cols="12" md="3">
-        <v-dialog v-model="dialog3" width="1200" :visible="false">
-        <v-card color="#2d4059">
-            <v-card-title  color="white" >
-              <span class="white--text">
-                <span class="headline">Add exercices
-                </span>
-              </span>
-            </v-card-title>
-            <v-col cols="12">
-                <v-select v-model="cycle" :items="cycles" label="Cycle" required >
-                </v-select>
-              </v-col>
-            <body>
-              <div class="exercise-container">
-                <div class="all-excercises-container">
-                  <p>All Exercises</p>
-                  <div class="all-exercises">
-                      <!-- aca van los ejercicios -->
-                      <v-flex v-for="exercise in allExercises" :key="exercise.id" :data="{duration: exercise.duration, repetitions: exercise.repetitions}">
-                        <ExerciseCard v-bind:exercise="exercise"></ExerciseCard>
-                      </v-flex>
-                  </div>
-                </div>
-                <span class="flecha">- ></span>
-                <div class="added-exercises-container">
-                    <p>Added Exercises</p>
-                    <div class="added-exercises">
-                        <!-- aca van los ejercicios AGREGADOS -->
-                        <v-flex v-for="exercise in addedExercises" :key="exercise.id" :data="{duration: exercise.duration, repetitions: exercise.repetitions}">
-                        <ExerciseCard v-bind:exercise="exercise"></ExerciseCard>
-                      </v-flex>
-                    </div>
-                </div>
-              </div>
-            </body>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="white" text @click="dialog3 = false">
-                Cancel
-              </v-btn>
-              <v-btn color="white" text @click="dialog3 = false" >
-                Accept
-              </v-btn>
-            </v-card-actions>  
-          </v-card>
-          </v-dialog>
-        </v-col>
-      </div>
       <br style="clear: both;">
       <v-flex  v-for="routine in routines" :key="routine.id" >
       <RoutineCard :routine="routine"></RoutineCard>
@@ -259,12 +209,10 @@ LADO DERECHO
   import {RoutinesApi} from '@/routines'
   import {ExercisesApi} from '@/exercises'
   import RoutineCard from '../components/RoutineCard.vue'
-  import ExerciseCard from '../components/ExerciseCard.vue'
   export default {
     name: 'Routines',
     components: {
       'RoutineCard': RoutineCard,
-      'ExerciseCard': ExerciseCard
     },
     data: () => ({
         currRoutineId: null,
@@ -325,7 +273,7 @@ LADO DERECHO
     }),
     methods: {
       getAllExercises(){
-        ExercisesApi.getExercises().then(data=>{
+        ExercisesApi.getExercises(1,1).then(data=>{
           window.alert(data.totalCount);
           this.allExercises = data.results;
         });
@@ -340,6 +288,7 @@ LADO DERECHO
         RoutinesApi.getRoutines().then(data=>{
           //window.alert(data.totalCount);
           this.routines = data.results;
+          this.routines.forEach(routine=> routine["categories"] = this.categories);
         });
       },
 

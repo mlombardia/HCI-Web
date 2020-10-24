@@ -47,6 +47,13 @@
               <small>*indicates required field</small>
             </v-card-text>
             <v-card-actions>
+            <v-col cols="12">
+              <v-row>
+              <v-btn color="white" text @click="dialog4 = true">
+                Add exercices
+              </v-btn>
+              </v-row>
+              <v-row>
               <v-btn color="white" text @click="dialog2 = false">
                 Cancel
               </v-btn>
@@ -74,114 +81,199 @@
               <v-btn color="white" text  @click="editRoutine" >
                 Save Routine
               </v-btn>
+              </v-row>
+              </v-col>
             </v-card-actions>  
           </v-card>
+          <div style="float: right; margin-right: 70px; margin-top: 5px;">
+        <v-col cols="12" md="3">
+        <v-dialog v-model="dialog4" width="1200" :visible="false">
+        <v-card color="#2d4059">
+            <v-card-title  color="white" >
+              <span class="white--text">
+                <span class="headline">Add exercices
+                </span>
+              </span>
+            </v-card-title>
+            <v-col cols="12">
+                <v-select v-model="cycle" :items="cycles" item-value="id" item-text="name" label="Cycle">
+                </v-select>
+              </v-col>
+            <body>
+              <div class="exercise-container">
+                <div class="all-excercises-container">
+                  <p>All Exercises</p>
+                  <div class="all-exercises">
+                      <!-- aca van los ejercicios -->
+                      <v-flex v-for="exercise in allExercises" :key="exercise.id" :data="{duration: exercise.duration, repetitions: exercise.repetitions}">
+                        <ExerciseCard v-bind:exercise="exercise"></ExerciseCard>
+                      </v-flex>
+                  </div>
+                </div>
+                <span class="flecha">- ></span>
+                <div class="added-exercises-container">
+                    <p>Added Exercises</p>
+                    <div class="added-exercises" v-if="cycle == cycles[0].id">
+                        <!-- aca van los ejercicios AGREGADOS -->
+                        <v-flex  v-for="exercise in addedExercisesWarmup" :key="exercise.id" :data="{duration: exercise.duration, repetitions: exercise.repetitions}">
+                        <ExerciseCard v-bind:exercise="exercise"></ExerciseCard>
+                        </v-flex>
+                    </div>
+                    <div class="added-exercises" v-if="cycle == cycles[1].id">
+                        <!-- aca van los ejercicios AGREGADOS -->
+                        <v-flex  v-for="exercise in addedExercisesExercise" :key="exercise.id" :data="{duration: exercise.duration, repetitions: exercise.repetitions}">
+                        <ExerciseCard v-bind:exercise="exercise"></ExerciseCard>
+                        </v-flex>
+                    </div>
+                    <div class="added-exercises" v-if="cycle == cycles[2].id">
+                        <!-- aca van los ejercicios AGREGADOS -->
+                        <v-flex  v-for="exercise in addedExercisesCooldown" :key="exercise.id" :data="{duration: exercise.duration, repetitions: exercise.repetitions}">
+                        <ExerciseCard v-bind:exercise="exercise"></ExerciseCard>
+                        </v-flex>
+                    </div>
+                    <div class="added-exercises" v-if="cycle == null">
+                        <!-- aca van los ejercicios AGREGADOS -->
+                    </div>
+                </div>
+              </div>
+            </body>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="white" text @click="dialog4 = false">
+                Cancel
+              </v-btn>
+              <v-btn color="white" text @click="dialog4 = false" >
+                Accept
+              </v-btn>
+            </v-card-actions>  
+          </v-card>
+          </v-dialog>
+        </v-col>
+      </div>
         </v-dialog>
         </template>
-        <script>
-        import {RoutinesApi} from '@/routines'
-        import {CyclesApi} from '@/cycles'
-        export default {
-            props: {
-              routine: Object
-            },
-        data: () => ({
-            dialog2: false,
-            dialog3: false,
-            links: [
-              { icon: 'name', text: 'Name', route: '/exercises'},
-              { icon: 'Body section', text: 'Body section', route: '/'},
-              { icon: 'Instensity', text: 'Intensity', route: '/'},
-            ],
-            routin: null,
-            isPublic: null,
-            cycles: [],
-            cats: [],
-            category: null,
-            difficulties: ['rookie', 'beginner', 'intermediate', 'advanced', 'expert'],
-            difficulty: null,
-            routineName: null,
-            routineDetail: null,
-
-
-            slides: [
-              'Squats',
-              'Planks',
-              'Burpees',
-              'Crunches',
-              'Sit Ups',
-            ],
-            bodyparts: [
-              '20 Reps',
-              '30 Secs',
-              '10 Reps',
-              '10 Reps',
-              '25 Reps',
-            ],
-            workout_type: [
-              'Legs',
-              'Abs',
-              'Legs',
-              'Abs',
-              'Arms'
-            ],
-            workout_level: [
-              'Begginer',
-              'Intermediate',
-              'Expert',
-              'Intermediate',
-              'Expert'
-            ],
-          
-        }),
-        mounted(){
-          this.routin = this.routine;
-          this.cats = this.routin.categories;
-          this.isPublic = this.routin.isPublic;
-          this.category = this.routin.category.id;
-          this.difficulty = this.routin.difficulty;
-          this.routineName = this.routin.name;
-          this.routineDetail = this.routin.detail;
-          this.getCycles();
+  <script>
+            import ExerciseCard from '../components/ExerciseCard.vue'
+            import {RoutinesApi} from '@/routines'
+            import {CyclesApi} from '@/cycles'
+            import {ExercisesApi} from '@/exercises'
+            export default {
+                props: {
+                  routine: Object
+                },
+                components: {
+          'ExerciseCard': ExerciseCard
         },
-        methods: {
-          editRoutine(){
-            var data = {
-                name: this.routineName,
-                detail: this.routineDetail,
-                isPublic: this.isPublic,
-                difficulty: this.difficulty,
-                category: {
-                  id: parseInt(this.category)
-                }
-              }
-              RoutinesApi.updateRoutine(parseInt(this.routin.id) ,data);
-              // window.alert(JSON.stringify(data));
-              this.dialog2 = false;
-          },
-          deleteRoutine(){
+            data: () => ({
+                dialog2: false,
+                dialog3: false,
+                dialog4: false,
+                cycle:null,
+                links: [
+                  { icon: 'name', text: 'Name', route: '/exercises'},
+                  { icon: 'Body section', text: 'Body section', route: '/'},
+                  { icon: 'Instensity', text: 'Intensity', route: '/'},
+                ],
+                routin: null,
+                isPublic: null,
+                cycles: [],
+                cats: [],
+                category: null,
+                difficulties: ['rookie', 'beginner', 'intermediate', 'advanced', 'expert'],
+                difficulty: null,
+                routineName: null,
+                routineDetail: null,
+                addedExercisesWarmup: [],
+                addedExercisesExercise: [],
+                addedExercisesCooldown: [],
+                allExercises: [],
 
-            RoutinesApi.deleteRoutine(this.routin.id);
-            this.dialog3 = false;
-            this.dialog2 = false;
-          },
-          getCycles(){
-            CyclesApi.getRoutineCycles(parseInt(this.routin.id)).then(data=>{
-              if(data.totalCount <= 0){
-                CyclesApi.add(parseInt(this.routin.id),{"name": "Warmup", "detail": "Fast Warmup", "type": "warmup", "order": 1, "repetitions": 1}).then(firstcycle=>{
-                  this.cycles.push(firstcycle);
+
+                slides: [
+                  'Squats',
+                  'Planks',
+                  'Burpees',
+                  'Crunches',
+                  'Sit Ups',
+                ],
+                bodyparts: [
+                  '20 Reps',
+                  '30 Secs',
+                  '10 Reps',
+                  '10 Reps',
+                  '25 Reps',
+                ],
+                workout_type: [
+                  'Legs',
+                  'Abs',
+                  'Legs',
+                  'Abs',
+                  'Arms'
+                ],
+                workout_level: [
+                  'Begginer',
+                  'Intermediate',
+                  'Expert',
+                  'Intermediate',
+                  'Expert'
+                ],
+              
+            }),
+            mounted(){
+              this.routin = this.routine;
+              this.cats = this.routin.categories;
+              this.isPublic = this.routin.isPublic;
+              this.category = this.routin.category.id;
+              this.difficulty = this.routin.difficulty;
+              this.routineName = this.routin.name;
+              this.routineDetail = this.routin.detail;
+              this.getCycles();
+              this.getAllExercises();
+            },
+            methods: {
+              getAllExercises(){
+              ExercisesApi.getExercises().then(data=>{
+              window.alert(data.totalCount);
+              this.allExercises = data.results;
+        });
+      },
+              editRoutine(){
+                var data = {
+                    name: this.routineName,
+                    detail: this.routineDetail,
+                    isPublic: this.isPublic,
+                    difficulty: this.difficulty,
+                    category: {
+                      id: parseInt(this.category)
+                    }
+                  }
+                  RoutinesApi.updateRoutine(parseInt(this.routin.id) ,data);
+                  // window.alert(JSON.stringify(data));
+                  this.dialog2 = false;
+              },
+              deleteRoutine(){
+
+                RoutinesApi.deleteRoutine(this.routin.id);
+                this.dialog3 = false;
+                this.dialog2 = false;
+              },
+              getCycles(){
+                CyclesApi.getRoutineCycles(parseInt(this.routin.id)).then(data=>{
+                  if(data.totalCount <= 0){
+                    CyclesApi.add(parseInt(this.routin.id),{"name": "Warmup", "detail": "Fast Warmup", "type": "warmup", "order": 1, "repetitions": 1}).then(firstcycle=>{
+                      this.cycles.push(firstcycle);
+                    });
+                    CyclesApi.add(parseInt(this.routin.id),{"name": "Exercise", "detail": "Exercise", "type": "exercise", "order": 2, "repetitions": 1}).then(secondcycle=>{
+                      this.cycles.push(secondcycle);
+                    });
+                    CyclesApi.add(parseInt(this.routin.id),{"name": "Cooldown", "detail": "Cooldown", "type": "cooldown", "order": 3, "repetitions": 1}).then(thirdcycle=>{
+                      this.cycles.push(thirdcycle);
+                    });
+                  } else {
+                    this.cycles = data.results;
+                  }
                 });
-                CyclesApi.add(parseInt(this.routin.id),{"name": "Exercise", "detail": "Exercise", "type": "exercise", "order": 2, "repetitions": 1}).then(secondcycle=>{
-                  this.cycles.push(secondcycle);
-                });
-                CyclesApi.add(parseInt(this.routin.id),{"name": "Cooldown", "detail": "Cooldown", "type": "cooldown", "order": 3, "repetitions": 1}).then(thirdcycle=>{
-                  this.cycles.push(thirdcycle);
-                });
-              } else {
-                this.cycles = data.results;
               }
-            });
-          }
-        }
-        }
-    </script>
+            }
+            }
+  </script>
