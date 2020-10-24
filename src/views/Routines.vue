@@ -14,7 +14,7 @@
     padding: 0;
     /* box-sizing: border-box; */
     font-family: sans-serif;
-}
+  }
 
 .exercise-container {
     /* margin: auto; */
@@ -184,7 +184,7 @@ LADO DERECHO
               <v-btn color="white" text @click="dialog = false">
                 Cancel
               </v-btn>
-              <v-btn color="white" text  @click="createRoutine; dialog3 = true; dialog = false" >
+              <v-btn color="white" text  @click="createRoutine" >
                 Create Routine
               </v-btn>
             </v-card-actions>  
@@ -354,6 +354,7 @@ LADO DERECHO
         }
         RoutinesApi.add(data);
         this.dialog = false;
+        this.dialog3 = true;
       }
     },
     created(){
