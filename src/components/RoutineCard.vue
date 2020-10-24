@@ -263,10 +263,10 @@
   
                     this.addedExercisesWarmup = data.results;
                   }
-                  if(this.cycles[1].id == element.id){
+                  else if(this.cycles[1].id == element.id){
                     this.addedExercisesExercise = data.results;
                   }
-                  if(this.cycles[2].id == element.id){
+                  else {
                     this.addedExercisesCooldown = data.results;
                   }
                 }))
@@ -275,17 +275,17 @@
                    if(this.cycle == this.cycles[0].id){
                         this.addedExercisesWarmup.push(exercise);
                    }
-                   if(this.cycle == this.cycle[1].id){
+                   else if(this.cycle == this.cycles[1].id){
                      this.addedExercisesExercise.push(exercise);
                    }
-                   if(this.cycle == this.cycle[2].id){
+                   else{
                     this.addedExercisesCooldown.push(exercise);
                    }
                },
               addExercisesToCycles(){
-                this.addedExercisesWarmup.forEach(element => ExercisesApi.add(this.routin.id, this.cycles[0].id,element.name, element.detail, element.type, element.duration, element.repetitions));
-                this.addedExercisesExercise.forEach(element => ExercisesApi.add(this.routin.id, this.cycles[1].id,element.name, element.detail, element.type, element.duration, element.repetitions));
-                this.addedExercisesCooldown.forEach(element => ExercisesApi.add(this.routin.id, this.cycles[2].id,element.name, element.detail, element.type, element.duration, element.repetitions));
+                this.addedExercisesWarmup.forEach(element => ExercisesApi.add(this.routin.id, this.cycles[0].id, element.name, element.detail, element.type, element.duration, element.repetitions));
+                this.addedExercisesExercise.forEach(element => ExercisesApi.add(this.routin.id, this.cycles[1].id, element.name, element.detail, element.type, element.duration, element.repetitions));
+                this.addedExercisesCooldown.forEach(element => ExercisesApi.add(this.routin.id, this.cycles[2].id, element.name, element.detail, element.type, element.duration, element.repetitions));
                 this.dialog4 = false; 
               },
               getAllExercises(){
