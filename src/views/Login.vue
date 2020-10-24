@@ -51,8 +51,6 @@
            window.alert(Api.token);
         }
     },
-    created(){    
-    }
   }
 </script>
 

@@ -36,7 +36,7 @@
                     <v-btn class="white--text" color="#F06292" elevation="2" rounded  >Cancel</v-btn>
                 </a>
                 
-                <v-btn class="white--text" @click="register" color="#F06292" elevation="2" rounded >Register</v-btn>
+                <v-btn class="white--text" @click="register" color="#F06292" elevation="2" rounded  >Register</v-btn>
                 
         </v-col>
 
@@ -46,6 +46,11 @@
 <script>
     import {UserApi} from '@/user'
     export default {
+     data: () => ({
+        viewconfirm: {
+          route: '/confirmEmail'
+        }
+    }),
     methods: {
         register(){
             var data = {
@@ -53,10 +58,10 @@
                 password: this.password,
                 fullName: this.fullName,
                 gender: this.gender,
-                birthdate: "1",
+                birthdate: 1,
                 email: this.email,
             }
-            UserApi.register(data);
+            UserApi.createUser(data);
         }
     },
   }
