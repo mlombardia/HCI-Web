@@ -37,7 +37,7 @@ class UserApi {
     }
 
     static async getUserRoutines(controller){
-        return await Api.get(`${UserApi.url}/current/routines/`, true, controller);
+        return await Api.get(`${UserApi.url}/current/routines/?page=0&size=9999&orderBy=dateCreated&direction=asc`, true, controller);
     }
 }
 
