@@ -353,7 +353,7 @@ LADO DERECHO
         var data = {
           name: this.routineName,
           detail: this.routineDetail,
-          isPublic: this.isPublic,
+          isPublic: this.isPublic == "true" ? true : false,
           difficulty: this.difficulty,
           category: {
             id: parseInt(this.category)

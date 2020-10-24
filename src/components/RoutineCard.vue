@@ -166,15 +166,15 @@
             this.dialog2 = false;
           },
           getCycles(){
-            CyclesApi.getRoutineCycles(this.routin.id).then(data=>{
+            CyclesApi.getRoutineCycles(parseInt(this.routin.id)).then(data=>{
               if(data.totalCount <= 0){
-                CyclesApi.add(this.routin.id,{"name": "Warmup", "detail": "Fast Warmup", "type": "warmup", "order": 1, "repetitions": 1}).then(firstcycle=>{
+                CyclesApi.add(parseInt(this.routin.id),{"name": "Warmup", "detail": "Fast Warmup", "type": "warmup", "order": 1, "repetitions": 1}).then(firstcycle=>{
                   this.cycles.push(firstcycle);
                 });
-                CyclesApi.add(this.routin.id,{"name": "Exercise", "detail": "Exercise", "type": "exercise", "order": 2, "repetitions": 1}).then(secondcycle=>{
+                CyclesApi.add(parseInt(this.routin.id),{"name": "Exercise", "detail": "Exercise", "type": "exercise", "order": 2, "repetitions": 1}).then(secondcycle=>{
                   this.cycles.push(secondcycle);
                 });
-                CyclesApi.add(this.routin.id,{"name": "Cooldown", "detail": "Cooldown", "type": "cooldown", "order": 3, "repetitions": 1}).then(thirdcycle=>{
+                CyclesApi.add(parseInt(this.routin.id),{"name": "Cooldown", "detail": "Cooldown", "type": "cooldown", "order": 3, "repetitions": 1}).then(thirdcycle=>{
                   this.cycles.push(thirdcycle);
                 });
               } else {
