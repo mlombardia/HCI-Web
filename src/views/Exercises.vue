@@ -144,7 +144,7 @@ input {
                   <v-text-field v-model="exerciseModiDetail" label="Detail" required> </v-text-field>
                 </v-col>
                 <v-col cols="12">
-                  <v-select v-model="type" :items="types" label="Type" required ></v-select>
+                  <v-select v-model="exerciseModiType" :items="types" label="Type" required ></v-select>
                 </v-col>
                 <v-col cols="12" sm="6">
                   <v-text-field v-model="exerciseModiDuration" label="Duration" required> </v-text-field>
