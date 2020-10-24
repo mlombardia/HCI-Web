@@ -118,12 +118,19 @@ input {
       <v-dialog v-model="dialog2" width="500">
         <v-card color="#2d4059">
           <v-card-title color="white">
-            <span class="white--text">
-              <span class="headline">Exercise details</span>
-            </span>
-            <v-btn icon color="pink">
-              <v-icon>mdi-heart</v-icon>
-            </v-btn>
+            <v-row>
+              <v-col cols="12" sm="7">
+              <span class="white--text">
+                <span class="headline">Exercise details</span>
+              </span>
+              <v-btn icon color="pink">
+                <v-icon>mdi-heart</v-icon>
+              </v-btn>
+              </v-col>
+              <v-card-actions>
+                <v-btn color="white" text @click="deleteExercise"> Delete Exercise </v-btn>
+              </v-card-actions>
+            </v-row>
           </v-card-title>
 
           <v-card-text class="white--text">
@@ -267,8 +274,9 @@ export default {
     /*editExercise(){
         ExercisesApi.udpateExercise()
       }*/
-    deleteExercise(id) {
-      ExercisesApi.deleteExercise(id);
+    deleteExercise() {
+      ExercisesApi.deleteExercise(this.currentId);
+      this.dialog2 = false;
     },
     opendialog(exercise) {
       this.currentId = exercise.id;
