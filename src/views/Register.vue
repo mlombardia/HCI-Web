@@ -32,12 +32,16 @@
                 <v-text-field label="Password" v-model="password" required>
                 </v-text-field>
 
+                <v-row>
+                  <v-col>
                 <a href="/login">
                     <v-btn class="white--text" color="#F06292" elevation="2" rounded  >Cancel</v-btn>
                 </a>
-                
+                  </v-col>
+                  <v-col>
                 <v-btn class="white--text" @click="register" color="#F06292" elevation="2" rounded  >Register</v-btn>
-                
+                  </v-col>
+                </v-row>
         </v-col>
 
     </v-card>

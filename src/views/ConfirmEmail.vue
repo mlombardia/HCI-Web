@@ -27,12 +27,14 @@
           </v-text-field>
             </v-col>
 
-
-      <v-col cols="12">
-                    <v-btn class="white--text" color="#F06292" elevation="2" rounded @click="verify" >Verify</v-btn>
+      <v-row>
+         <v-col>
+        <v-btn class="white--text" color="#F06292" elevation="2" rounded >Log in</v-btn>
         </v-col>
-        
-
+        <v-col>
+             <v-btn class="white--text" color="#F06292" elevation="2" rounded @click="verify" >Verify</v-btn>
+        </v-col>
+      </v-row>
     </v-card>
   </div>
 </template>
