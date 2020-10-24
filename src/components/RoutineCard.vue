@@ -105,7 +105,7 @@
                   <p>All Exercises</p>
                   <div class="all-exercises">
                       <!-- aca van los ejercicios -->
-                      <v-flex v-for="exercise in allExercises" :key="exercise.id" :data="{duration: exercise.duration, repetitions: exercise.repetitions}">
+                      <v-flex v-for="exercise in allExercises" :key="exercise.id">
                         <ExerciseCard v-bind:exercise="exercise"></ExerciseCard>
                       </v-flex>
                   </div>

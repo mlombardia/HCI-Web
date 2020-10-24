@@ -79,11 +79,7 @@ import {ExercisesApi} from '@/exercises'
                   ExercisesApi.updateExercise(parseInt(this.routin.id) ,data);
                   window.alert(JSON.stringify(data));
                   this.dialog2 = false;
-              },
-              addExercice(){
+              }
             }
             }
-            
-        }
-        
 </script>
