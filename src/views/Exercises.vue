@@ -220,7 +220,7 @@ export default {
     };
   },
   updated(){
-    ExercisesApi.getExercises().then((data) => {
+    ExercisesApi.getExercises(1,1).then((data) => {
       //eslint-disable-next-line
       console.log("data results", data.results);
       this.routine = data;
@@ -234,7 +234,7 @@ export default {
     //window.alert(Api.token);
     //window.alert(JSON.stringify(ExercisesApi.getExercises()));}
 
-    ExercisesApi.getExercises().then((data) => {
+    ExercisesApi.getExercises(1,1).then((data) => {
       //eslint-disable-next-line
       console.log("data results", data.results);
       this.routine = data;
@@ -268,19 +268,19 @@ export default {
     addExercise() {
       //eslint-disable-next-line
       console.log("LOS DATOS SON ", this.exerciseName, this.exerciseDetail, this.exerciseType, this.exerciseDuration, this.exerciseRepetitions);
-      ExercisesApi.add(this.exerciseName, this.exerciseDetail, this.exerciseType, parseInt(this.exerciseDuration), parseInt(this.exerciseRepetitions));
+      ExercisesApi.add(1,1,this.exerciseName, this.exerciseDetail, this.exerciseType, parseInt(this.exerciseDuration), parseInt(this.exerciseRepetitions));
       this.dialog = false;
     },
     /*editExercise(){
         ExercisesApi.udpateExercise()
       }*/
     deleteExercise() {
-      ExercisesApi.deleteExercise(this.currentId);
+      ExercisesApi.deleteExercise(1,1,this.currentId);
       this.dialog2 = false;
     },
     opendialog(exercise) {
       this.currentId = exercise.id;
-      ExercisesApi.getExercise(parseInt(this.currentId)).then((data) => {
+      ExercisesApi.getExercise(1,1,parseInt(this.currentId)).then((data) => {
       //eslint-disable-next-line
       console.log("data results", data.results);
       this.exerciseModiName = data.name;
@@ -301,7 +301,7 @@ export default {
             duration: parseInt(this.exerciseModiDuration),
             repetitions: parseInt(this.exerciseModiRepetitions)
           }
-          ExercisesApi.updateExercise(parseInt(this.currentId), data);
+          ExercisesApi.updateExercise(1,1,parseInt(this.currentId), data);
           this.dialog2 = false;
       },
     /*modifyExercise(){
