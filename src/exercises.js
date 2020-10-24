@@ -26,6 +26,10 @@ class ExercisesApi {
     static async deleteExercise(id, controller){
         return await Api.delete(`${ExercisesApi.url}/${id}`, true, controller);
     }
+
+    static async addExerciseWithId(routineId, cycleId, data, controller){
+        return Api.get(`${Api.baseUrl}/routines/${routineId}/cycles/${cycleId}/exercises`, data, controller);
+    }
 }
 
 class Exercises {
