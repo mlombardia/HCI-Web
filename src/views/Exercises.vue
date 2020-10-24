@@ -68,7 +68,7 @@ input {
                   <v-text-field v-model="exerciseDetail" label="Detail" required> </v-text-field>
                 </v-col>
                 <v-col cols="12">
-                  <v-text-field v-model="exerciseType" label="Type" required></v-text-field>
+                  <v-select v-model="exerciseType" :items="types" label="Type" required ></v-select>
                 </v-col>
                 <v-col cols="12" sm="6">
                   <v-text-field v-model="exerciseDuration" label="Duration" required> </v-text-field>
@@ -137,7 +137,7 @@ input {
                   <v-text-field v-model="exerciseModiDetail" label="Detail" required> </v-text-field>
                 </v-col>
                 <v-col cols="12">
-                  <v-text-field v-model="exerciseModiType" label="Type" required></v-text-field>
+                  <v-select v-model="type" :items="types" label="Type" required ></v-select>
                 </v-col>
                 <v-col cols="12" sm="6">
                   <v-text-field v-model="exerciseModiDuration" label="Duration" required> </v-text-field>
@@ -193,9 +193,11 @@ export default {
       dialog2: false,
       routine: null,
       exercises: null,
+      currentId: null,
       slides: ["Squats", "Planks", "Burpees", "Crunches", "Sit Ups"],
       bodyparts: ["20 Reps", "30 Secs", "10 Reps", "10 Reps", "25 Reps"],
       workout_type: ["Legs", "Abs", "Legs", "Abs", "Arms"],
+      types: ["exercise", "rest"],
       workout_level: [
         "Begginer",
         "Intermediate",
@@ -269,6 +271,7 @@ export default {
       ExercisesApi.deleteExercise(id);
     },
     opendialog(exercise) {
+      this.currentId = exercise.id;
       this.dialog2 = true;
       //eslint-disable-next-line
       console.log("EJERCICIO", exercise.id);
@@ -281,8 +284,7 @@ export default {
             duration: parseInt(this.exerciseModiDuration),
             repetitions: parseInt(this.exerciseModiRepetitions)
           }
-          ExercisesApi.updateExercise(3, data);
-          window.alert(JSON.stringify(data));
+          ExercisesApi.updateExercise(parseInt(this.currentId), data);
           this.dialog2 = false;
       },
     /*modifyExercise(){
