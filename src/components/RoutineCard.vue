@@ -47,12 +47,17 @@
               <small>*indicates required field</small>
             </v-card-text>
             <v-card-actions>
-              <v-spacer></v-spacer>
               <v-btn color="white" text @click="dialog2 = false">
                 Cancel
               </v-btn>
+              <v-spacer></v-spacer>
+              <v-dialog v-model="dialog3">
+                <v-btn color="white" text @click="deleteRoutine">
+                  Delete Routine
+                </v-btn>
+              </v-dialog>
               <v-btn color="white" text  @click="editRoutine" >
-                Create Routine
+                Save Routine
               </v-btn>
             </v-card-actions>  
           </v-card>
@@ -66,6 +71,7 @@
             },
     data: () => ({
         dialog2: false,
+        dialog3: false,
          links: [
           { icon: 'name', text: 'Name', route: '/exercises'},
           { icon: 'Body section', text: 'Body section', route: '/'},
@@ -132,8 +138,12 @@
             }
           }
           RoutinesApi.updateRoutine(parseInt(this.routin.id) ,data);
-          window.alert(JSON.stringify(data));
+          // window.alert(JSON.stringify(data));
           this.dialog2 = false;
+       },
+       deleteRoutine(){
+
+         RoutinesApi.deleteRoutine(this.routin.id);
        }
     }
         }
