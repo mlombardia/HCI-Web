@@ -62,7 +62,7 @@ import {UserApi} from '@/user'
 export default {
   data: () => ({
     links: [
-      { icon: 'home', text: 'Home', route: '/'},
+      { icon: 'home', text: 'Home', route: '/home'},
       { icon: 'about', text: 'About', route: '/about'},
       { icon: 'sign out', text: 'Sign out', route: '/login'},
       

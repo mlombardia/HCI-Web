@@ -13,11 +13,12 @@
 <body>
     <h1 align="center" style="margin-top: 15px">Profile</h1>
    
+   
     <div align="center" class="row">
       
-      <div class="col-md-6 pr-md-1">
+      <div class="col-md-6 pr-md-1" >
         <v-card elevation="24" width="300" height="400" color = "#2d4059"  >
-         <v-col cols="12">
+         <v-col cols="12" >
          <v-avatar size="102">
             <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John">
           </v-avatar>
