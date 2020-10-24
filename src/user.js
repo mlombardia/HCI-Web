@@ -24,8 +24,8 @@ class UserApi {
         return result;
     }
     
-    static async modify(username, fullName, email, password) {
-        return await Api.put(`${UserApi.url}/current`, true, new InfoProfile(username, fullName, email, password), true);
+    static async modify(data, controller) {
+        return await Api.put(`${UserApi.url}/current`, true, data, controller);
       }
 
     static async get(controller) {
@@ -48,7 +48,7 @@ class Credentials {
     }
 }
 
-class InfoProfile {
+/*class InfoProfile {
     constructor(username, fullName, email, password){
         this.username = username;
         this.password = password;
@@ -59,4 +59,4 @@ class InfoProfile {
         this.phone = 1;
         this.avatarUrl = "other";
     }
-}
+}*/
