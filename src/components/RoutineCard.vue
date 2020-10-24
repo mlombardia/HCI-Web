@@ -11,64 +11,58 @@
             </v-btn>
           </template>
         <v-card color="#2d4059">
-          <v-card-title  color="white" >
-            <span class="white--text">
-            <span class="headline">Routine details</span>
-            </span>
-            <v-btn icon color="pink" >
-              <v-icon>mdi-heart</v-icon>
-            </v-btn>
-          </v-card-title>
-          
-          <v-card-text class="white--text" >
-            <v-container>
-              <v-row>
-              </v-row>
-              <v-row>
-                <v-col cols="12" sm="4" >
-                  <v-select v-model="workout_type" :items="workout_type" label="Workout type" required ></v-select>
-                </v-col>
-                <v-col cols="12" sm="4" >
-                  <v-text-field label="Qty." required>
-                  </v-text-field>
-                </v-col>
-                <v-col cols="12" sm="4" >
-                  <v-select :items="['Time', 'Reps']" label="Type of exercise*" required >
-                  </v-select>
-                </v-col>
-                <v-col cols="12">
-                  <v-select :items="workout_level" label="Difficulty" required >
-                  </v-select>
-                </v-col>
-                <v-col cols="12">
-                  <v-text-field label="Add image" required>
-                  </v-text-field>
-                </v-col>
-                <v-col cols="12">
-                  <v-text-field label="Add description" required>
-                  </v-text-field>
-                </v-col>
-                
-              </v-row>
-            </v-container>
-            <small>*indicates required field</small>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="white" text @click="dialog2 = false" >
-              Cancel
-            </v-btn>
-            <v-btn color="white" text @click="dialog2 = false" >
-              Accept
-            </v-btn>
-          </v-card-actions>  
-        </v-card>
+            <v-card-title  color="white" >
+              <span class="white--text">
+                <span class="headline">Add new routine
+                </span>
+              </span>
+            </v-card-title>
+            <v-card-text class="white--text" >
+              <v-container>
+                <v-row>
+                  <v-col cols="12">
+                    <v-text-field v-model="routineName" label="Routine Name" required>
+                    </v-text-field>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-text-field v-model="routineDetail" label="Detail" required>
+                    </v-text-field>
+                  </v-col>
+                  <v-col cols="12">
+                  <label for="public" style="margin-right: 20px;">Public</label>
+                  <input type="radio" value="true" v-model="isPublic" style="top: 2px; position: relative;">
+                  <label for="private" style="margin-left: 100px; margin-right: 20px;">Private</label>
+                  <input type="radio" value="false" v-model="isPublic" style="top: 2px; position: relative;">
+                  </v-col>
+                  <v-col cols="12">
+                    <v-select v-model="category" :items="cats" item-value="id" item-text="name" label="Category">
+                    </v-select>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-select v-model="difficulty" :items="difficulties" label="Difficulty" required >
+                    </v-select>
+                  </v-col>
+                </v-row>
+              </v-container>
+              <small>*indicates required field</small>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="white" text @click="dialog2 = false">
+                Cancel
+              </v-btn>
+              <v-btn color="white" text  @click="editRoutine" >
+                Create Routine
+              </v-btn>
+            </v-card-actions>  
+          </v-card>
         </v-dialog>
         </template>
         <script>
+        import {RoutinesApi} from '@/routines'
         export default {
-            props:{
-                routine: {}
+            props: {
+              routine: Object
             },
     data: () => ({
         dialog2: false,
@@ -77,7 +71,9 @@
           { icon: 'Body section', text: 'Body section', route: '/'},
           { icon: 'Instensity', text: 'Intensity', route: '/'},
         ],
-        categories: [],
+        routin: null,
+        isPublic: null,
+        cats: [],
         category: null,
         difficulties: ['rookie', 'beginner', 'intermediate', 'advanced', 'expert'],
         difficulty: null,
@@ -114,6 +110,31 @@
           'Expert'
         ],
       
-    })
+    }),
+    mounted(){
+      this.routin = this.routine;
+      this.cats = this.routin.categories;
+      this.isPublic = this.routin.isPublic;
+      this.category = this.routin.category.id;
+      this.difficulty = this.routin.difficulty;
+      this.routineName = this.routin.name;
+      this.routineDetail = this.routin.detail;
+    },
+    methods: {
+       editRoutine(){
+         var data = {
+            name: this.routineName,
+            detail: this.routineDetail,
+            isPublic: this.isPublic,
+            difficulty: this.difficulty,
+            category: {
+              id: parseInt(this.category)
+            }
+          }
+          RoutinesApi.updateRoutine(parseInt(this.routin.id) ,data);
+          window.alert(JSON.stringify(data));
+          this.dialog2 = false;
+       }
+    }
         }
     </script>

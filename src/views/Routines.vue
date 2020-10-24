@@ -270,8 +270,8 @@ LADO DERECHO
           </v-card>
           </v-dialog>
       <br style="clear: both;">
-      <v-flex v-for="routine in routines" :key="routine.id">
-        <RoutineCard v-bind:routine="routine"></RoutineCard>
+      <v-flex  v-for="routine in routines" :key="routine.id" >
+      <RoutineCard :routine="routine"></RoutineCard>
       </v-flex>
     </div>
     </div>
@@ -357,9 +357,8 @@ LADO DERECHO
       },
       getRoutines(){
         UserApi.getUserRoutines().then(data=>{
-          for(var i = 0; i < data.totalCount; i++){
             this.routines = data.results;
-          }
+            this.routines.forEach(routine=> routine["categories"] = this.categories);
         });
       },
       getAllRoutines(){
@@ -405,17 +404,16 @@ LADO DERECHO
       // CategoriesApi.add({"name": "Legs", "detail": "Legs"});
       // CategoriesApi.add({"name": "Middle Body", "detail": "Middle Body"});
       // CategoriesApi.add({"name": "Upper Body", "detail": "Upper Body"});
-      this.getRoutines();
-      
       this.getCategories();
+      this.getRoutines();
       this.getAllExercises();
       
       
       
     },
     updated(){
-      this.getRoutines();
       this.getCategories();
+      this.getRoutines();
       //window.alert(this.routines.length);
     }
   }
