@@ -202,31 +202,10 @@ LADO DERECHO
                 </span>
               </span>
             </v-card-title>
-            <template>
-              <v-container fluid>
-                <v-row align="center">
-                  <v-col cols="6">
-                    <v-subheader>
-                      Custom items
-                    </v-subheader>
-                  </v-col>
-
-                  <v-col cols="6">
-                    <v-select
-                      v-model="select"
-                      :hint="`${select.state}, ${select.abbr}`"
-                      :items="items"
-                      item-text="state"
-                      item-value="abbr"
-                      label="Select"
-                      persistent-hint
-                      return-object
-                      single-line
-                    ></v-select>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </template>
+            <v-col cols="12">
+                <v-select v-model="cycle" :items="cycles" label="Cycle" required >
+                </v-select>
+              </v-col>
             <body>
               <div class="exercise-container">
                 <div class="all-excercises-container">
@@ -288,11 +267,12 @@ LADO DERECHO
       'ExerciseCard': ExerciseCard
     },
     data: () => ({
-     
+        currRoutineId: null,
         dialog: false,
         dialog2: false,
         dialog3: false,
         dialog5: false,
+        currRoutineCycles: [],
         routines: [],
         allExercises: [],
         addedExercises: [],
@@ -388,7 +368,9 @@ LADO DERECHO
             id: parseInt(this.category)
           }
         }
-        RoutinesApi.add(data);
+        RoutinesApi.add(data).then(routine=>{
+          this.currRoutineId = routine.id;
+        });
         this.dialog = false;
         this.dialog3 = true;
       }

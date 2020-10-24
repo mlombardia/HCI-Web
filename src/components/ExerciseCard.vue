@@ -81,7 +81,6 @@ import {ExercisesApi} from '@/exercises'
                   this.dialog2 = false;
               },
               addExercice(){
-                this.addedExercices.add(this.exercise);
             }
             }
             
