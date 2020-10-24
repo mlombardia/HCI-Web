@@ -105,7 +105,7 @@
                   <p>All Exercises</p>
                   <div class="all-exercises">
                       <!-- aca van los ejercicios -->
-                      <v-flex v-for="exercise in allExercises" :key="exercise.id" :data="{duration: exercise.duration, repetitions: exercise.repetitions}">
+                      <v-flex v-for="exercise in allExercises" :key="exercise.id">
                         <ExerciseCard v-bind:exercise="exercise"></ExerciseCard>
                       </v-flex>
                   </div>
@@ -130,9 +130,6 @@
                         <v-flex  v-for="exercise in addedExercisesCooldown" :key="exercise.id" :data="{duration: exercise.duration, repetitions: exercise.repetitions}">
                         <ExerciseCard v-bind:exercise="exercise"></ExerciseCard>
                         </v-flex>
-                    </div>
-                    <div class="added-exercises" v-if="cycle == null">
-                        <!-- aca van los ejercicios AGREGADOS -->
                     </div>
                 </div>
               </div>
@@ -232,7 +229,7 @@
             },
             methods: {
               getAllExercises(){
-                ExercisesApi.getExercises().then(data=>{
+              ExercisesApi.getExercises(1,1).then(data=>{
                 this.allExercises = data.results;
         });
       },
@@ -277,6 +274,7 @@
                   } else {
                     this.cycles = data.results;
                   }
+                  this.cycle = this.cycles[0].id;
                 });
               }
             }

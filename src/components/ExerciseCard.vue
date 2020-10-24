@@ -48,7 +48,6 @@
 </template>
 
 <script>
-import {ExercisesApi} from '@/exercises'
         export default {
             props:{
                 exercise: Object
@@ -57,33 +56,9 @@ import {ExercisesApi} from '@/exercises'
             dialog5: false,
         }),
          mounted(){
-              this.exerc = this.exercise;
-              this.cats = this.routin.categories;
-              this.isPublic = this.routin.isPublic;
-              this.category = this.routin.category.id;
-              this.difficulty = this.routin.difficulty;
-              this.exerciseName = this.exerc.name;
-              this.exerciseDetail = this.exerc.detail;
             },
             methods: {
-              editRoutine(){
-                var data = {
-                    name: this.routineName,
-                    detail: this.routineDetail,
-                    isPublic: this.isPublic,
-                    difficulty: this.difficulty,
-                    category: {
-                      id: parseInt(this.category)
-                    }
-                  }
-                  ExercisesApi.updateExercise(parseInt(this.routin.id) ,data);
-                  window.alert(JSON.stringify(data));
-                  this.dialog2 = false;
-              },
-              addExercice(){
+              
             }
             }
-            
-        }
-        
 </script>
