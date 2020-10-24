@@ -13,9 +13,9 @@
 <body>
     <div align="center" class="row">
       
-      <div class="col-md-6 pr-md-1">
+      <div class="col-md-6 pr-md-1" >
         <v-card elevation="24" width="300" height="400" color = "#2d4059"  >
-         <v-col cols="12">
+         <v-col cols="12" >
          <v-avatar size="102">
             <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John">
           </v-avatar>
@@ -61,7 +61,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="white" text @click="dialog = false" >
-            Cancel
+            Exit
           </v-btn>
           <v-btn color="white" text @click="editInfo" >
             Save
@@ -80,7 +80,9 @@
         <v-card-title align = "center" >
           <span class="white--text">About me</span>
         </v-card-title>
-          <p class="white--text" > Marcelo Daniel Gallardo (Merlo, Buenos Aires; 18 de enero de 1976) es un exfutbolista y entrenador argentino que dirige al Club Atlético River Plate. Con River ganó cuatro campeonatos nacionales y siete internacionales, siendo el entrenador más exitoso en la historia del club. En AS Mónaco fue elegido mejor jugador de la Liga Francesa en 2000. Con la selección argentina disputó 46 partidos, anotó 14 goles y fue convocado a los Mundiales de Francia 1998 y Corea del Sur/Japón 2002. </p>
+          <v-row>
+          <v-col class="white--text"><h3>  {{ responses.avatarUrl }} </h3> </v-col>
+          </v-row>
 
       <v-col cols="12">
            <v-col cols="12" md="3">
@@ -101,19 +103,20 @@
           <v-container>
             <v-row>
               <v-col cols="12">
-                <v-text-field label="Add description" required>
+                <v-text-field label="Add description" v-model="avatarUrlChange" required>
                 </v-text-field>
               </v-col>
             </v-row>
+             <small>*max lenght 255</small>
           </v-container>
         </v-card-text>
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="white" text @click="dialog = false" >
-            Cancel
+          <v-btn color="white" text @click="dialog4 = false" >
+            Exit
           </v-btn>
-          <v-btn color="white" text @click="changeInfo" >
+          <v-btn color="white" text @click="editAboutMe" >
             Save
           </v-btn>
         </v-card-actions>
@@ -148,7 +151,6 @@
       //eslint-disable-next-line
       console.log("data", data);
       this.responses = data;
-      //this.fullName = this.responses.fullName;
       });
     },
     created(){
@@ -157,20 +159,34 @@
       //eslint-disable-next-line
       console.log("data", data);
       this.responses = data;
-      //this.fullName = this.responses.fullName;
       });
     },
     methods: {
       editInfo(){
-        var data = {
+        var info = {
           password: "password",
           username: "username",
           fullName: this.fullNameChange,       
           email: "johndoe7@email.com",
           birthdate: 1,
+          avatarUrl: this.responses.avatarUrl,
           gender: this.genderChange,
         }
-        UserApi.modify(data);
+        UserApi.modify(info);
+        this.dialog = false;
+      },
+      editAboutMe(){
+        var info = {
+          password: "password",
+          username: "username",
+          fullName: this.responses.fullName,       
+          email: "johndoe7@email.com",
+          birthdate: 1,
+          avatarUrl: this.avatarUrlChange,
+          gender: this.responses.gender,
+        }
+        UserApi.modify(info);
+        this.dialog4 = false;
       }
     },
 

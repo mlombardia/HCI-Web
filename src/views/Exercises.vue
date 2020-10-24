@@ -118,12 +118,19 @@ input {
       <v-dialog v-model="dialog2" width="500">
         <v-card color="#2d4059">
           <v-card-title color="white">
-            <span class="white--text">
-              <span class="headline">Exercise details</span>
-            </span>
-            <v-btn icon color="pink">
-              <v-icon>mdi-heart</v-icon>
-            </v-btn>
+            <v-row>
+              <v-col cols="12" sm="7">
+              <span class="white--text">
+                <span class="headline">Exercise details</span>
+              </span>
+              <v-btn icon color="pink">
+                <v-icon>mdi-heart</v-icon>
+              </v-btn>
+              </v-col>
+              <v-card-actions>
+                <v-btn color="white" text @click="deleteExercise"> Delete Exercise </v-btn>
+              </v-card-actions>
+            </v-row>
           </v-card-title>
 
           <v-card-text class="white--text">
@@ -137,7 +144,7 @@ input {
                   <v-text-field v-model="exerciseModiDetail" label="Detail" required> </v-text-field>
                 </v-col>
                 <v-col cols="12">
-                  <v-select v-model="type" :items="types" label="Type" required ></v-select>
+                  <v-select v-model="exerciseModiType" :items="types" label="Type" required ></v-select>
                 </v-col>
                 <v-col cols="12" sm="6">
                   <v-text-field v-model="exerciseModiDuration" label="Duration" required> </v-text-field>
@@ -213,7 +220,7 @@ export default {
     };
   },
   updated(){
-    ExercisesApi.getExercises().then((data) => {
+    ExercisesApi.getExercises(1,1).then((data) => {
       //eslint-disable-next-line
       console.log("data results", data.results);
       this.routine = data;
@@ -227,7 +234,7 @@ export default {
     //window.alert(Api.token);
     //window.alert(JSON.stringify(ExercisesApi.getExercises()));}
 
-    ExercisesApi.getExercises().then((data) => {
+    ExercisesApi.getExercises(1,1).then((data) => {
       //eslint-disable-next-line
       console.log("data results", data.results);
       this.routine = data;
@@ -261,18 +268,19 @@ export default {
     addExercise() {
       //eslint-disable-next-line
       console.log("LOS DATOS SON ", this.exerciseName, this.exerciseDetail, this.exerciseType, this.exerciseDuration, this.exerciseRepetitions);
-      ExercisesApi.add(this.exerciseName, this.exerciseDetail, this.exerciseType, parseInt(this.exerciseDuration), parseInt(this.exerciseRepetitions));
+      ExercisesApi.add(1,1,this.exerciseName, this.exerciseDetail, this.exerciseType, parseInt(this.exerciseDuration), parseInt(this.exerciseRepetitions));
       this.dialog = false;
     },
     /*editExercise(){
         ExercisesApi.udpateExercise()
       }*/
-    deleteExercise(id) {
-      ExercisesApi.deleteExercise(id);
+    deleteExercise() {
+      ExercisesApi.deleteExercise(1,1,this.currentId);
+      this.dialog2 = false;
     },
     opendialog(exercise) {
       this.currentId = exercise.id;
-      ExercisesApi.getExercise(parseInt(this.currentId)).then((data) => {
+      ExercisesApi.getExercise(1,1,parseInt(this.currentId)).then((data) => {
       //eslint-disable-next-line
       console.log("data results", data.results);
       this.exerciseModiName = data.name;
@@ -293,7 +301,7 @@ export default {
             duration: parseInt(this.exerciseModiDuration),
             repetitions: parseInt(this.exerciseModiRepetitions)
           }
-          ExercisesApi.updateExercise(parseInt(this.currentId), data);
+          ExercisesApi.updateExercise(1,1,parseInt(this.currentId), data);
           this.dialog2 = false;
       },
     /*modifyExercise(){
