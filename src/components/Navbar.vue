@@ -2,7 +2,7 @@
   <nav>
     <v-toolbar color="#2d4059">
 <!--      <v-toolbar-side-icon></v-toolbar-side-icon> -->
-      <a href="/" style="text-transform: none !important; text-decoration: none;">
+      <a href="/home" style="text-transform: none !important; text-decoration: none;">
         <v-toolbar-title class="grey--text">
           <span class="font-weight-light">Gym</span>
           <span>Side</span>

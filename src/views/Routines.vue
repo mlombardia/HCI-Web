@@ -115,7 +115,7 @@ LADO DERECHO
 </style>
 <template>
   <div class="routines">
-    <h1 align="center" style="margin-top: 15px;">Routines</h1>
+    <h1 align="center" style="margin-top: 15px;">My Routines</h1>
     <div align="center">
     <div style="width: 1000px;">
       <div style="margin-top: 20px; float: left;">
@@ -274,7 +274,7 @@ LADO DERECHO
     methods: {
       getAllExercises(){
         ExercisesApi.getExercises(1,1).then(data=>{
-          window.alert(data.totalCount);
+          //window.alert(data.totalCount);
           this.allExercises = data.results;
         });
       },
@@ -318,7 +318,7 @@ LADO DERECHO
           }
         }
         RoutinesApi.add(data).then(routine=>{
-          this.currRoutineId = routine.id;
+          this.currRoutineId = parseInt(routine.id);
         });
         this.dialog = false;
         this.dialog3 = true;
