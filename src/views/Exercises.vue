@@ -46,7 +46,6 @@ input {
             rounded
             v-bind="attrs"
             v-on="on"
-            @click="addExercise"
             >New exercise
             <v-icon>mdi-plus</v-icon>
           </v-btn>
@@ -60,35 +59,22 @@ input {
 
           <v-card-text class="white--text">
             <v-container>
+              <v-row> </v-row>
               <v-row>
-                <v-col cols="12" sm="4">
-                  <v-select
-                    :items="['Upper body', 'Middle body', 'Lower mody']"
-                    label="Body area*"
-                    required
-                  ></v-select>
-                </v-col>
-                <v-col cols="12" sm="4">
-                  <v-text-field label="Qty." required> </v-text-field>
-                </v-col>
-                <v-col cols="12" sm="4">
-                  <v-select
-                    :items="['Time', 'Reps']"
-                    label="Type of exercise*"
-                    required
-                  >
-                  </v-select>
+                <v-col cols="12" >
+                  <v-text-field v-model="exerciseName" label="Name" required></v-text-field>
                 </v-col>
                 <v-col cols="12">
-                  <v-select :items="workout_level" label="Difficulty" required>
-                  </v-select>
+                  <v-text-field v-model="exerciseDetail" label="Detail" required> </v-text-field>
                 </v-col>
                 <v-col cols="12">
-                  <v-text-field label="Add image" required> </v-text-field>
+                  <v-text-field v-model="exerciseType" label="Type" required></v-text-field>
                 </v-col>
-                <v-col cols="12">
-                  <v-text-field label="Add description" required>
-                  </v-text-field>
+                <v-col cols="12" sm="6">
+                  <v-text-field v-model="exerciseDuration" label="Duration" required> </v-text-field>
+                </v-col>
+                <v-col cols="12" sm="6">
+                  <v-text-field v-model="exerciseRepetitions" label="Repetitions" required></v-text-field>
                 </v-col>
               </v-row>
             </v-container>
@@ -97,7 +83,7 @@ input {
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="white" text @click="dialog = false"> Cancel </v-btn>
-            <v-btn color="white" text @click="dialog = false"> Accept </v-btn>
+            <v-btn color="white" text @click="addExercise"> Accept </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -144,35 +130,20 @@ input {
             <v-container>
               <v-row> </v-row>
               <v-row>
-                <v-col cols="12" sm="4">
-                  <v-select
-                    v-model="workout_type"
-                    :items="workout_type"
-                    label="Workout type"
-                    required
-                  ></v-select>
-                </v-col>
-                <v-col cols="12" sm="4">
-                  <v-text-field label="Qty." required> </v-text-field>
-                </v-col>
-                <v-col cols="12" sm="4">
-                  <v-select
-                    :items="['Time', 'Reps']"
-                    label="Type of exercise*"
-                    required
-                  >
-                  </v-select>
+                <v-col cols="12" >
+                  <v-text-field label="Name" required></v-text-field>
                 </v-col>
                 <v-col cols="12">
-                  <v-select :items="workout_level" label="Difficulty" required>
-                  </v-select>
+                  <v-text-field  label="Detail" required> </v-text-field>
                 </v-col>
                 <v-col cols="12">
-                  <v-text-field label="Add image" required> </v-text-field>
+                  <v-text-field  label="Type" required></v-text-field>
                 </v-col>
-                <v-col cols="12">
-                  <v-text-field label="Add description" required>
-                  </v-text-field>
+                <v-col cols="12" sm="6">
+                  <v-text-field  label="Duration" required> </v-text-field>
+                </v-col>
+                <v-col cols="12" sm="6">
+                  <v-text-field  label="Repetitions" required></v-text-field>
                 </v-col>
               </v-row>
             </v-container>
@@ -286,7 +257,10 @@ export default {
   },
   methods: {
     addExercise() {
-      ExercisesApi.add("sarasa", "sarasa", "exercise", 30, 0);
+      //eslint-disable-next-line
+      console.log("LOS DATOS SON ", this.exerciseName, this.exerciseDetail, this.exerciseType, this.exerciseDuration, this.exerciseRepetitions);
+      ExercisesApi.add(this.exerciseName, this.exerciseDetail, this.exerciseType, parseInt(this.exerciseDuration), parseInt(this.exerciseRepetitions));
+      this.dialog = false;
     },
     /*editExercise(){
         ExercisesApi.udpateExercise()
