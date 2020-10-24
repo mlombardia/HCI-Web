@@ -15,8 +15,8 @@ class ExercisesApi {
         return Api.get(`${ExercisesApi.url}?page=0&size=9999`, true, controller);
     }
 
-    static async updateExercise(fullexercise, controller){
-        return await Api.put(`${ExercisesApi.url}/${fullexercise.id}`, true, fullexercise, controller);
+    static async updateExercise(id, data, controller){
+        return await Api.put(`${ExercisesApi.url}/${id}`, true, data, controller);
     }
 
     /*static async getExercise(id, controller){

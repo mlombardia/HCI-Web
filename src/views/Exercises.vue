@@ -131,19 +131,19 @@ input {
               <v-row> </v-row>
               <v-row>
                 <v-col cols="12" >
-                  <v-text-field label="Name" required></v-text-field>
+                  <v-text-field v-model="exerciseModiName" label="Name" required></v-text-field>
                 </v-col>
                 <v-col cols="12">
-                  <v-text-field  label="Detail" required> </v-text-field>
+                  <v-text-field v-model="exerciseModiDetail" label="Detail" required> </v-text-field>
                 </v-col>
                 <v-col cols="12">
-                  <v-text-field  label="Type" required></v-text-field>
+                  <v-text-field v-model="exerciseModiType" label="Type" required></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6">
-                  <v-text-field  label="Duration" required> </v-text-field>
+                  <v-text-field v-model="exerciseModiDuration" label="Duration" required> </v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6">
-                  <v-text-field  label="Repetitions" required></v-text-field>
+                  <v-text-field v-model="exerciseModiRepetitions" label="Repetitions" required></v-text-field>
                 </v-col>
               </v-row>
             </v-container>
@@ -152,7 +152,7 @@ input {
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="white" text @click="dialog2 = false"> Cancel </v-btn>
-            <v-btn color="white" text @click="dialog2 = false"> Save </v-btn>
+            <v-btn color="white" text @click="editExercise"> Save </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -273,6 +273,31 @@ export default {
       //eslint-disable-next-line
       console.log("EJERCICIO", exercise.id);
     },
+    editExercise(){
+         var data = {
+            name: this.exerciseModiName,
+            detail: this.exerciseModiDetail,
+            type: this.exerciseModiType,
+            duration: parseInt(this.exerciseModiDuration),
+            repetitions: parseInt(this.exerciseModiRepetitions)
+          }
+          ExercisesApi.updateExercise(3, data);
+          window.alert(JSON.stringify(data));
+          this.dialog2 = false;
+      },
+    /*modifyExercise(){
+      //eslint-disable-next-line
+      console.log("LOS DATOS SON ",this.exerciseModiName, this.exerciseModiDetail, this.exerciseModiType, this.exerciseModiDuration, this.exerciseModiRepetitions);
+      ExercisesApi.update(3,this.exerciseModiName, this.exerciseModiDetail, this.exerciseModiType, parseInt(this.exerciseModiDuration), parseInt(this.exerciseModiRepetitions)).then((data)=>{
+        var i;
+        for (i = 0; i < this.exercises.length; i++) {
+          if (this.exercises[i].id == 3){
+            this.exercises[i] = data;
+          }
+        } 
+      });
+      this.dialog2 = false;
+    }*/
   },
 };
 </script>
