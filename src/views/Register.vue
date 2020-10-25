@@ -76,7 +76,6 @@ export default {
         birthdate: 1,
         email: this.email,
       };
-      UserApi.createUser(data);
       UserApi.createUser(data)
         .then(() => {
           this.$router.replace("/confirmEmail");
