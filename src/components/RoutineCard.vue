@@ -258,24 +258,30 @@
                 window.alert("hola");
               },
               removeExerciseW(exercise){
-                ExercisesApi.deleteExercise(parseInt(this.routin.id), parseInt(this.cycles[0].id), parseInt(exercise.id));
-                //window.alert(this.addedExercisesWarmup.indexOf(exercise));
+                ExercisesApi.deleteExercise(parseInt(this.routin.id), parseInt(this.cycles[0].id), parseInt(exercise.id)).then(data=>{
+                window.console.log(data);
                 this.addedExercisesWarmup.splice(this.addedExercisesWarmup.indexOf(exercise),1);
+                });
               },
               removeExerciseE(exercise){
-                ExercisesApi.deleteExercise(parseInt(this.routin.id), parseInt(this.cycles[1].id), parseInt(exercise.id));
+                ExercisesApi.deleteExercise(parseInt(this.routin.id), parseInt(this.cycles[1].id), parseInt(exercise.id)).then(data=>{
+                window.console.log(data);
                 this.addedExercisesExercise.splice(this.addedExercisesExercise.indexOf(exercise),1);
+                });
               },
               removeExerciseC(exercise){
-                ExercisesApi.deleteExercise(parseInt(this.routin.id), parseInt(this.cycles[2].id), parseInt(exercise.id));
-                this.addedExercisesCooldown.splice(this.addedExercisesCooldown.indexOf(exercise),1);
+                ExercisesApi.deleteExercise(parseInt(this.routin.id), parseInt(this.cycles[2].id), parseInt(exercise.id)).then(data=>{
+                  window.console.log(data);
+                  this.addedExercisesCooldown.splice(this.addedExercisesCooldown.indexOf(exercise),1);
+              });
+                
               },
               addExercice(exercise){
-                   if(this.cycle == this.cycles[0].id){
+                   if(parseInt(this.cycle) == parseInt(this.cycles[0].id)){
                         exercise.add = true;
                         this.addedExercisesWarmup.push(exercise);
                    }
-                   else if(this.cycle == this.cycles[1].id){
+                   else if(parseInt(this.cycle) == parseInt(this.cycles[1].id)){
                      exercise.add = true;
                      this.addedExercisesExercise.push(exercise);
                    }
@@ -285,10 +291,41 @@
                    }
                },
               addExercisesToCycles(){
-                this.addedExercisesWarmup.forEach(element =>  ExercisesApi.add(parseInt(this.routin.id), parseInt(this.cycles[0].id), element.name, element.detail, element.type, element.duration, element.repetitions););
-                this.addedExercisesExercise.forEach(element =>  ExercisesApi.add(parseInt(this.routin.id), parseInt(this.cycles[1].id), element.name, element.detail, element.type, element.duration, element.repetitions););
-                this.addedExercisesCooldown.forEach(element =>  ExercisesApi.add(parseInt(this.routin.id), parseInt(this.cycles[2].id), element.name, element.detail, element.type, element.duration, element.repetitions););
-                this.dialog4 = false;
+                var ew = false;
+                var ee = false;
+                var ec = false;
+                if(this.addedExercisesWarmup.length <= 0){
+                  ew = true;
+                }
+                if(this.addedExercisesExercise.length <= 0){
+                  ee = true;
+                }
+                if(this.addedExercisesCooldown.length <= 0){
+                  ec = true;
+                }
+                this.addedExercisesWarmup.forEach(element => {
+                  if(element.add){
+                    ExercisesApi.add(parseInt(this.routin.id), parseInt(this.cycles[0].id), element.name, element.detail, element.type, element.duration, element.repetitions);
+                  }
+                  ew = true;
+                  });
+                this.addedExercisesExercise.forEach(element =>  {
+                  if(element.add){
+                    ExercisesApi.add(parseInt(this.routin.id), parseInt(this.cycles[1].id), element.name, element.detail, element.type, element.duration, element.repetitions);
+                  }
+                  ee = true;
+                  });
+                this.addedExercisesCooldown.forEach(element => { 
+                  if(element.add){
+                    ExercisesApi.add(parseInt(this.routin.id), parseInt(this.cycles[2].id), element.name, element.detail, element.type, element.duration, element.repetitions);
+                  }
+                  ec = true;
+                });
+                if(ew && ee){
+                  if(ec){
+                    this.dialog4 = false;
+                  }
+                }
               },
               editRoutine(){
                 var data = {
@@ -335,12 +372,15 @@
                   this.cycles.forEach(element => ExercisesApi.getExercises(parseInt(this.routin.id), parseInt(element.id)).then(data => { 
                   if(this.cycles[0].id == element.id){
                     this.addedExercisesWarmup = data.results;
+                    this.addedExercisesWarmup.forEach(elem=> elem["add"]=false);
                   }
                   else if(this.cycles[1].id == element.id){
                     this.addedExercisesExercise = data.results;
+                     this.addedExercisesExercise.forEach(elem=> elem["add"]=false);
                   }
                   else {
                     this.addedExercisesCooldown = data.results;
+                     this.addedExercisesCooldown.forEach(elem=> elem["add"]=false);
                   }
                   //window.alert(this.addedExercisesWarmup.length);
                 }));
