@@ -238,7 +238,7 @@
                 RoutinesApi.getCycles(parseInt(this.id_routine)).then((dat) => {
                   this.id_cycle = parseInt(dat.results[0].id);
                   ExercisesApi.getExercises(this.id_routine, this.id_cycle).then(da=>{
-                  this.allExercises = da.results;
+                    this.allExercises = da.results;
                  });
                 });
                
@@ -285,9 +285,9 @@
                    }
                },
               addExercisesToCycles(){
-                this.addedExercisesWarmup.forEach(element => {if(element.add){ ExercisesApi.add(parseInt(this.routin.id), parseInt(this.cycles[0].id), element.name, element.detail, element.type, element.duration, element.repetitions); element.add = false;}});
-                this.addedExercisesExercise.forEach(element => {if(element.add){ ExercisesApi.add(parseInt(this.routin.id), parseInt(this.cycles[1].id), element.name, element.detail, element.type, element.duration, element.repetitions); element.add = false;}});
-                this.addedExercisesCooldown.forEach(element => {if(element.add){ ExercisesApi.add(parseInt(this.routin.id), parseInt(this.cycles[2].id), element.name, element.detail, element.type, element.duration, element.repetitions); element.add = false;}});
+                this.addedExercisesWarmup.forEach(element =>  ExercisesApi.add(parseInt(this.routin.id), parseInt(this.cycles[0].id), element.name, element.detail, element.type, element.duration, element.repetitions););
+                this.addedExercisesExercise.forEach(element =>  ExercisesApi.add(parseInt(this.routin.id), parseInt(this.cycles[1].id), element.name, element.detail, element.type, element.duration, element.repetitions););
+                this.addedExercisesCooldown.forEach(element =>  ExercisesApi.add(parseInt(this.routin.id), parseInt(this.cycles[2].id), element.name, element.detail, element.type, element.duration, element.repetitions););
                 this.dialog4 = false;
               },
               editRoutine(){
@@ -335,15 +335,12 @@
                   this.cycles.forEach(element => ExercisesApi.getExercises(parseInt(this.routin.id), parseInt(element.id)).then(data => { 
                   if(this.cycles[0].id == element.id){
                     this.addedExercisesWarmup = data.results;
-                    this.addedExercisesWarmup.forEach(elem=> elem["add"]=false)
                   }
                   else if(this.cycles[1].id == element.id){
                     this.addedExercisesExercise = data.results;
-                    this.addedExercisesExercise.forEach(elem=> elem["add"]=false)
                   }
                   else {
                     this.addedExercisesCooldown = data.results;
-                    this.addedExercisesCooldown.forEach(elem=> elem["add"]=false)
                   }
                   //window.alert(this.addedExercisesWarmup.length);
                 }));
