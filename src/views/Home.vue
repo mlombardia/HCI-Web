@@ -117,69 +117,9 @@ LADO DERECHO
   <div class="routines">
     <h1 align="center" style="margin-top: 15px;">All Routines</h1>
     <div align="center">
-    <div style="width: 1000px;">
-      <div style="float: right; margin-right: 70px; margin-top: 5px;">
-        <v-col cols="12" md="3">
-        <v-dialog v-model="dialog" width="500">
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn class="white--text" color="#F06292" elevation="2" rounded v-bind="attrs" v-on="on" >New routine
-              <v-icon >mdi-plus</v-icon>
-            </v-btn>
-          </template>
-        <v-card color="#2d4059">
-            <v-card-title  color="white" >
-              <span class="white--text">
-                <span class="headline">Add new routine
-                </span>
-              </span>
-            </v-card-title>
-            <v-card-text class="white--text" >
-              <v-container>
-                <v-row>
-                  <v-col cols="12">
-                    <v-text-field v-model="routineName" label="New Routine" required>
-                    </v-text-field>
-                  </v-col>
-                  <v-col cols="12">
-                    <v-text-field v-model="routineDetail" label="Detail" required>
-                    </v-text-field>
-                  </v-col>
-                  <v-col cols="12">
-                  <label for="public" style="margin-right: 20px;">Public</label>
-                  <input type="radio" value="true" v-model="isPublic" style="top: 2px; position: relative;">
-                  <label for="private" style="margin-left: 100px; margin-right: 20px;">Private</label>
-                  <input type="radio" value="false" v-model="isPublic" style="top: 2px; position: relative;">
-                  </v-col>
-                  <v-col cols="12">
-                    <v-select v-model="category" :items="categories" item-value="id" item-text="name" label="Category">
-                    </v-select>
-                  </v-col>
-                  <v-col cols="12">
-                    <v-select v-model="difficulty" :items="difficulties" label="Difficulty" required >
-                    </v-select>
-                  </v-col>
-                </v-row>
-              </v-container>
-              <small>*indicates required field</small>
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="white" text @click="dialog = false">
-                Cancel
-              </v-btn>
-              <v-btn color="white" text  @click="createRoutine" >
-                Create Routine
-              </v-btn>
-            </v-card-actions>  
-          </v-card>
-          </v-dialog>
-        </v-col>
-      </div>
-      <br style="clear: both;">
       <v-flex  v-for="routine in routines" :key="routine.id" >
       <RoutineCard :routine="routine"></RoutineCard>
       </v-flex>
-    </div>
     </div>
   </div>
   
@@ -271,7 +211,12 @@ LADO DERECHO
         RoutinesApi.getRoutines().then(data=>{
           //window.alert(data.totalCount);
           this.routines = data.results;
-          this.routines.forEach(routine=> routine["categories"] = this.categories);
+          this.routines.forEach(routine=>{ 
+            if(routine.name == "GLOBAL"){
+              this.routines.splice(this.routines.indexOf(routine), 1);
+            }
+            routine["categories"] = this.categories;
+          });
         });
       },
 

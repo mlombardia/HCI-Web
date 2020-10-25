@@ -259,10 +259,34 @@ LADO DERECHO
       
     }),
     methods: {
+      getRoutinesInitial(){
+        UserApi.getUserRoutines().then(data=>{
+          if(data.totalCount <= 0){
+              RoutinesApi.add({
+                name: "GLOBAL",
+                detail: "global",
+                isPublic: true,
+                difficulty: "rookie",
+                category: {
+                  id: 1
+                }
+              });
+          }
+            this.routines = data.results;
+            this.routines.forEach(routine=>{
+              routine["categories"] = this.categories;
+            });
+        });
+      },
       getRoutines(){
         UserApi.getUserRoutines().then(data=>{
             this.routines = data.results;
-            this.routines.forEach(routine=> routine["categories"] = this.categories);
+            this.routines.forEach(routine=>{ 
+              if(routine.name == "GLOBAL"){
+                this.routines.splice(this.routines.indexOf(routine), 1);
+              }
+              routine["categories"] = this.categories;
+            });
         });
       },
       getAllRoutines(){
@@ -330,7 +354,8 @@ LADO DERECHO
         });
       });
       this.getCategories();
-      this.getRoutines();
+      this.getRoutinesInitial();
+      
       
       
     },

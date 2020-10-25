@@ -72,6 +72,8 @@ export default {
         username: this.username,
         password: this.password,
         fullName: this.fullName,
+        phone: "1234567889",
+        avatarUrl: "asdasd.com",
         gender: this.gender,
         birthdate: 1,
         email: this.email,
