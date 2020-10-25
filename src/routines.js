@@ -17,7 +17,7 @@ class RoutinesApi {
     }
     
     static async getRoutines(controller){
-        return  Api.get(RoutinesApi.currentUserRoutinesurl, true, controller);
+        return await Api.get(RoutinesApi.currentUserRoutinesurl, true, controller);
     }
 
     static async getCurrentUserRoutines(controller){

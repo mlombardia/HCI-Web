@@ -276,12 +276,6 @@ LADO DERECHO
       
     }),
     methods: {
-      getAllExercises(){
-        ExercisesApi.getExercises(this.id_routine, this.id_cycle).then(data=>{
-          //window.alert(data.totalCount);
-          this.allExercises = data.results;
-        });
-      },
       getRoutines(){
         UserApi.getUserRoutines().then(data=>{
             this.routines = data.results;
@@ -305,7 +299,7 @@ LADO DERECHO
             CategoriesApi.add({"name": "Upper Body", "detail": "Upper Body"});
           } else {
             for(var j = 0; j < data.totalCount; j++){
-              this.categories.push({name: data.results[j].name, id: data.results[j].id});
+              this.categories.push({name: data.results[j].name, id: parseInt(data.results[j].id)});
             }
           }
         });
@@ -342,22 +336,28 @@ LADO DERECHO
       // CategoriesApi.add({"name": "Legs", "detail": "Legs"});
       // CategoriesApi.add({"name": "Middle Body", "detail": "Middle Body"});
       // CategoriesApi.add({"name": "Upper Body", "detail": "Upper Body"});
-      RoutinesApi.getCurrentUserRoutines().then((data) => {
-        this.id_routine = data.results[0].id;
-        RoutinesApi.getCycles(this.id_routine).then((data) => {
-          this.id_cycle = data.results[0].id;
+      UserApi.getUserRoutines().then((data) => {
+        this.id_routine = parseInt(data.results[0].id);
+        RoutinesApi.getCycles(parseInt(this.id_routine)).then((data) => {
+          this.id_cycle = parseInt(data.results[0].id);
+        });
+         ExercisesApi.getExercises(parseInt(this.id_routine), parseInt(this.id_cycle)).then(data=>{
+          //window.alert(data.totalCount);
+          this.allExercises = data.results;
         });
       });
       this.getCategories();
       this.getRoutines();
-      this.getAllExercises();
       
       
     },
     updated(){
       this.getCategories();
       this.getRoutines();
-      this.getAllExercises();
+      ExercisesApi.getExercises(parseInt(this.id_routine), parseInt(this.id_cycle)).then(data=>{
+          //window.alert(data.totalCount);
+          this.allExercises = data.results;
+        });
       //window.alert(this.routines.length);
     }
   }

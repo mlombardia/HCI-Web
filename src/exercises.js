@@ -12,7 +12,7 @@ class ExercisesApi {
     }
     
     static async getExercises(routineId, cycleId,controller){
-        return Api.get(`${ExercisesApi.url}/${routineId}/cycles/${cycleId}/exercises?page=0&size=9999`, true, controller);
+        return await Api.get(`${ExercisesApi.url}/${routineId}/cycles/${cycleId}/exercises?page=0&size=9999`, true, controller);
     }
 
     static async updateExercise(routineId, cycleId, id, data, controller){
