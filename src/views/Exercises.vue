@@ -115,7 +115,6 @@ input {
         @click="opendialog(exercise)"
       >
         <v-row>
-          <v-col>{{ exercise.id }}</v-col>
           <v-col>{{ exercise.name }}</v-col>
           <v-col>{{ exercise.detail }}</v-col>
           <v-col>{{ exercise.type }}</v-col>
