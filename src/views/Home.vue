@@ -118,23 +118,6 @@ LADO DERECHO
     <h1 align="center" style="margin-top: 15px;">All Routines</h1>
     <div align="center">
     <div style="width: 1000px;">
-      <div style="margin-top: 20px; float: left;">
-          <v-menu offset-y>
-              <template v-slot:activator="{ on }">
-              <!-- <v-btn text slot="activator"> -->
-              <v-btn text v-on="on">
-                <v-icon left>expand_more</v-icon>
-                <span>Filter by</span>
-              </v-btn>
-              </template>
-              <v-list>
-                <!-- v-list-tile is changed to v-list-item -->
-                <v-list-item v-for="link in links" :key="link.text" router :to="link.route">
-                  <v-list-item-title>{{ link.text }}</v-list-item-title>
-                </v-list-item>
-              </v-list>
-          </v-menu> 
-        </div>
       <div style="float: right; margin-right: 70px; margin-top: 5px;">
         <v-col cols="12" md="3">
         <v-dialog v-model="dialog" width="500">
