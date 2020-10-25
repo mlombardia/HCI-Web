@@ -28,9 +28,6 @@
             </v-col>
 
       <v-row>
-         <v-col>
-        <v-btn class="white--text" color="#F06292" elevation="2" rounded >Log in</v-btn>
-        </v-col>
         <v-col>
              <v-btn class="white--text" color="#F06292" elevation="2" rounded @click="verify" >Verify</v-btn>
         </v-col>
@@ -61,6 +58,11 @@
           code: this.code,
         }
         UserApi.verifyEmail(data);
+        UserApi.verifyEmail(data)
+        .then(() => {
+          this.$router.replace("/login");
+        })
+        .catch(() => window.alert("datos invalidos"));
       }
     }
   }
