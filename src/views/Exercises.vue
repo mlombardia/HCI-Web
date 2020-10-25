@@ -13,26 +13,11 @@ input {
   <body>
     <div class="exercises">
       <h1 align="center" style="margin-top: 15px">Exercises</h1>
-      <v-menu offset-y>
-        <template v-slot:activator="{ on }">
-          <!-- <v-btn text slot="activator"> -->
-          <v-btn style="margin-left: 400px" text v-on="on">
-            <v-icon left>expand_more</v-icon>
-            <span>Filter by</span>
-          </v-btn>
-        </template>
-        <v-list>
-          <!-- v-list-tile is changed to v-list-item -->
-          <v-list-item
-            v-for="link in links"
-            :key="link.text"
-            router
-            :to="link.route"
-          >
-            <v-list-item-title>{{ link.text }}</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
+      <v-row>
+        <v-col cols="12" sm="6">
+          <v-select v-model="filterCriteria" :items="criteria" label="Filter By" required style="margin-left: 500px"></v-select>
+        </v-col>
+      </v-row>
     </div>
 
     <v-col cols="12" md="3">
@@ -256,6 +241,7 @@ export default {
       total_total_exercises: null,
       id_routine: null,
       id_cycle: null,
+      filterCriteria: "id",
       slides: ["Squats", "Planks", "Burpees", "Crunches", "Sit Ups"],
       bodyparts: ["20 Reps", "30 Secs", "10 Reps", "10 Reps", "25 Reps"],
       workout_type: ["Legs", "Abs", "Legs", "Abs", "Arms"],
@@ -267,15 +253,11 @@ export default {
         "Intermediate",
         "Expert",
       ],
-      links: [
-        { icon: "name", text: "Name", route: "/exercises" },
-        { icon: "Body section", text: "Body section", route: "/" },
-        { icon: "Instensity", text: "Intensity", route: "/" },
-      ],
+      criteria: ["id", "name", "detail", "type", "duration", "repetitions"],
     };
   },
   updated() {
-    ExercisesApi.getExercises(this.id_routine, this.id_cycle).then((data) => {
+    ExercisesApi.getExercises(this.id_routine, this.id_cycle, this.filterCriteria).then((data) => {
           //eslint-disable-next-line
           console.log("data results", data.results);
           this.routine = data;
@@ -307,7 +289,7 @@ export default {
       this.id_routine = data.results[0].id;
       RoutinesApi.getCycles(this.id_routine).then((data) => {
         this.id_cycle = data.results[0].id;
-        ExercisesApi.getExercises(this.id_routine, this.id_cycle).then((data) => {
+        ExercisesApi.getExercises(this.id_routine, this.id_cycle, this.filterCriteria).then((data) => {
           //eslint-disable-next-line
           console.log("data results", data.results);
           this.routine = data;

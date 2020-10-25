@@ -11,8 +11,8 @@ class ExercisesApi {
         return await Api.post(`${ExercisesApi.url}/${routineId}/cycles/${cycleId}/exercises`, true, new Exercise(name, detail, type, duration, repetitions), controller); //ExercisesApi.add(["Jumping Jacks", "Jumping Jacks", "exercise", 30, 0])
     }
     
-    static async getExercises(routineId, cycleId,controller){
-        return Api.get(`${ExercisesApi.url}/${routineId}/cycles/${cycleId}/exercises?page=0&size=9999`, true, controller);
+    static async getExercises(routineId, cycleId,criteria,controller){
+        return Api.get(`${ExercisesApi.url}/${routineId}/cycles/${cycleId}/exercises?page=0&size=9999&orderBy=${criteria}&direction=asc`, true, controller);
     }
 
     static async updateExercise(routineId, cycleId, id, data, controller){
@@ -29,6 +29,26 @@ class ExercisesApi {
 
     static async addExerciseWithId(routineId, cycleId, data, controller){
         return Api.get(`${Api.baseUrl}/routines/${routineId}/cycles/${cycleId}/exercises`, data, controller);
+    }
+
+    static async getExercisesByName(routineId, cycleId,controller){
+        return Api.get(`${ExercisesApi.url}/${routineId}/cycles/${cycleId}/exercises?page=0&size=9999&orderBy=name&direction=asc`, true, controller);
+    }
+
+    static async getExercisesByDetail(routineId, cycleId, controller){
+        return Api.get(`${ExercisesApi.url}/${routineId}/cycles/${cycleId}/exercises?page=0&size=9999&orderBy=detail&direction=asc`, true, controller);
+    }
+
+    static async getExercisesByType(routineId, cycleId,controller){
+        return Api.get(`${ExercisesApi.url}/${routineId}/cycles/${cycleId}/exercises?page=0&size=9999&orderBy=type&direction=asc`, true, controller);
+    }
+
+    static async getExercisesByDuration(routineId, cycleId,controller){
+        return Api.get(`${ExercisesApi.url}/${routineId}/cycles/${cycleId}/exercises?page=0&size=9999&orderBy=duration&direction=asc`, true, controller);
+    }
+
+    static async getExercisesByRepetitions(routineId, cycleId,controller){
+        return Api.get(`${ExercisesApi.url}/${routineId}/cycles/${cycleId}/exercises?page=0&size=9999&orderBy=repetitions&direction=asc`, true, controller);
     }
 }
 
