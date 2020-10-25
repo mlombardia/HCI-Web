@@ -237,11 +237,11 @@
                 this.id_routine = parseInt(data.results[0].id);
                 RoutinesApi.getCycles(parseInt(this.id_routine)).then((dat) => {
                   this.id_cycle = parseInt(dat.results[0].id);
-                });
-                ExercisesApi.getExercises(parseInt(this.id_routine),parseInt(this.id_cycle)).then(da=>{
+                  ExercisesApi.getExercises(this.id_routine, this.id_cycle).then(da=>{
                   this.allExercises = da.results;
-                  window.alert(JSON.stringify(this.allExercises));
                  });
+                });
+               
               });
               this.cats = this.routin.categories;
               this.isPublic = this.routin.isPublic;
@@ -250,6 +250,7 @@
               this.routineName = this.routin.name;
               this.routineDetail = this.routin.detail;
               this.getCycles();
+              
 
             },
             methods: {

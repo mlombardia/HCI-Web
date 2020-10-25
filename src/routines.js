@@ -25,11 +25,11 @@ class RoutinesApi {
     }
 
     static async getRoutine(id, controller){
-        return Api.get(`${RoutinesApi.url}/${id}`, true, controller);
+        return await Api.get(`${RoutinesApi.url}/${id}`, true, controller);
     }
 
     static async getCycles(id, controller){
-        return Api.get(`${RoutinesApi.url}/${id}/cycles`,true,controller);
+        return await Api.get(`${RoutinesApi.url}/${id}/cycles`,true,controller);
     }
 
     static async updateRoutine(id, routine, controller){
