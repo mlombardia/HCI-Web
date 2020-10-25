@@ -115,6 +115,13 @@ LADO DERECHO
 </style>
 <template>
   <div class="routines">
+
+  <v-app>
+    <Navbar />
+    <v-content>
+      <router-view></router-view>
+    
+  
     <h1 align="center" style="margin-top: 15px;">All Routines</h1>
     <div align="center">
     <div style="width: 1000px;">
@@ -198,6 +205,8 @@ LADO DERECHO
       </v-flex>
     </div>
     </div>
+    </v-content>
+    </v-app>
   </div>
   
 </template>
@@ -209,10 +218,12 @@ LADO DERECHO
   import {RoutinesApi} from '@/routines'
   import {ExercisesApi} from '@/exercises'
   import RoutineCard from '../components/RoutineCard.vue'
+  import Navbar from '@/components/Navbar'
   export default {
     name: 'Routines',
     components: {
       'RoutineCard': RoutineCard,
+      Navbar
     },
     data: () => ({
         currRoutineId: null,

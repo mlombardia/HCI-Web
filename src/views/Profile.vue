@@ -1,196 +1,223 @@
 <style>
-  .v-label { 
-    color: white !important;
-  }
-  .v-select__selection {
-    color: white !important;
-  }
-  input {
-    color: white !important;
-  }
+.v-label {
+  color: white !important;
+}
+.v-select__selection {
+  color: white !important;
+}
+input {
+  color: white !important;
+}
 </style>
 <template>
-<body>
+<v-app>
+    <Navbar />
+    <v-content>
+      <router-view></router-view>
+  <body>
     <div align="center" class="row">
-      
-      <div class="col-md-6 pr-md-1" >
-        <v-card elevation="24" width="300" height="400" color = "#2d4059"  >
-         <v-col cols="12" >
-         <v-avatar size="102">
-            <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John">
-          </v-avatar>
-          <div>
-            
-          <v-row>
-          <v-col class="white--text"><h3> Fullname: {{ responses.fullName }} </h3> </v-col>
-          </v-row>
-          <v-row>
-          <v-col class="white--text"><h3> Gender: {{ responses.gender }}</h3> </v-col>
-          </v-row>
+      <div class="col-md-6 pr-md-1">
+        <v-card elevation="24" width="300" height="400" color="#2d4059">
+          <v-col cols="12">
+            <v-avatar size="102">
+              <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
+            </v-avatar>
+            <div>
+              <v-row>
+                <v-col class="white--text"
+                  ><h3>Fullname: {{ responses.fullName }}</h3>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col class="white--text"
+                  ><h3>Gender: {{ responses.gender }}</h3>
+                </v-col>
+              </v-row>
+            </div>
 
-          </div>
-              
-        <v-col cols="12">
-        <v-dialog v-model="dialog" width="500">
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn class="white--text" color="#F06292" elevation="2" rounded v-bind="attrs" v-on="on" ><v-icon>mdi-pencil</v-icon>Edit
-              <v-icon>fas fa-edit</v-icon>
-              </v-btn>
-         </template>
-         <v-card color="#2d4059">
-          <v-card-title  color="white" >
-            <span class="white--text">
-            <span class="headline">Edit my profile</span>
-            </span>
-          </v-card-title>
-        
-          <v-card-text class="white--text" >
-          <v-container>
-            <v-row>
-              <v-col cols="12">
-                <v-text-field label="FullName"  v-model="fullNameChange" required>
-                </v-text-field>
-              </v-col>
-               <v-col cols="12">
-                <v-select :items="['male', 'female', 'other']" label="Gender"  v-model="genderChange" required>
-                </v-select>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="white" text @click="dialog = false" >
-            Exit
-          </v-btn>
-          <v-btn color="white" text @click="editInfo" >
-            Save
-          </v-btn>
-        </v-card-actions>
-         
+            <v-col cols="12">
+              <v-dialog v-model="dialog" width="500">
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    class="white--text"
+                    color="#F06292"
+                    elevation="2"
+                    rounded
+                    v-bind="attrs"
+                    v-on="on"
+                    ><v-icon>mdi-pencil</v-icon>Edit
+                    <v-icon>fas fa-edit</v-icon>
+                  </v-btn>
+                </template>
+                <v-card color="#2d4059">
+                  <v-card-title color="white">
+                    <span class="white--text">
+                      <span class="headline">Edit my profile</span>
+                    </span>
+                  </v-card-title>
+
+                  <v-card-text class="white--text">
+                    <v-container>
+                      <v-row>
+                        <v-col cols="12">
+                          <v-text-field
+                            label="FullName"
+                            v-model="fullNameChange"
+                            required
+                          >
+                          </v-text-field>
+                        </v-col>
+                        <v-col cols="12">
+                          <v-select
+                            :items="['male', 'female', 'other']"
+                            label="Gender"
+                            v-model="genderChange"
+                            required
+                          >
+                          </v-select>
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="white" text @click="dialog = false">
+                      Exit
+                    </v-btn>
+                    <v-btn color="white" text @click="editInfo"> Save </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </v-col>
+          </v-col>
         </v-card>
-        </v-dialog>
-        </v-col>
-      </v-col>
-     </v-card>
-    </div>
-      
-      
-      <v-card elevation="24" width="650" height="300" color = "#2d4059"  >
-        <v-card-title align = "center" >
+      </div>
+
+      <v-card elevation="24" width="650" height="300" color="#2d4059">
+        <v-card-title align="center">
           <span class="white--text">About me</span>
         </v-card-title>
-          <v-row>
-          <v-col class="white--text"><h3>  {{ responses.avatarUrl }} </h3> </v-col>
-          </v-row>
+        <v-row>
+          <v-col class="white--text"
+            ><h3>{{ responses.avatarUrl }}</h3>
+          </v-col>
+        </v-row>
 
-      <v-col cols="12">
-           <v-col cols="12" md="3">
-     <v-dialog v-model="dialog4" width="500">
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn class="white--text" color="#F06292" elevation="2" rounded v-bind="attrs" v-on="on" ><v-icon>mdi-pencil</v-icon>
-          Edit
-        </v-btn>
-       </template>
-      <v-card color="#2d4059">
-        <v-card-title  color="white" >
-          <span class="white--text">
-          <span class="headline">Edit about me</span>
-          </span>
-        </v-card-title>
-        
-        <v-card-text class="white--text" >
-          <v-container>
-            <v-row>
-              <v-col cols="12">
-                <v-text-field label="Add description" v-model="avatarUrlChange" required>
-                </v-text-field>
-              </v-col>
-            </v-row>
-             <small>*max lenght 255</small>
-          </v-container>
-        </v-card-text>
+        <v-col cols="12">
+          <v-col cols="12" md="3">
+            <v-dialog v-model="dialog4" width="500">
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  class="white--text"
+                  color="#F06292"
+                  elevation="2"
+                  rounded
+                  v-bind="attrs"
+                  v-on="on"
+                  ><v-icon>mdi-pencil</v-icon>
+                  Edit
+                </v-btn>
+              </template>
+              <v-card color="#2d4059">
+                <v-card-title color="white">
+                  <span class="white--text">
+                    <span class="headline">Edit about me</span>
+                  </span>
+                </v-card-title>
 
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="white" text @click="dialog4 = false" >
-            Exit
-          </v-btn>
-          <v-btn color="white" text @click="editAboutMe" >
-            Save
-          </v-btn>
-        </v-card-actions>
-         
+                <v-card-text class="white--text">
+                  <v-container>
+                    <v-row>
+                      <v-col cols="12">
+                        <v-text-field
+                          label="Add description"
+                          v-model="avatarUrlChange"
+                          required
+                        >
+                        </v-text-field>
+                      </v-col>
+                    </v-row>
+                    <small>*max lenght 255</small>
+                  </v-container>
+                </v-card-text>
+
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="white" text @click="dialog4 = false">
+                    Exit
+                  </v-btn>
+                  <v-btn color="white" text @click="editAboutMe"> Save </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </v-col>
+        </v-col>
       </v-card>
-      </v-dialog>
-      </v-col>
-                  
-
-     </v-col>
-   </v-card>
-
-  </div>
-
- </body>
+    </div>
+  </body>
+      </v-content>
+    </v-app>
 </template>
 
 <script>
-  import {UserApi} from '@/user'
-  export default {
-    data () {
-      return {
-        responses: null,
-        usermame: null,
-        password: null,
-        email: null,
-        fullName: null,
-      }
-    },
-    updated(){
-              UserApi.get().then((data) => {
+import { UserApi } from "@/user";
+import Navbar from '@/components/Navbar'
+export default {
+  components: {
+    Navbar,
+  },
+  data() {
+    return {
+      responses: null,
+      usermame: null,
+      password: null,
+      email: null,
+      fullName: null,
+    };
+  },
+  updated() {
+    UserApi.get().then((data) => {
       //eslint-disable-next-line
       console.log("data", data);
       this.responses = data;
-      });
-    },
-    created(){
-
-      UserApi.get().then((data) => {
+    });
+  },
+  created() {
+    UserApi.get().then((data) => {
       //eslint-disable-next-line
       console.log("data", data);
       this.responses = data;
-      });
+    });
+  },
+  methods: {
+    editInfo() {
+      var info = {
+        password: "password",
+        username: "username",
+        fullName: this.fullNameChange,
+        email: "johndoe7@email.com",
+        birthdate: 1,
+        avatarUrl: this.responses.avatarUrl,
+        gender: this.genderChange,
+      };
+      UserApi.modify(info);
+      this.dialog = false;
     },
-    methods: {
-      editInfo(){
-        var info = {
-          password: "password",
-          username: "username",
-          fullName: this.fullNameChange,       
-          email: "johndoe7@email.com",
-          birthdate: 1,
-          avatarUrl: this.responses.avatarUrl,
-          gender: this.genderChange,
-        }
-        UserApi.modify(info);
-        this.dialog = false;
-      },
-      editAboutMe(){
-        var info = {
-          password: "password",
-          username: "username",
-          fullName: this.responses.fullName,       
-          email: "johndoe7@email.com",
-          birthdate: 1,
-          avatarUrl: this.avatarUrlChange,
-          gender: this.responses.gender,
-        }
-        UserApi.modify(info);
-        this.dialog4 = false;
-      }
+    editAboutMe() {
+      var info = {
+        password: "password",
+        username: "username",
+        fullName: this.responses.fullName,
+        email: "johndoe7@email.com",
+        birthdate: 1,
+        avatarUrl: this.avatarUrlChange,
+        gender: this.responses.gender,
+      };
+      UserApi.modify(info);
+      this.dialog4 = false;
     },
-
-  }
+  },
+};
 </script>
 
 

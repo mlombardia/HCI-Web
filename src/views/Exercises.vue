@@ -10,6 +10,11 @@ input {
 }
 </style>
 <template>
+ <v-app>
+    <Navbar />
+    <v-content>
+      <router-view></router-view>
+    
   <body>
     <div class="exercises">
       <h1 align="center" style="margin-top: 15px">Exercises</h1>
@@ -210,6 +215,8 @@ input {
     </v-btn>
   </div>-->
   </body>
+      </v-content>
+    </v-app>
 </template>
 
 <script>
@@ -217,8 +224,13 @@ input {
 //import {Api} from '@/api'
 import { ExercisesApi } from "@/exercises";
 import { RoutinesApi } from "@/routines";
+import Navbar from '@/components/Navbar'
 //import {UserApi} from '@/user'
 export default {
+  components: {
+
+      Navbar
+    },
   data() {
     return {
       /* colors: [
